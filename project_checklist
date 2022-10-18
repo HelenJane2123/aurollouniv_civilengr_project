@@ -11,3 +11,6 @@ System Functionalities:
 [x] Login with validation
     TO DO:
         [] Display user's name and user_type upon Login
+[] CRUD Student Dashboard
+[] CRUD Admin Dashboard
+[] List of Programs page
