@@ -20,26 +20,26 @@
                         <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body border-0 p-4">
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <form id="contactForm" action="register/login.php" name="login" class="needs-validation" novalidate method="post" enctype="multipart/form-data">
                             <div class="form-group input-group">
                                 <span class="input-group-text"><i class="bi-person"></i></span>
-                                <input type="email" id="loginName" class="form-control" placeholder="Email or username" />
+                                <input type="email" id="loginName" name="email_address" class="form-control" placeholder="Email" required/>
                             </div>
                         
                             <!-- Password input -->
                             <div class="form-group input-group">
                                 <span class="input-group-text"><i class="bi-key"></i></span>
-                                <input type="email" id="loginName" class="form-control" placeholder="Password" />
+                                <input type="password" id="loginName" name="password" class="form-control" placeholder="Password" required/>
                             </div>
                         
                             <!-- Submit button -->
                             <div class="row mb-4">
-                                <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                                <button type="submit" class="btn btn-primary btn-block mb-4" name="login_user">Sign in</button>
                             </div>
                         
                             <!-- Register buttons -->
                             <div class="text-center">
-                            <p>Not a member? <a href="#!">Register</a></p>
+                                <p class="text-center">Not a member? <a href="" id="registerModal">Register Here</a> </p>    
                             </div>
                         </form>
                     </div>
@@ -60,34 +60,28 @@
                         <article class="card-body mx-auto">
                             <h4 class="card-title mt-3 text-center">Create an Account</h4>
                             <p class="text-center">Get started with your free account</p>
-                            <form>
+                            <form action="register/register.php" name="register" id="register" class="needs-validation" novalidate method="post" enctype="multipart/form-data">
                                 <div class="form-group input-group">
                                     <span class="input-group-text"><i class="bi-person"></i></span>
-                                    <input name="" class="form-control" placeholder="Full name" type="text">
+                                    <input name="full_name" class="form-control" placeholder="Full name" type="text" required>
                                 </div> <!-- form-group// -->
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi-envelope"></i></span>
                                     </div>
-                                    <input name="" class="form-control" placeholder="Email address" type="email">
+                                    <input name="email" class="form-control" placeholder="Email address" type="email" required>
                                 </div> <!-- form-group// -->
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi-telephone"></i></span>
                                     </div>
-                                    <select class="custom-select" style="max-width: 120px;">
-                                        <option selected="">+971</option>
-                                        <option value="1">+972</option>
-                                        <option value="2">+198</option>
-                                        <option value="3">+701</option>
-                                    </select>
-                                    <input name="" class="form-control" placeholder="Phone number" type="text">
+                                    <input name="mobile_number" class="form-control" placeholder="Phone number" type="text" required>
                                 </div> <!-- form-group// -->
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi-building"></i></span>
                                     </div>
-                                    <select class="form-control">
+                                    <select class="form-control" name="user_type" required>
                                         <option selected=""> Select Type</option>
                                         <option>Student</option>
                                         <option>Professor</option>
@@ -97,18 +91,18 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi-key"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Create password" type="password">
+                                    <input class="form-control" name="password" placeholder="Create password" type="password" required>
                                 </div> <!-- form-group// -->
                                 <div class="form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="bi-key"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Repeat password" type="password">
-                                </div> <!-- form-group// -->                                      
+                                    <input class="form-control" name="confirm_password" placeholder="Confirm password" type="password" required>
+                                </div> <!-- form-group// -->
                                 <div class="row mb-4">
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">Create Account</button>
+                                    <button type="submit" name="reg_user" class="btn btn-primary btn-block mb-4">Create an account</button>
                                 </div>  
-                                <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+                                <p class="text-center">Have an account? <a href="" id="loginModal">Log In</a> </p>                                                                 
                             </form>
                         </article>
                         </div> <!-- card.// -->
@@ -125,6 +119,10 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
+        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
         <script src="js/scripts.js"></script>
+        <script src="js/core_js.js"></script>
     </body>
 </html>

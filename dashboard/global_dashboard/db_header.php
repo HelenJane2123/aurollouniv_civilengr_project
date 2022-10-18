@@ -1,6 +1,18 @@
+<?php 
+  session_start(); 
+
+  if (!isset($_SESSION['email_address'])) {
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: ../login.php');
+  }
+  if (isset($_GET['logout'])) {
+  	session_destroy();
+  	unset($_SESSION['email_address']);
+  	header("location: ../login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -23,6 +35,17 @@
 </head>
 
 <body id="page-top">
+    <!-- notification message -->
+  	<?php if (isset($_SESSION['success'])) : ?>
+      <div class="error success" >
+      	<h3>
+          <?php 
+          	echo $_SESSION['success']; 
+          	unset($_SESSION['success']);
+          ?>
+      	</h3>
+      </div>
+  	<?php endif ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->

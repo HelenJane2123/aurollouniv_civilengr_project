@@ -1,0 +1,13 @@
+[x] Create website design
+[x] Create database
+    Tables:
+        [x] user_account
+System Functionalities:
+[x] Registration with validation
+    TO DO:
+        [] Check if email already exsists - javascript
+        [] Check if password is same with confirm password
+        [] Validate mobile number
+[x] Login with validation
+    TO DO:
+        [] Display user's name and user_type upon Login
