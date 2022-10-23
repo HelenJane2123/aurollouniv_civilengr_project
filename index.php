@@ -8,7 +8,7 @@
                 <div class="col-12 text-center">
                   <h1 class="fw-bolder">Make your dreams come true</h1>
                   <p class="lead"> “Develop a passion for learning. If you do, you will never cease to grow.” — Anthony J. D’Angelo</p>
-                  <button class="btn btn-primary py-3 px-4 rounded-pill"  data-bs-toggle="modal" data-bs-target="#registerModal">Register now</button>
+                  <a href="register.php" class="btn btn-primary py-3 px-4 rounded-pill" >Register now</a>
                 </div>
               </div>
             </div>

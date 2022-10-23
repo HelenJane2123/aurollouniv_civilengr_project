@@ -5,7 +5,7 @@
   	$_SESSION['msg'] = "You must log in first";
   	header('location: ../login.php');
   }
-  if (isset($_GET['logout'])) {
+  if (isset($_GET['email_address'])) {
   	session_destroy();
   	unset($_SESSION['email_address']);
   	header("location: ../login.php");
@@ -35,17 +35,6 @@
 </head>
 
 <body id="page-top">
-    <!-- notification message -->
-  	<?php if (isset($_SESSION['success'])) : ?>
-      <div class="error success" >
-      	<h3>
-          <?php 
-          	echo $_SESSION['success']; 
-          	unset($_SESSION['success']);
-          ?>
-      	</h3>
-      </div>
-  	<?php endif ?>
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -73,25 +62,58 @@
                 Interface
             </div>
             <!-- Student Access -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>My Profile</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-paperclip"></i>
-                    <span>List of Programs</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Lis of Students</span>
-                </a>
-            </li>
-
+            <?php if (($_SESSION['user_type']) == 'Student') { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-paperclip"></i>
+                        <span>My Programs/Lessons</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-file"></i>
+                        <span>My Exams</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-star"></i>
+                        <span>My Scores</span>
+                    </a>
+                </li>
+            <?php } else { ?>
+            <!-- Teacher Access -->
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-paperclip"></i>
+                        <span>Programs/Lessons</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-file"></i>
+                        <span>Exams</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tables.html">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Students</span>
+                    </a>
+                </li>
+            <?php } ?>
             <!-- End Student Access -->
 
             <!-- Divider -->
@@ -109,16 +131,25 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Settings</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Forgot Password</h6>
-                        <a class="collapse-item" href="login.html">Change Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Reports</h6>
-                        <a class="collapse-item" href="404.html">Report 1</a>
-                        <a class="collapse-item" href="blank.html">Report 2</a>
+                <?php if (($_SESSION['user_type']) == 'Student') { ?>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Forgot Password</h6>
+                            <a class="collapse-item" href="login.html">Change Password</a>
+                        </div>
                     </div>
-                </div>
+                <?php } else { ?>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Forgot Password</h6>
+                            <a class="collapse-item" href="login.html">Change Password</a>
+                            <h6 class="collapse-header">Reports</h6>
+                            <a class="collapse-item" href="login.html">Report 1</a>
+                            <a class="collapse-item" href="login.html">Report 2</a>
+                            <a class="collapse-item" href="login.html">Report 3</a>
+                        </div>
+                    </div>
+                <?php }  ?>
             </li>
 
             <!-- Divider -->

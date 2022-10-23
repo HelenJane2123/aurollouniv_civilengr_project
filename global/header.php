@@ -32,12 +32,12 @@
                         <li class="nav-item"><a class="nav-link me-lg-3" href="#programs">Programs</a></li>
                         <li class="nav-item"><a class="nav-link me-lg-3" href="#contact-us">Contact Us</a></li>
                     </ul>
-                    <button class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <a href="login.php" class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0">
                         <span class="d-flex align-items-center">
                             <i class="bi-lock me-2"></i>
                             <span class="small">Login</span>
                         </span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </nav>

@@ -1,4 +1,6 @@
-[x] Create website design
+[] Create website design
+    [] Homepage (landing page)
+
 [x] Create database
     Tables:
         [x] user_account
@@ -12,5 +14,14 @@ System Functionalities:
     TO DO:
         [] Display user's name and user_type upon Login
 [] CRUD Student Dashboard
-[] CRUD Admin Dashboard
+    [] My Profile
+    [] My Programs/Lessons
+    [] Take Exam
+    [] My Score
+[] CRUD Admin/Teachers Dashboard
+    [] Lessons/Programs
+    [] Exams
+    [] Exam Result
 [] List of Programs page
+    [] Expected is to see the list of programs for the students
+    [] Students may choose the programs/lessons to take but may require registration
