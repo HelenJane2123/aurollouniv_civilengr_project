@@ -6,7 +6,7 @@
         $email_address = $_POST['email_address'];
         $user_password = $_POST['password'];
         $query = $funObj->check_login($email_address, $user_password);
-        if($query) {
+        if(!$query) {
           // this login var will use for the session thing
           $_SESSION['login'] = 'success';
           $_SESSION['email_address'] = $email_address;

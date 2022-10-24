@@ -12,7 +12,7 @@
                 </div>
               </div>
             </div>
-          </header>
+        </header>
         <!-- Quote/testimonial aside-->
         <aside class="text-center bg-gradient-primary-to-secondary">
             <div class="container px-5">
@@ -116,10 +116,10 @@
                                     <div class="card-flyer">
                                         <div class="text-box">
                                             <div class="image-box">
-                                                <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                                                <img src="assets/img/programs/1.jpg" alt="" />
                                             </div>
                                             <div class="text-container">
-                                                <h6>Title 01</h6>
+                                                <h6>Program 01</h6>
                                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                                             </div>
                                         </div>
@@ -131,10 +131,10 @@
                                     <div class="card-flyer">
                                         <div class="text-box">
                                             <div class="image-box">
-                                                <img src="https://cdn.pixabay.com/photo/2018/04/09/19/55/low-poly-3305284_960_720.jpg" alt="" />
+                                                <img src="assets/img/programs/2.jpg" alt="" />
                                             </div>
                                             <div class="text-container">                                    
-                                                <h6>Title 02</h6>
+                                                <h6>Program 02</h6>
                                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                                             </div>
                                         </div>
@@ -146,12 +146,12 @@
                                     <div class="card-flyer">
                                         <div class="text-box">
                                             <div class="image-box">
-                                                <img src="https://cdn.pixabay.com/photo/2018/04/06/13/46/poly-3295856_960_720.png" alt="" />
+                                                <img src="assets/img/programs/3.jpg" alt="" />
                                             </div>
 
                                             <div class="text-container">
-                                                <h6>Title 03</h6>
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                                <h6>Program 03</h6>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -162,11 +162,11 @@
                                     <div class="card-flyer">
                                         <div class="text-box">
                                             <div class="image-box">
-                                                <img src="https://cdn.pixabay.com/photo/2018/03/30/15/12/dog-3275593_960_720.jpg" alt="" />
+                                                <img src="assets/img/programs/1.jpg" alt="" />
                                             </div>
                                             <div class="text-container">
-                                                <h6>Title 04</h6>
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                                                <h6>Program 04</h6>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                         <br/>
-                        <button class="btn btn-primary">View All Programs</button>
+                        <a href="view_programs.php" class="btn btn-primary">View All Programs</a>
                     </div>
                 </div>
 

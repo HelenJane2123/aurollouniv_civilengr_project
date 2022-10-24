@@ -24,7 +24,7 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-        <?php session_start(); if ($_SESSION['login'] == false) : ?>
+        <?php session_start(); if (isset($_SESSION['login'])) : ?>
             <div class="alert alert-error" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <?php 

@@ -7,7 +7,7 @@
                     <span class="mx-1">&middot;</span>
                     <a href="#!">Terms</a>
                     <span class="mx-1">&middot;</span>
-                    <a href="#!">Meet our Team</a>
+                    <a href="our-team.php">Meet our Team</a>
                 </div>
             </div>
         </footer>
