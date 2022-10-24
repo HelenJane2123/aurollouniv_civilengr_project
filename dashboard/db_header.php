@@ -104,6 +104,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="admin_exam_cat.php">
+                        <i class="fas fa-fw fa-file"></i>
+                        <span>Exam Category</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="admin_exams.php">
                         <i class="fas fa-fw fa-file"></i>
                         <span>Exams</span>

@@ -6,7 +6,7 @@
     <p class="mb-4">Displays list of student's programs.</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><button class="btn btn-primary">Add New Program</button></h6>
+            <h6 class="m-0 font-weight-bold text-primary"><button class="btn btn-primary" data-toggle="modal" data-target="#add-program">Add New Program</button></h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -15,6 +15,7 @@
                         <tr>
                             <th>Programs</th>
                             <th>Short Description</th>
+                            <th>With Exam?</th>                            
                             <th>Enrolled Students</th>
                             <th>Action</th>
                         </tr>
@@ -23,6 +24,7 @@
                         <tr>
                             <th>Programs</th>
                             <th>Short Description</th>
+                            <th>With Exam?</th>                            
                             <th>Enrolled Students</th>
                             <th>Action</th>
                         </tr>
@@ -31,6 +33,7 @@
                         <tr>
                             <td>Program 1</td>
                             <td>Lorem ipsum</td>
+                            <td>Yes</td>
                             <td><span class="badge badge-primary">50</span></td>
                             <td>
                                 <li class="list-inline-item">
@@ -47,6 +50,7 @@
                         <tr>
                             <td>Program 2</td>
                             <td>Lorem ipsum</td>
+                            <td>Yes</td>
                             <td><span class="badge badge-primary">30</span></td>
                             <td>
                                 <li class="list-inline-item">
@@ -63,6 +67,7 @@
                         <tr>
                             <td>Program 3</td>
                             <td>Lorem ipsum</td>
+                            <td>Yes</td>
                             <td><span class="badge badge-primary">20</span></td>
                             <td>
                                 <li class="list-inline-item">
@@ -78,6 +83,40 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="modal fade" id="add-program" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a new Program</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email1">Name of Program/Lesson</label>
+                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Description</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">With Exam?</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </form>
+                </div>
             </div>
         </div>
     </div>
