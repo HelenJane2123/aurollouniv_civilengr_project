@@ -1,6 +1,3 @@
-<?php
-    include('global/db_connect.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +23,15 @@
 
 <body class="bg-gradient-primary">
     <div class="container">
+        <?php session_start(); if (isset($_SESSION['success'])) : ?>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php 
+                    echo $_SESSION['message']; 
+                    unset($_SESSION['message']);
+                ?>
+            </div>
+        <?php endif ?>
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->

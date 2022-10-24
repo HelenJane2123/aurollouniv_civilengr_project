@@ -1,11 +1,7 @@
-<?php
-    include('global/db_connect.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,7 +24,15 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-
+        <?php session_start(); if ($_SESSION['login'] == false) : ?>
+            <div class="alert alert-error" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php 
+                    echo $_SESSION['message']; 
+                    unset($_SESSION['message']);
+                ?>
+            </div>
+        <?php endif ?>
         <!-- Outer Row -->
         <div class="row justify-content-center">
 

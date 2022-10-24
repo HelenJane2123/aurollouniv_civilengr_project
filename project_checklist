@@ -10,9 +10,11 @@ System Functionalities:
         [] Check if email already exsists - javascript
         [] Check if password is same with confirm password
         [] Validate mobile number
+        [] Add member_id in the database
 [x] Login with validation
     TO DO:
         [] Display user's name and user_type upon Login
+        [] get user's information based on member_id
 [] CRUD Student Dashboard
     [] My Profile
     [] My Programs/Lessons

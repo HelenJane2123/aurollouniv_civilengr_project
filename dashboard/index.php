@@ -17,13 +17,10 @@
             <?php endif ?>
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-
-
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - User Information -->
@@ -32,7 +29,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!-- logged in user information -->
                             <?php  if (isset($_SESSION['email_address'])) : ?>
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome, <?php echo $_SESSION['email_address']; ?><strong><?php echo $_SESSION['full_name']; ?> (<?php echo $_SESSION['user_type']; ?>)</strong></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome, <strong><?php echo $user->get_fullname($_SESSION['email_address']); ?> (<?php echo $user->get_usertype($_SESSION['email_address']); ?>)</strong></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             <?php endif ?>

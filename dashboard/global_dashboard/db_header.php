@@ -1,15 +1,16 @@
 <?php 
-  session_start(); 
+    include_once '../model/RegisterLogin.php';
+    session_start();
+    $user = new User(); 
+    //echo $id = $_SESSION['id'];
+    // if (!$user->get_session()){
+    //     header("location:../dashboard/index.php");
+    // }
 
-  if (!isset($_SESSION['email_address'])) {
-  	$_SESSION['msg'] = "You must log in first";
-  	header('location: ../login.php');
-  }
-  if (isset($_GET['email_address'])) {
-  	session_destroy();
-  	unset($_SESSION['email_address']);
-  	header("location: ../login.php");
-  }
+    // if (isset($_GET['q'])){
+    //     $user->user_logout();
+    //     header("location:../dashboard/login.php");
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +63,7 @@
                 Interface
             </div>
             <!-- Student Access -->
-            <?php if (($_SESSION['user_type']) == 'Student') { ?>
+            <?php if ($user->get_usertype($_SESSION['email_address']) == 'Student') { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="tables.html">
                         <i class="fas fa-fw fa-user"></i>
@@ -131,7 +132,7 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Settings</span>
                 </a>
-                <?php if (($_SESSION['user_type']) == 'Student') { ?>
+                <?php if (($user->get_usertype($_SESSION['email_address'])) === 'Student') { ?>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Forgot Password</h6>
