@@ -94,19 +94,29 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
+                <form action="admin/add_programs.php"  method="post"  name="add_program" id="add_program" class="needs-validation-registration" novalidate enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
+                            <input type="hidden" class="form-control" id="program" name="created_by" value="<?php echo $user->get_fullname($_SESSION['email_address']); ?>">
                             <label for="email1">Name of Program/Lesson</label>
-                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" id="program" name="program_name" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="email1">Upload Image</label>
+                            <input type="file" class="form-control" name="upload_image">
                         </div>
                         <div class="form-group">
                             <label for="password1">Description</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="short_desc" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1">Upload Lessons</label>
+                            <input type="file" class="form-control" name="upload_program_lesson">
+                            <small class="red">*Should be pdf extension file only </small>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">With Exam?</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
+                            <select class="form-control" name="with_exam" id="exampleFormControlSelect1">
                                 <option>Yes</option>
                                 <option>No</option>
                             </select>

@@ -1,5 +1,5 @@
 <?php
-	require_once ("../lib/config.php");
+include "../lib/config.php";
 	class User{
 		public $db;
 		public function __construct(){

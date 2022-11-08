@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    require_once '../model/RegisterLogin.php';
+    require_once ('../model/RegisterLogin.php');
     $user = new User(); 
     //echo $id = $_SESSION['id'];
     // if (!$user->get_session()){
