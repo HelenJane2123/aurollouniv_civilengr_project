@@ -10,6 +10,7 @@
           // this login var will use for the session thing
           $_SESSION['login'] = 'success';
           $_SESSION['email_address'] = $email_address;
+          $_SESSION['member_id'] = $query->member_id;
           $_SESSION['message'] = 'Successful login';
           header('location: ../dashboard/index.php');
         }

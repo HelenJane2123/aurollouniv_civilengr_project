@@ -59,30 +59,9 @@
 			}
     	}
 
-    	/*** for showing the fullname ***/
-    	public function get_fullname($email_address){
-    		$sql3="SELECT CONCAT_WS(' ', firstname, last_name) as fullname FROM user_account WHERE email_address = '$email_address'";
-	        $result = mysqli_query($this->db,$sql3);
-	        $user_data = mysqli_fetch_array($result);
-	        return $user_data['fullname'];
-    	}
-
-    	/*** for showing the user type ***/
-    	public function get_usertype($email_address){
-    		$sql3="SELECT user_type FROM user_account WHERE email_address = '$email_address'";
-	        $result = mysqli_query($this->db,$sql3);
-	        $user_data = mysqli_fetch_array($result);
-	        return $user_data['user_type'];
-    	}
-
     	/*** starting the session ***/
 	    public function get_session(){
 	        return $_SESSION['login'];
-	    }
-
-	    public function user_logout() {
-	        $_SESSION['login'] = FALSE;
-	        session_destroy();
 	    }
 
 	}

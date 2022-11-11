@@ -10269,3 +10269,7 @@ body.sidebar-toggled footer.sticky-footer {
     padding: 5px 10px;
     color: #000;
   }
+
+  .pull-right {
+    float:right;
+  }

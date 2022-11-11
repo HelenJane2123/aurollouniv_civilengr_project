@@ -21,7 +21,15 @@ System Functionalities:
     [] Take Exam
     [] My Score
 [] CRUD Admin/Teachers Dashboard
+    [] Profile Page
+        [x] Update Profile
+        [] Upload Image
+        [] Error validation
     [] Lessons/Programs
+        [] Add Programs
+        [] Update Lessons/Programs
+        [] Error validations
+        [] Upload file and images
     [] Exams
     [] Exam Result
 [] List of Programs page

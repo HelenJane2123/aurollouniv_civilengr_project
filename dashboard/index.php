@@ -1,7 +1,5 @@
 <?php
     include('db_header.php');
-    include_once '../model/RegisterLogin.php';
-    $user = new User();
 ?>
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -9,7 +7,7 @@
     </div>
 
     <!-- Content Row -->
-    <?php if ($user->get_usertype($_SESSION['email_address']) == 'Student') { ?>
+    <?php if ($admin->get_usertype($_SESSION['email_address']) == 'Student') { ?>
         <div class="row">
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-4 col-md-6 mb-4">

@@ -6,7 +6,12 @@
     <p class="mb-4">Displays list of student's programs.</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><button class="btn btn-primary" data-toggle="modal" data-target="#add-program">Add New Program</button></h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                <a class="btn btn-primary" href="add_edit_programs.php">Add New Programs/Lesson</a>
+                <?php 
+                    $get_profile_info =  $admin->get_admin_info($_SESSION['email_address']);
+                ?>
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -30,103 +35,42 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Program 1</td>
-                            <td>Lorem ipsum</td>
-                            <td>Yes</td>
-                            <td><span class="badge badge-primary">50</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pen"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Program 2</td>
-                            <td>Lorem ipsum</td>
-                            <td>Yes</td>
-                            <td><span class="badge badge-primary">30</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pen"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Program 3</td>
-                            <td>Lorem ipsum</td>
-                            <td>Yes</td>
-                            <td><span class="badge badge-primary">20</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pen"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
+                        <?php
+                            //get program list by member_id
+                            $get_program_list =  $admin->get_all_program_list($get_profile_info['member_id']);
+                            foreach($get_program_list as $program_list) {
+                        ?>
+                            <tr>
+                                <td><?php echo $program_list['program_name']; ?></td>
+                                <td><?php echo $program_list['short_desc']; ?></td>
+                                <td>
+                                    <?php 
+                                        if($program_list['with_exam'] == 1) {
+                                            echo 'Yes';
+                                        }
+                                        else {
+                                            echo 'No';
+                                        }
+                                    ?>
+                                </td>
+                                <td><span class="badge badge-primary">50</span></td>
+                                <td>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pen"></i></button>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </li>
+                                </td>
+                            </tr>
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="modal fade" id="add-program" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel">Add a new Program</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="admin/add_programs.php"  method="post"  name="add_program" id="add_program" class="needs-validation-registration" novalidate enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" id="program" name="created_by" value="<?php echo $user->get_fullname($_SESSION['email_address']); ?>">
-                            <label for="email1">Name of Program/Lesson</label>
-                            <input type="text" class="form-control" id="program" name="program_name" aria-describedby="emailHelp">
-                        </div>
-                        <div class="form-group">
-                            <label for="email1">Upload Image</label>
-                            <input type="file" class="form-control" name="upload_image">
-                        </div>
-                        <div class="form-group">
-                            <label for="password1">Description</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" name="short_desc" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="password1">Upload Lessons</label>
-                            <input type="file" class="form-control" name="upload_program_lesson">
-                            <small class="red">*Should be pdf extension file only </small>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">With Exam?</label>
-                            <select class="form-control" name="with_exam" id="exampleFormControlSelect1">
-                                <option>Yes</option>
-                                <option>No</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    </div>
-                </form>
-                </div>
             </div>
         </div>
     </div>
