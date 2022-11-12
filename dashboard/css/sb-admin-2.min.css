@@ -10273,3 +10273,29 @@ body.sidebar-toggled footer.sticky-footer {
   .pull-right {
     float:right;
   }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+.msg {
+    margin: 30px auto; 
+    padding: 10px; 
+    border-radius: 5px; 
+    color: #3c763d; 
+    background: #dff0d8; 
+    border: 1px solid #3c763d;
+    width: 50%;
+    text-align: center;
+}
+
+.msg_error {
+    margin: 30px auto; 
+    padding: 10px; 
+    border-radius: 5px; 
+    color: #fff; 
+    background: #78261f; 
+    border: 1px solid #78261f;
+    width: 50%;
+    text-align: center;
+}

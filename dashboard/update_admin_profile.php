@@ -30,6 +30,16 @@
                             <div class="card-body pt-0">
                                 <table class="table table-bordered">
                                     <tr>
+                                        <th width="30%">Upload Profile picture
+                                        </th>
+                                        <td width="2%">:</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="file" name="upload_image" id="file">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th width="30%">First Name</th>
                                         <td width="2%">:</td>
                                         <td>

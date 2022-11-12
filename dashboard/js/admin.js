@@ -14,4 +14,18 @@ $(function(){
         'removeformat | help',
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     });
+
+
+    //Auto close notification
+  window.setTimeout(function() {
+    $(".msg").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+    });
+  }, 4000);
+  
+  window.setTimeout(function() {
+    $(".msg_error").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove(); 
+    });
+  }, 4000);
 });

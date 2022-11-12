@@ -26,11 +26,16 @@ System Functionalities:
         [] Upload Image
         [] Error validation
     [] Lessons/Programs
-        [] Add Programs
-        [] Update Lessons/Programs
-        [] Error validations
-        [] Upload file and images
-    [] Exams
+        [x] Add Programs
+        [x] Update Lessons/Programs
+        [x] Delete Programs
+        [x] Error validations
+        [x] Upload file and images
+        [] No. of enrolled students
+    [x] Exams Category
+        [x] Add Exams Category
+        [x] Update Exams Category
+        [x] Delete Exams Category
     [] Exam Result
 [] List of Programs page
     [] Expected is to see the list of programs for the students

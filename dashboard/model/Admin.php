@@ -29,13 +29,45 @@
                 //insert uploaded files
                 $sql2="INSERT INTO program_additioonal_info SET program_id='$last_id',program_uploaded_files='$filename_files'";
                 $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
-                
                 return $result;
             }
             else{
                 return false;
             }
 		}
+
+        /*** Update new program ***/
+		public function update_program($id,
+            $program_name, 
+            $short_desc,
+            $with_exam,
+            $filename,
+            $filename_files,
+            $date_modified){
+
+                $sql1="UPDATE programs SET program_name='$program_name',short_desc='$short_desc', 
+                            with_exam='$with_exam', 
+                            upload_image='$filename',
+                            date_modified='$date_modified' WHERE program_id='$id'";
+                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                //insert uploaded files
+                $sql2="UPDATE program_additioonal_info SET program_uploaded_files='$filename_files' WHERE program_id='$id'";
+                $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
+                
+                return $result;
+        }
+
+        /*** Delete a program ***/
+        public function delete_program($id) {
+            $delete_program = "DELETE FROM programs WHERE program_id=$id";
+            $result = mysqli_query($this->db,$delete_program) or die(mysqli_connect_errno()."Data cannot be deleted");
+
+            //Delete linked table
+            $sql2="DELETE FROM program_additioonal_info WHERE program_id=$id";
+            $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot be deleted");
+
+            return $result;
+        }
 
     	/*** for showing the List of Porgrams ***/
     	public function get_all_program_list($member_id){
@@ -67,8 +99,7 @@
                             with_exam='$with_exam', 
                             upload_program_lesson='$fileName_program', 
                             upload_image='$move_file_image',
-                            date_created='$date_created',
-							created_by='$created_by'";
+                            date_created='$date_created'";
                 $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
                 return $result;
             }
@@ -99,6 +130,15 @@
 	        $result = mysqli_query($this->db,$sql3);
 	        return $user_data = mysqli_fetch_assoc($result);
     	}
+
+        /*** get program info by progtram id ***/
+        public function get_program_by_id($id){
+            $sql3="SELECT * FROM programs a 
+                LEFT JOIN 	program_additioonal_info b ON b.program_id = a.program_id
+                WHERE a.program_id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
 
         /*** for showing the fullname ***/
     	public function get_fullname($email_address){
@@ -136,7 +176,7 @@
         public function get_memberid_additional_info($member_id) {
             $sql3="SELECT member_id
                 FROM user_additional_information
-                WHERE member_id = '$member_id' AND user_type='Professor'";
+                WHERE member_id = '$member_id'";
             $result = mysqli_query($this->db,$sql3);
             $member_id = mysqli_fetch_array($result);
             return $member_id['member_id'];
@@ -152,6 +192,7 @@
                 $birthday,
                 $religion,
                 $blood_type,
+                $filename,
                 $academic_year,
                 $teaching_class,
                 $section,
@@ -163,8 +204,9 @@
                             birthday = '$birthday',
                             religion = '$religion',
                             blood_type = '$blood_type',
+                            upload_image = '$filename',
                             date_updated='$date_modified'
-                    WHERE member_id = '$member_id'";
+                    WHERE member_id = '$member_id' AND user_type='Professor'";
             //Check if there is existing account id in user_additional_information table
             $check_if_exists =  $this->get_memberid_additional_info($member_id);
             if($check_if_exists) {
@@ -180,6 +222,48 @@
                 $result1 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
             }
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
+
+
+        public function add_exam_category($member_id,$exam_category, $exam_cat_desc,$date_created) {
+            $sql1="INSERT INTO exam_category SET member_id='$member_id',exam_category='$exam_category', 
+                        exam_cat_desc='$exam_cat_desc', 
+                        date_created='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+            return $result;
+        }
+
+        /*** for showing the List of Exam Category ***/
+    	public function get_all_exam_cat_list($member_id){
+    		$sql3="SELECT * FROM exam_category a
+                    WHERE a.member_id = '$member_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    	}
+
+        /*** get exam cat info by exam cat id ***/
+        public function get_exam_cat_by_id($id){
+            $sql3="SELECT * FROM exam_category a 
+                WHERE a.exam_category_id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        /*** update exam cat info by exam cat id ***/
+        public function update_exam_category($id,$member_id,$exam_category, $exam_cat_desc,$date_created) {
+            $sql1="UPDATE exam_category SET member_id='$member_id',exam_category='$exam_category', 
+                        exam_cat_desc='$exam_cat_desc', 
+                        date_created='$date_created'
+                    WHERE exam_category_id='$id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
+
+        /*** Delete a exam category ***/
+        public function delete_exam_category($id) {
+            $delete_exam_cat = "DELETE FROM exam_category WHERE exam_category_id=$id";
+            $result = mysqli_query($this->db,$delete_exam_cat) or die(mysqli_connect_errno()."Data cannot be deleted");
             return $result;
         }
 	}

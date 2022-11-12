@@ -2,12 +2,20 @@
     include_once('db_header.php');
 ?>
     <!-- Page Heading -->
+    <?php if (isset($_SESSION['message_success'])): ?>
+        <div class="msg">
+            <?php 
+                echo $_SESSION['message_success']; 
+                unset($_SESSION['message_success']);
+            ?>
+        </div>
+    <?php endif ?>
     <h1 class="h3 mb-2 text-gray-800">List of Programs</h1>
     <p class="mb-4">Displays list of student's programs.</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <a class="btn btn-primary" href="add_edit_programs.php">Add New Programs/Lesson</a>
+                <a class="btn btn-primary" href="add_edit_programs.php?action=add">Add New Programs/Lesson</a>
                 <?php 
                     $get_profile_info =  $admin->get_admin_info($_SESSION['email_address']);
                 ?>
@@ -56,13 +64,13 @@
                                 <td><span class="badge badge-primary">50</span></td>
                                 <td>
                                     <li class="list-inline-item">
-                                        <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
+                                        <a class="btn btn-warning" href="add_edit_programs.php?action=view&id=<?php echo $program_list['program_id']?>"><i class="fa fa-eye"></i></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pen"></i></button>
+                                        <a class="btn btn-primary" href="add_edit_programs.php?action=edit&id=<?php echo $program_list['program_id']?>"><i class="fa fa-pen"></i></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                        <a class="btn btn-danger" href="admin/programs.php?action=delete&id=<?php echo $program_list['program_id']?>"><i class="fa fa-trash"></i></a>
                                     </li>
                                 </td>
                             </tr>
