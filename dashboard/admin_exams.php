@@ -2,11 +2,24 @@
     include_once('db_header.php');
 ?>
     <!-- Page Heading -->
+    <?php if (isset($_SESSION['message_success'])): ?>
+        <div class="msg">
+            <?php 
+                echo $_SESSION['message_success']; 
+                unset($_SESSION['message_success']);
+            ?>
+        </div>
+    <?php endif ?>
     <h1 class="h3 mb-2 text-gray-800">List of Exams</h1>
     <p class="mb-4">Displays list of student's exams and ongoing exams.</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><button class="btn btn-primary" data-toggle="modal" data-target="#add-exam">Add New Exam</button></h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                <a class="btn btn-primary" href="add_edit_exams.php?action=add">Add Exam</a>
+                <?php 
+                    $get_profile_info =  $admin->get_admin_info($_SESSION['email_address']);
+                ?>
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -16,6 +29,9 @@
                             <th>Exam</th>
                             <th>Program</th>
                             <th>Students who take the exam</th>
+                            <th>Status</th>
+                            <th>Total Questions</th>
+                            <th>Questions</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -24,14 +40,49 @@
                             <th>Exam</th>
                             <th>Program</th>
                             <th>Students who take the exam</th>
+                            <th>Status</th>
+                            <th>Total Questions</th>
+                            <th>Questions</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
+                        <?php
+                            //get program list by member_id
+                            $get_exams_list =  $admin->get_all_exams_list($get_profile_info['member_id']);
+                            foreach($get_exams_list as $exams) {
+                        ?>
                         <tr>
-                            <td>Exam 1</td>
-                            <td>Program Lorem ipsum</td>
+                            <td>
+                                <?php
+                                    if($exams['exam_category_id'] == '1') {
+                                ?>
+                                    Essay
+                                <?php
+                                    }
+                                    else {
+                                ?>
+                                    Multiple Choice
+                                <?php
+                                    }
+                                ?>
+                            </td>
+                            <td><?php echo $exams['program_name'] ?></td>
                             <td><span class="badge badge-secondary">10</span></td>
+                            <td><?php echo $exams['exam_status'] ?></td>
+                            <td>
+                                <?php
+                                    if($exams['exam_category_id'] == '1') {
+                                        echo $admin->get_all_essays_by_exam_id($exams['exam_id']); 
+                                    }
+                                    else {
+                                        echo $admin->get_all_questions_by_exam_id($exams['exam_id']); 
+                                    }
+                                ?>
+                            </td>                            <td>
+                                <a class="btn btn-warning" href="add_edit_exams.php?action=edit_<?php echo $exams['exam_category_id']?>&program_name=<?php echo $exams['program_name']?>&id=<?php echo $exams['exam_id']?>"><i class="fa fa-plus"></i> Add Question</a>
+                                <a class="btn btn-primary" href="add_edit_exams.php?action=view_<?php echo $exams['exam_category_id']?>&program_name=<?php echo $exams['program_name']?>&id=<?php echo $exams['exam_id']?>"><i class="fa fa-eye"></i> View Question</a>
+                            </td>
                             <td>
                                 <li class="list-inline-item">
                                     <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Take Exam"><i class="fa fa-file"></i> View Students</button>
@@ -44,90 +95,11 @@
                                 </li>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Exam 2</td>
-                            <td>Program Lorem ipsum</td>
-                            <td><span class="badge badge-secondary">13</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Take Exam"><i class="fa fa-file"></i> View Students</button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-pen"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Exam 3</td>
-                            <td>Program Lorem ipsum</td>
-                            <td><span class="badge badge-secondary">15</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Take Exam"><i class="fa fa-file"></i> View Students</button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-pen"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
-            </div>
-        </div>
-        <div class="modal fade" id="add-exam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel">Add new Exam</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="email1">Name of Program/Lesson</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Program 1</option>
-                                <option>Program 2</option>
-                                <option>Program 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="email1">Exam Category</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>Multiple Choice</option>
-                                <option>Essay</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="password1">Question</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Choices</label>
-                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password1">Answer</label>
-                            <input type="text" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-                        </div>
-                        <button type="submit" class="btn btn-success">Add another question</button>
-                    </div>
-                    <div class="modal-footer border-top-0 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </div>
-                </form>
-                </div>
             </div>
         </div>
     </div>

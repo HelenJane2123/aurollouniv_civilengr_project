@@ -36,6 +36,15 @@ System Functionalities:
         [x] Add Exams Category
         [x] Update Exams Category
         [x] Delete Exams Category
+    [x] Exams
+        [] Add Exams
+            [] Add Questions
+            [] Edit Questions
+            [] Delete Questions
+        [] Status
+            - Added
+            - Updated
+            - Has an ongoing exam
     [] Exam Result
 [] List of Programs page
     [] Expected is to see the list of programs for the students

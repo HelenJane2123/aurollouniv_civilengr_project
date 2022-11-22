@@ -24,15 +24,17 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-        <?php session_start(); if (isset($_SESSION['login'])) : ?>
+        <!-- <?php session_start(); if (isset($_SESSION['login'])) : ?>
             <div class="alert alert-error" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <?php 
-                    echo $_SESSION['message']; 
-                    unset($_SESSION['message']);
+                    if($_SESSION['message'] != '') {
+                        echo $_SESSION['message']; 
+                        unset($_SESSION['message']);
+                    }
                 ?>
             </div>
-        <?php endif ?>
+        <?php endif ?> -->
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">

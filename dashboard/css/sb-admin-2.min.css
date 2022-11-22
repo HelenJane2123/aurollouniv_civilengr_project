@@ -10299,3 +10299,8 @@ body.sidebar-toggled footer.sticky-footer {
     width: 50%;
     text-align: center;
 }
+
+.box{
+    display: none;
+    margin-top: 20px;
+}

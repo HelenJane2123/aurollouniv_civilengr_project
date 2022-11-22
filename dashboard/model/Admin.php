@@ -150,7 +150,7 @@
 
     	/*** for showing the user type ***/
     	public function get_usertype($email_address){
-    		$sql3="SELECT user_type FROM user_account WHERE email_address = '$email_address' AND user_type='Professor'";
+    		$sql3="SELECT user_type FROM user_account WHERE email_address = '$email_address'";
 	        $result = mysqli_query($this->db,$sql3);
 	        $user_data = mysqli_fetch_array($result);
 	        return $user_data['user_type'];
@@ -265,6 +265,74 @@
             $delete_exam_cat = "DELETE FROM exam_category WHERE exam_category_id=$id";
             $result = mysqli_query($this->db,$delete_exam_cat) or die(mysqli_connect_errno()."Data cannot be deleted");
             return $result;
+        }
+
+        /*** Add new exam ***/
+        public function add_exams($member_id,$program_id,$exam_category_id,$exam_description,$duration,$total_questions,$status,$date_created) {
+            $sql1="INSERT INTO exam SET member_id='$member_id',exam_category_id='$exam_category_id', 
+                        program_id='$program_id',
+                        exam_description = '$exam_description',
+                        duration = '$duration',
+                        total_questions = '$total_questions',
+                        exam_status = '$status',
+                        date_created='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+            return $result;
+        }
+
+        /*** Get all exams list ***/
+    	public function get_all_exams_list($member_id){
+    		$sql3="SELECT * FROM exam a
+                    LEFT JOIN programs b on b.program_id = a.program_id
+                    WHERE a.member_id = '$member_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    	}
+
+        /*** Get all exams by ID ***/
+    	public function get_all_exams_id($id){
+    		$sql3="SELECT * FROM exam a
+                    WHERE a.exam_id = '$id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    	}
+        /*** Add new essay ***/
+        public function add_essays($exam_id,$essay,$date_created) {
+            $sql1="INSERT INTO exam_essay SET exam_id='$exam_id',essay='$essay', 
+                        date_created='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+            return $result;
+        }
+        /*** Add new questions ***/
+        public function add_questions($exam_id,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
+            $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
+                        option_1 = '$option1_array',
+                        option_2 = '$option2_array',
+                        option_3 = '$option3_array',
+                        option_4 = '$option4_array',
+                        correct_answer = '$correct_answer_array',
+                        date_created='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+            return $result;
+        }
+
+        public function get_all_questions_by_exam_id($exam_id) {
+            $sql="SELECT * FROM exam_details WHERE exam_id='$exam_id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_all_essays_by_exam_id($exam_id) {
+            $sql="SELECT * FROM exam_essay WHERE exam_id='$exam_id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_all_essays_exam($exam_id) {
+    		$sql3="SELECT * FROM exam_essay a
+                    WHERE a.exam_id = '$exam_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_assoc($result);
         }
 	}
 ?>
