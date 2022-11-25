@@ -50,10 +50,10 @@ $(function(){
       fieldHTML += '</div>';
       fieldHTML += '<div class="form-group">';
         fieldHTML += '<label for="first" class="text-bold">Enter Choices</label>';
-        fieldHTML += '<input type="text" class="form-control" name="option_1[]" value="Enter Choice 1">';
-        fieldHTML += '<input type="text" class="form-control" name="option_2[]" value="Enter Choice 2">';
-        fieldHTML += '<input type="text" class="form-control" name="option_3[]" value="Enter Choice 3">';
-        fieldHTML += '<input type="text" class="form-control" name="option_4[]" value="Enter Choice 4">';
+        fieldHTML += '<input type="text" class="form-control" name="option_1[]" placeholder="Enter Choice 1">';
+        fieldHTML += '<input type="text" class="form-control" name="option_2[]" placeholder="Enter Choice 2">';
+        fieldHTML += '<input type="text" class="form-control" name="option_3[]" placeholder="Enter Choice 3">';
+        fieldHTML += '<input type="text" class="form-control" name="option_4[]" placeholder="Enter Choice 4">';
       fieldHTML += '</div>';
       fieldHTML += '<div class="form-group">';
         fieldHTML += '<label for="first" class="text-bold">Correct Answer</label>';
@@ -78,4 +78,46 @@ $(function(){
       $(this).parent('div').remove(); //Remove field html
       x--; //Decrement field counter
   });
+
+
+  //Update question
+  var maxField = 10; //Input fields increment limitation
+  var addButton_update = $('.add_button_update'); //Add button selector
+  var wrapper = $('#field_wrapper_'); //Input field wrapper
+  var fieldHTML = ' <div class="question_form">';
+      fieldHTML += '<div class="form-group">';
+        fieldHTML += '<label for="first" class="text-bold">Enter Question</label>';
+        fieldHTML += '<input type="text" class="form-control" name="question_update[]">';
+      fieldHTML += '</div>';
+      fieldHTML += '<div class="form-group">';
+        fieldHTML += '<label for="first" class="text-bold">Enter Choices</label>';
+        fieldHTML += '<input type="text" class="form-control" name="option_1_update[]" placeholder="Enter Choice 1">';
+        fieldHTML += '<input type="text" class="form-control" name="option_2_update[]" placeholder="Enter Choice 2">';
+        fieldHTML += '<input type="text" class="form-control" name="option_3_update[]" placeholder="Enter Choice 3">';
+        fieldHTML += '<input type="text" class="form-control" name="option_4_update[]" placeholder="Enter Choice 4">';
+      fieldHTML += '</div>';
+      fieldHTML += '<div class="form-group">';
+        fieldHTML += '<label for="first" class="text-bold">Correct Answer</label>';
+        fieldHTML += '<input type="text" class="form-control" name="correct_answer_update[]">';
+      fieldHTML += '</div>';
+    fieldHTML += '<a href="javascript:void(0);" class="btn btn-danger remove_button_update"><i class="fa fa-minus"></i> Remove Question</a></div>'; 
+  //New input field html 
+  var x = 1; //Initial field counter is 1
+
+  //Once remove button is clicked
+  $(wrapper).on('click', '.remove_button_update', function(e){
+    e.preventDefault();
+    $(this).parent('div').remove(); //Remove field html
+    x--; //Decrement field counter
+  });
+
+  //Once add button is clicked
+  $(addButton_update).click(function(){
+    //Check maximum number of input fields
+    if(x < maxField){ 
+        x++; //Increment field counter
+        $(wrapper).append(fieldHTML); //Add field html
+    }
+  });
+
 });

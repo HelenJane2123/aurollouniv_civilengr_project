@@ -85,8 +85,7 @@
                 </div>
             </div>
         </div>
-        </div>
-
+    </div>
 <?php
     include_once('db_footer.php');
 ?>

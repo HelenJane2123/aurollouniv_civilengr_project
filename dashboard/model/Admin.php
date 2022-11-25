@@ -140,6 +140,14 @@
             return $user_data = mysqli_fetch_assoc($result);
         }
 
+         /*** get program count ***/
+        public function get_all_programs_count($member_id) {
+            $sql="SELECT * FROM programs WHERE member_id='$member_id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+
         /*** for showing the fullname ***/
     	public function get_fullname($email_address){
     		$sql3="SELECT CONCAT_WS(' ', firstname, last_name) as fullname FROM user_account WHERE email_address = '$email_address'";
@@ -280,6 +288,13 @@
             return $result;
         }
 
+         /*** get all programs with exam ***/
+         public function get_all_program_exam_count($member_id) {
+            $sql="SELECT * FROM programs WHERE member_id='$member_id' AND with_exam = '1'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
         /*** Get all exams list ***/
     	public function get_all_exams_list($member_id){
     		$sql3="SELECT * FROM exam a
@@ -303,6 +318,14 @@
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
             return $result;
         }
+        /*** update essay ***/
+        public function update_essays($exam_id,$essay,$date_created) {
+            $sql1="UPDATE exam_essay SET essay='$essay', 
+                        date_modified='$date_created'
+                    WHERE exam_id='$exam_id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot updated");
+            return $result;
+        }
         /*** Add new questions ***/
         public function add_questions($exam_id,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
             $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
@@ -315,7 +338,24 @@
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
             return $result;
         }
-
+        /*** Update questions ***/
+        public function update_questions($exam_id,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
+            $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
+                option_1 = '$option1_array',
+                option_2 = '$option2_array',
+                option_3 = '$option3_array',
+                option_4 = '$option4_array',
+                correct_answer = '$correct_answer_array',
+                date_modified='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
+            return $result;
+        }
+        /*** Delete questions ***/
+        public function delete_exam($exam_id) {
+            //Delete all questions first
+            $delete_exam = "DELETE FROM exam_details WHERE exam_id = $exam_id";
+            $result_1 = mysqli_query($this->db,$delete_exam) or die(mysqli_connect_errno()."Data cannot be deleted");
+        }
         public function get_all_questions_by_exam_id($exam_id) {
             $sql="SELECT * FROM exam_details WHERE exam_id='$exam_id'";
             $check =  $this->db->query($sql);
@@ -333,6 +373,74 @@
                     WHERE a.exam_id = '$exam_id'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_assoc($result);
+        }
+
+        public function get_all_exam_details($exam_id) {
+    		$sql3="SELECT * FROM exam_details a
+                    WHERE a.exam_id = '$exam_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+        public function get_all_students_list($member_id) {
+    		$sql3="SELECT * FROM students a
+                    LEFT JOIN programs b on b.program_id = a.program_id
+                    LEFT JOIN user_account c on c.member_id = a.student_member_id
+                    LEFT JOIN user_additional_information d on d.member_id = c.member_id
+                    WHERE a.member_id = '$member_id'
+                    AND c.user_type = 'Student'
+                    AND unenroll_student = '0'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+        public function get_all_students() {
+    		$sql3="SELECT * FROM user_account 
+                    WHERE user_type = 'Student'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+        /*** get student by id ***/
+        public function get_student_member_id($id){
+            $sql3="SELECT member_id FROM user_account a 
+                WHERE a.id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+        /*** Enroll a student ***/
+        public function enroll_student($student_id,$member_id,$get_student_member_id,$program_id,$date_modified) {
+            $sql1="INSERT INTO students SET account_id='$student_id',member_id='$member_id',
+                student_member_id = '$get_student_member_id',
+                program_id = '$program_id',
+                exam_status = '0',
+                date_modified='$date_modified'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
+            return $result;
+        }
+        /*** Get Student Details ***/
+        public function get_student_details($student_id) {
+    		$sql3="SELECT * FROM students a
+                    LEFT JOIN programs b on b.program_id = a.program_id
+                    LEFT JOIN program_additioonal_info e on b.program_id = e.program_id
+                    LEFT JOIN user_account c on c.id = a.account_id
+                    LEFT JOIN user_additional_information d on d.member_id = c.member_id
+                    WHERE a.account_id = '$student_id'
+                    AND c.user_type = 'Student'";
+	        $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+        /*** unenroll student ***/
+        public function unenroll_student($id) {
+            $date = date("Y-m-d h:i:s");
+            $sql1="UPDATE students SET unenroll_student='1', 
+                        date_modified='$date'
+                    WHERE account_id='$id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot updated");
+            return $result;
+        }
+        /*** get all enrolled students ***/
+        public function get_all_students_count($member_id) {
+            $sql="SELECT * FROM students WHERE member_id='$member_id' AND unenroll_student = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
         }
 	}
 ?>

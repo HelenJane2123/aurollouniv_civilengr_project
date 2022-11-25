@@ -147,14 +147,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="first" class="text-bold">Enter Choices</label>
-                                            <input type="text" class="form-control" name="option_1[]" value="Enter Choice 1">
-                                            <input type="text" class="form-control" name="option_2[]" value="Enter Choice 2">
-                                            <input type="text" class="form-control" name="option_3[]" value="Enter Choice 3">
-                                            <input type="text" class="form-control" name="option_4[]" value="Enter Choice 4">
+                                            <input type="text" class="form-control" name="option_1[]" placeholder="Enter Choice 1">
+                                            <input type="text" class="form-control" name="option_2[]" placeholder="Enter Choice 2">
+                                            <input type="text" class="form-control" name="option_3[]" placeholder="Enter Choice 3">
+                                            <input type="text" class="form-control" name="option_4[]" placeholder="Enter Choice 4">
                                         </div>
                                         <div class="form-group">
                                             <label for="first" class="text-bold">Correct Answer</label>
-                                            <input type="text" class="form-control" name="correct_answer[]">
+                                            <input type="text" class="form-control" name="correct_answer[]" placeholder="Enter the correct answer">
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                     ?>
                        <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="admin_exam.php">Exams</a></li>
+                                <li class="breadcrumb-item"><a href="admin_exams.php">Exams</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Manage Exams</li>
                             </ol>
                         </nav>
@@ -192,7 +192,68 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input class="btn btn-primary pull-right" type="Submit" name="save_essay_question" value="Save Essay Question">
+                                        <input class="btn btn-primary pull-right" type="Submit" name="save_update_essay_question" value="Save Essay Question">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    <?php
+                        }
+                        //View/Update Multiple Choice
+                        else if($_GET['action'] == 'view_2') {
+                    ?>
+                        <!-- Page Heading -->
+                       <?php if (isset($_SESSION['message_error'])): ?>
+                            <div class="msg_error">
+                                <?php 
+                                    echo $_SESSION['message_error']; 
+                                    unset($_SESSION['message_error']);
+                                ?>
+                            </div>
+                        <?php endif ?>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="admin_exams.php">Exams</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Manage Exams</li>
+                            </ol>
+                        </nav>
+                        <h1 class="h3 mb-4 text-gray-800">View/Update Multiple Choice Question for <?php echo $_GET['program_name']?></h1>
+                        <form action="admin/exam.php" method="post" enctype='multipart/form-data'>
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-transparent border-0">
+                                    <a href="javascript:void(0);" class="btn btn-primary add_button_update" title="Add field"><i class="fa fa-plus"></i> Add Question</a>
+                                </div>
+                                <div class="card-body pt-0" id="field_wrapper_">
+                                    <?php
+                                        $get_exam_details =  $admin->get_all_exam_details($_GET['id']);
+                                        foreach($get_exam_details as $exam_details) {
+                                    ?>
+                                        <div class="question_form">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['id']?>">
+                                                <label for="first" class="text-bold">Enter Question</label>
+                                                <input type="text" class="form-control" name="question_update[]" value="<?php echo $exam_details['question'];?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="first" class="text-bold">Enter Choices</label>
+                                                <input type="text" class="form-control" name="option_1_update[]" value="<?php echo $exam_details['option_1'];?>">
+                                                <input type="text" class="form-control" name="option_2_update[]" value="<?php echo $exam_details['option_2'];?>">
+                                                <input type="text" class="form-control" name="option_3_update[]" value="<?php echo $exam_details['option_3'];?>">
+                                                <input type="text" class="form-control" name="option_4_update[]" value="<?php echo $exam_details['option_4'];?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="first" class="text-bold">Correct Answer</label>
+                                                <input type="text" class="form-control" name="correct_answer_update[]" value="<?php echo $exam_details['correct_answer'];?>">
+                                            </div>
+                                            <a href="javascript:void(0);" class="btn btn-danger remove_button_update"><i class="fa fa-minus"></i> Remove Question</a>
+                                        </div>
+                                    <?php
+                                        }
+                                    ?>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary pull-right" type="Submit" name="update_exam_question">
                                     </div>
                                 </div>
                             </div>

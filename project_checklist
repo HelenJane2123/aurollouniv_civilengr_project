@@ -1,5 +1,5 @@
 [] Create website design
-    [] Homepage (landing page)
+    [x] Homepage (landing page)
 
 [x] Create database
     Tables:
@@ -10,11 +10,11 @@ System Functionalities:
         [] Check if email already exsists - javascript
         [] Check if password is same with confirm password
         [] Validate mobile number
-        [] Add member_id in the database
+        [x] Add member_id in the database
 [x] Login with validation
     TO DO:
-        [] Display user's name and user_type upon Login
-        [] get user's information based on member_id
+        [x] Display user's name and user_type upon Login
+        [x] get user's information based on member_id
 [] CRUD Student Dashboard
     [] My Profile
     [] My Programs/Lessons
@@ -37,15 +37,15 @@ System Functionalities:
         [x] Update Exams Category
         [x] Delete Exams Category
     [x] Exams
-        [] Add Exams
-            [] Add Questions
-            [] Edit Questions
-            [] Delete Questions
+        [x] Add Exams
+            [x] Add Questions
+            [x] Edit Questions
+            [x] Delete Questions
         [] Status
             - Added
             - Updated
             - Has an ongoing exam
-    [] Exam Result
+    [] Students
 [] List of Programs page
     [] Expected is to see the list of programs for the students
     [] Students may choose the programs/lessons to take but may require registration

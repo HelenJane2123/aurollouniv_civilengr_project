@@ -43,8 +43,8 @@
             header("location:../add_edit_exam_cat.php?action=edit&id=$id");
         }
     }
-     //Delete function
-     else {
+    //Delete function
+    else {
         $id = $_GET['id'];
         $delete_exam_cat = $admin_program->delete_exam_category($id);
         if($delete_exam_cat) {
