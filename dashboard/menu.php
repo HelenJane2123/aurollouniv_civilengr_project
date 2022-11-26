@@ -43,12 +43,6 @@
                         <span>My Exams</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="student_scores.php">
-                        <i class="fas fa-fw fa-star"></i>
-                        <span>My Scores</span>
-                    </a>
-                </li>
             <?php } else { ?>
             <!-- Teacher Access -->
                 <li class="nav-item">

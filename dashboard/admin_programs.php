@@ -9,7 +9,16 @@
                 unset($_SESSION['message_success']);
             ?>
         </div>
-    <?php endif ?>
+    <?php elseif (isset($_SESSION['message_error'])): ?>
+        <div class="msg_error">
+            <?php 
+                echo $_SESSION['message_error']; 
+                unset($_SESSION['message_error']);
+            ?>
+        </div>
+    <?php 
+        endif 
+    ?>
     <h1 class="h3 mb-2 text-gray-800">List of Programs</h1>
     <p class="mb-4">Displays list of student's programs.</p>
     <div class="card shadow mb-4">
@@ -61,7 +70,7 @@
                                         }
                                     ?>
                                 </td>
-                                <td><span class="badge badge-primary">50</span></td>
+                                <td><h5><span class="badge badge-info"><?php echo $admin->get_all_students_count_program_id($program_list['program_id']) ?></span></h5></td>
                                 <td>
                                     <li class="list-inline-item">
                                         <a class="btn btn-warning" href="add_edit_programs.php?action=view&id=<?php echo $program_list['program_id']?>"><i class="fa fa-eye"></i></a>

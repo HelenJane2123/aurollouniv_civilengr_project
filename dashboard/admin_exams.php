@@ -68,7 +68,11 @@
                                 ?>
                             </td>
                             <td><?php echo $exams['program_name'] ?></td>
-                            <td><span class="badge badge-secondary">10</span></td>
+                            <td>
+                                <h5><span class="badge badge-secondary"><?php echo $admin->get_all_students_not_started($exams['program_id']) ?> Not yet started</span></h5>
+                                <h5><span class="badge badge-warning"><?php echo $admin->get_all_students_ongoing($exams['program_id']) ?> Ongoing</span></h5>
+                                <h5><span class="badge badge-success"><?php echo $admin->get_all_students_completed($exams['program_id']) ?> Completed</span></h5>
+                            </td>
                             <td><?php echo $exams['exam_status'] ?></td>
                             <td>
                                 <?php
@@ -92,7 +96,8 @@
                             </td>
                             <td>
                                 <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Take Exam"><i class="fa fa-file"></i> View Students</button>
+                                    <a class="btn btn-primary" href="add_edit_exams.php?action=view_students&id=<?php echo $exams['exam_id']?>&program_name=<?php echo $exams['program_name']?>&program_id=<?php echo $exams['program_id']?>" title="View Students"><i class="fa fa-eye"></i> View Students</a>
+                                    <a class="btn btn-danger" href="admin/exam.php?id=<?php echo $exams['exam_id']?>" title="Delete this exam"><i class="fa fa-trash"></i></a>
                                 </li>
                             </td>
                         </tr>

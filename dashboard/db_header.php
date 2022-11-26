@@ -1,7 +1,9 @@
 <?php 
     session_start();
     require_once ('model/Admin.php');
+    require_once ('model/Student.php');
     $admin = new Admin();
+    $student = new Student();
     if (isset($_GET['q'])){
         $admin->user_logout();
         header("location:../dashboard/login.php");

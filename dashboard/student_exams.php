@@ -10,59 +10,73 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Exam</th>
                             <th>Program</th>
+                            <th>Exam</th>
                             <th>Status</th>
+                            <th>My Score</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Exam</th>
                             <th>Program</th>
+                            <th>Exam</th>
                             <th>Status</th>
+                            <th>My Score</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Exam 1</td>
-                            <td>Program Lorem ipsum</td>
-                            <td><span class="badge badge-secondary">Not yet started</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Take Exam"><i class="fa fa-file"></i> Take exam</button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Exam 2</td>
-                            <td>Program Lorem ipsum</td>
-                            <td><span class="badge badge-success">Done</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View Score"><i class="fa fa-eye"></i> View Score</button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>Exam 3</td>
-                            <td>Program Lorem ipsum</td>
-                            <td><span class="badge badge-warning">Ongoing</span></td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete Exam"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-
-                        </tr>
+                        <?php
+                            $get_profile_info =  $student->get_student_info($_SESSION['email_address']);
+                            //get program list by member_id
+                            $get_program_list =  $student->get_my_exam($get_profile_info['id']);
+                            foreach($get_program_list as $programs) {
+                        ?>
+                            <tr>
+                                <td><?php echo $programs['program_name'] ?></td>
+                                <td><?php echo $programs['exam_description'] ?></td>
+                                <td>
+                                    <?php
+                                        if($programs['exam_status'] == '0') {
+                                    ?>
+                                        <h5><span class="badge badge-secondary">Not yet started</span></h5>
+                                    <?php
+                                        }
+                                        elseif($programs['exam_status'] == '1') {
+                                    ?>
+                                        <h5><span class="badge badge-warning">Ongoing</span></h5>
+                                    <?php
+                                        }
+                                        elseif($programs['exam_status'] == '2') { 
+                                    ?>
+                                        <h5><span class="badge badge-success">Completed</span></h5>
+                                    <?php
+                                        }
+                                        else {
+                                    ?>
+                                        <h5><span class="badge badge-info">No exam setup yet</span></h5>
+                                    <?php
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    <?php
+                                        if($programs['exam_id'] != '') {
+                                    ?>
+                                        <a class="btn btn-success" href="take_exam.php?program_id=<?php echo $program_list['program_id']?>">Take Exam</a>
+                                        <a class="btn btn-primary" href="view_exam_details.php?program_id=<?php echo $program_list['program_id']?>">View Exam Details</a>
+                                    <?php
+                                        }
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>

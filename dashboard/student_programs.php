@@ -2,11 +2,21 @@
     include_once('db_header.php');
 ?>
     <!-- Page Heading -->
+    <?php if (isset($_SESSION['message_success'])): ?>
+        <div class="msg">
+            <?php 
+                echo $_SESSION['message_success']; 
+                unset($_SESSION['message_success']);
+            ?>
+        </div>
+    <?php endif ?>
     <h1 class="h3 mb-2 text-gray-800">My Programs</h1>
     <p class="mb-4">Displays list of student's programs.</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><button class="btn btn-primary">Add New Program/s</button></h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                <a class="btn btn-primary" href="enroll_program.php?action=add">Enroll a Program</a>
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -14,54 +24,37 @@
                     <thead>
                         <tr>
                             <th>Programs</th>
-                            <th>Short Description</th>
+                            <th width="75%">Short Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Programs</th>
-                            <th>Short Description</th>
+                            <th width="75%">Short Description</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Program 1</td>
-                            <td>Lorem ipsum</td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Program 2</td>
-                            <td>Lorem ipsum</td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Program 3</td>
-                            <td>Lorem ipsum</td>
-                            <td>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fa fa-table"></i></button>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                </li>
-                            </td>
-                        </tr>
+                        <?php
+                            $get_profile_info =  $student->get_student_info($_SESSION['email_address']);
+                            //get program list by member_id
+                            $get_program_list =  $student->get_all_program_list($get_profile_info['id']);
+                            foreach($get_program_list as $programs) {
+                        ?>
+                            <tr>
+                                <td><?php echo $programs['program_name'] ?></td>
+                                <td><?php echo $programs['short_desc'] ?></td>
+                                <td>
+                                    <li class="list-inline-item">
+                                        <a class="btn btn-primary btn-sm rounded-0" href="enroll_program.php?action=view_program&id=<?php echo $programs['program_id']?>&program_name=<?php echo $programs['program_name']?>"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-danger btn-sm rounded-0" href="student/enroll_program.php?id=<?php echo $programs['student_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>
+                                    </li>
+                                </td>
+                            </tr>
+                        <?php
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>

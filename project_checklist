@@ -46,6 +46,10 @@ System Functionalities:
             - Updated
             - Has an ongoing exam
     [] Students
+        [] Exam Status
+            - 0 Not yet started
+            - 1 Ongoing exam
+            - 2 Exam completed
 [] List of Programs page
     [] Expected is to see the list of programs for the students
     [] Students may choose the programs/lessons to take but may require registration

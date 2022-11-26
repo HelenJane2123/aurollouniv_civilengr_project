@@ -48,7 +48,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="first" class="text-bold">Program</label>
+                                        <label for="first" class="text-bold">Students</label>
                                         <select name="student_id" class="form-control" class="exam_cat">
                                             <option value="">Select a Student</option>
                                             <?php 

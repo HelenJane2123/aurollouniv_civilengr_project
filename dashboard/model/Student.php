@@ -1,6 +1,6 @@
 <?php
-include "../lib/config.php";
-	class User{
+include_once ("../lib/config.php");
+	class Student{
 		public $db;
 		public function __construct(){
 			$this->db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
@@ -9,54 +9,29 @@ include "../lib/config.php";
 			        exit;
 			}
 		}
-        /*** check if user exist ***/
-        public function isUserExist($email){
-            $sql="SELECT * FROM user_account WHERE email_address='$email'";
-            $check =  $this->db->query($sql);
-            $count_row = $check->num_rows;
-            if($count_row == 0) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-		/*** for registration process ***/
-		public function reg_user($member_id,$email_address, $first_name, $last_name, $mobile_number, $user_type, $password_1, $date_created){
-			$password = md5($password_1);
-            $check =  $this->isUserExist($email_address);
-            if (!$check){
-                $sql1="INSERT INTO user_account SET member_id='$member_id',email_address='$email_address', 
-                            firstname='$first_name', 
-                            last_name='$last_name', 
-                            phone_number='$mobile_number',
-                            user_type='$user_type',
-                            password='$password_1',
-                            date_created='$date_created'";
-                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
-                return $result;
-            }
-            else{
-                return false;
-            }
-		}
-
-		/*** for login process ***/
-		public function check_login($emailusername, $password){
-        	$password = md5($password);
-			$sql2="SELECT member_id from user_account WHERE email_address='$emailusername' and password='$password'";
-
-			//checking if the username is available in the table
-        	$result = mysqli_query($this->db,$sql2);
-        	$user_data = mysqli_fetch_array($result);
-        	$count_row = $result->num_rows;
-
-	        if ($count_row == 1) {
-	            return true;
-	        }
-	        else{
-			    return false;
-			}
+		/*** get admin profile info ***/
+        public function get_student_info($email_address){
+    		$sql3="SELECT CONCAT_WS(' ', a.firstname, a.last_name) as fullname, 
+                        a.firstname, 
+                        a.last_name, 
+                        a.member_id, 
+                        a.email_address,
+                        a.gender, 
+                        a.age,
+                        a.birthday,
+                        a.religion,
+                        a.blood_type,
+                        a.phone_number,
+                        b.academic_year,
+                        b.course,
+                        b.section,
+						b.class,
+						a.id
+                FROM user_account a 
+                LEFT JOIN user_additional_information b ON b.member_id = a.member_id
+                WHERE a.email_address = '$email_address' AND user_type='Student'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
     	}
 
     	/*** for showing the fullname ***/
@@ -75,15 +50,166 @@ include "../lib/config.php";
 	        return $user_data['user_type'];
     	}
 
-    	/*** starting the session ***/
-	    public function get_session(){
-	        return $_SESSION['login'];
-	    }
+		/*** get member id ***/
+        public function get_memberid($member_id) {
+            $sql3="SELECT member_id
+                FROM user_account 
+                WHERE member_id = '$member_id' AND user_type='Student'";
+	        $result = mysqli_query($this->db,$sql3);
+	        $member_id = mysqli_fetch_array($result);
+	        return $member_id['member_id'];
+        }
 
-	    public function user_logout() {
-	        $_SESSION['login'] = FALSE;
-	        session_destroy();
-	    }
+		/*** update user profile ***/
+        public function update_profile($member_id, 
+                $firstname, 
+                $last_name,
+                $gender,
+                $age,
+                $phone_number,
+                $birthday,
+                $religion,
+                $blood_type,
+                $filename,
+                $academic_year,
+                $class,
+                $section,
+				$course,
+                $date_modified) {
+            $sql1="UPDATE user_account SET firstname='$firstname',last_name='$last_name', 
+                            gender='$gender', 
+                            age='$age', 
+                            phone_number='$phone_number',
+                            birthday = '$birthday',
+                            religion = '$religion',
+                            blood_type = '$blood_type',
+                            upload_image = '$filename',
+                            date_updated='$date_modified'
+                    WHERE member_id = '$member_id' AND user_type='Student'";
+            //Check if there is existing account id in user_additional_information table
+            $check_if_exists =  $this->get_memberid_additional_info($member_id);
+            if($check_if_exists) {
+                //If exists update info
+                $sql2="UPDATE user_additional_information SET academic_year='$academic_year',class='$class', 
+                            section='$section', course='$course' WHERE member_id = '$member_id'";
+                $result1 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot be updated");
+            }
+            else {
+                //insert new record
+                $sql2="INSERT INTO user_additional_information SET member_id='$member_id', academic_year='$academic_year',class='$class', 
+                            section='$section', course='$course'";
+                $result1 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
+            }
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
 
+		/*** get member id from additional info ***/
+		public function get_memberid_additional_info($member_id) {
+            $sql3="SELECT member_id
+                FROM user_additional_information
+                WHERE member_id = '$member_id'";
+            $result = mysqli_query($this->db,$sql3);
+            $member_id = mysqli_fetch_array($result);
+            return $member_id['member_id'];
+        }
+
+		/*** get member id from additional info ***/
+		public function get_all_programs() {
+    		$sql3="SELECT * FROM programs";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+		/*** get program member by id ***/
+        public function get_program_member_id($id){
+            $sql3="SELECT member_id FROM programs a 
+                WHERE a.program_id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+		/*** get program by id ***/
+        public function get_program_details_by_id($id){
+            $sql3="SELECT * FROM programs a 
+				LEFT JOIN program_additioonal_info c on c.program_id = a.program_id
+                WHERE a.program_id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+		/*** Enroll a student ***/
+        public function enroll_program($account_id,$get_program_member_id,$student_member_id,$program_id,$date_modified) {
+            $sql1="INSERT INTO students SET account_id='$account_id',member_id='$get_program_member_id',
+                student_member_id = '$student_member_id',
+                program_id = '$program_id',
+                exam_status = '0',
+                date_modified='$date_modified'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
+            return $result;
+        }
+
+		public function get_all_program_list($account_id) {
+    		$sql3="SELECT * FROM students a
+                    LEFT JOIN programs b on b.program_id = a.program_id
+                    LEFT JOIN program_additioonal_info c on c.program_id = a.program_id
+                    WHERE a.account_id = '$account_id'
+                    AND unenroll_student = '0'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+		public function get_my_exam($account_id) {
+    		$sql3="SELECT * FROM students a
+                    LEFT JOIN programs b on b.program_id = a.program_id
+					LEFT JOIN exam c on b.program_id = c.program_id
+                    WHERE a.account_id = '$account_id'
+                    AND unenroll_student = '0'
+					AND b.with_exam = '1'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+		/*** unenroll student ***/
+        public function unenroll_program($id) {
+            $sql1="DELETE FROM students 
+                    WHERE student_id='$id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot updated");
+            return $result;
+        }
+
+		/*** get all students with not yet started ***/
+        public function get_all_students_not_started($id) {
+            $sql="SELECT * FROM students
+                WHERE student_member_id='$id'
+                AND exam_status = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+        /*** get all students with ongoing exam ***/
+        public function get_all_students_ongoing($id) {
+            $sql="SELECT * FROM students
+                WHERE student_member_id='$id'
+                AND exam_status = '1'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+        /*** get all students with completed exam ***/
+        public function get_all_students_completed($id) {
+            $sql="SELECT * FROM students
+                WHERE student_member_id='$id'
+                AND exam_status = '2'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+		 /*** get all lessons ***/
+		 public function get_all_lessons($id) {
+            $sql="SELECT * FROM students
+                WHERE student_member_id='$id'
+                AND unenroll_student = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
 	}
 ?>

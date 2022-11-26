@@ -98,14 +98,23 @@
     //Delete function
     else {
         $id = $_GET['id'];
-        $delete_programs = $admin_program->delete_program($id);
-        if($delete_programs) {
-            $_SESSION['message_success'] = "Program has been successfully deleted."; 
+        //Check if there is linked program for the exam
+        $check_program_exam = $admin_program->get_all_program_from_exam($id);
+
+        if($check_program_exam) {
+            $_SESSION['message_error'] = "There is existing exam linked to this program. Cannot be deleted."; 
             header('location:../admin_programs.php');
         }
         else {
-            $_SESSION['message_error'] = "Program cannot be deleted. An error has occurred."; 
-            header('location:../admin_programs.php');
+            $delete_programs = $admin_program->delete_program($id);
+            if($delete_programs) {
+                $_SESSION['message_success'] = "Program has been successfully deleted."; 
+                header('location:../admin_programs.php');
+            }
+            else {
+                $_SESSION['message_error'] = "Program cannot be deleted. An error has occurred."; 
+                header('location:../admin_programs.php');
+            }        
         }
     }
 ?>

@@ -258,6 +258,67 @@
                                 </div>
                             </div>
                         </form>
+                     <?php
+                        }
+                        //View Students
+                        else if($_GET['action'] == 'view_students') {
+                            $get_exam_by_id =  $admin->get_all_essays_exam($_GET['id']);
+
+                    ?>
+                       <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="admin_exams.php">Exams</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Students</li>
+                            </ol>
+                        </nav>
+                        <h1 class="h3 mb-4 text-gray-800">View Students enrolled for <?php echo $_GET['program_name'] ?></h1>
+                        <div class="card shadow-sm">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Students Name</th>
+                                            <th>Student Member ID</th>
+                                            <th>Course</th>
+                                            <th>Year</th>
+                                            <th>Exam Status</th>
+                                            <th>Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            //get program list by program_id
+                                            $get_students_list =  $admin->get_all_students_program_id($_GET['program_id']);
+                                            foreach($get_students_list as $students) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $students['firstname'].' '.$students['last_name'] ?></td>
+                                                <td><?php echo $students['student_member_id'] ?></td>
+                                                <td><?php echo $students['course'] ?></td>
+                                                <td><?php echo $students['academic_year'] ?></td>
+                                                <td>
+                                                    <?php
+                                                        if($students['exam_status'] == 0) {
+                                                    ?>
+                                                            <span class="badge badge-secondary">Not yet Started</span>
+                                                    <?php
+                                                        }
+                                                        else if($students['exam_status'] == '1') {
+                                                    ?>
+                                                            <span class="badge badge-success">Started</span>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td><span class="badge badge-secondary"><?php echo $students['exam_score'] ?></span></td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     <?php
                         }
                     ?>

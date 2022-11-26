@@ -6,21 +6,25 @@
     <div class="student-profile py-4">
         <div class="container">
             <div class="row">
-            <div class="col-lg-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-transparent text-center">
-                        <img class="profile_img" src="https://placeimg.com/640/480/arch/any" alt="">
-                        <h3>John Doe</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="mb-0"><strong class="pr-1">Member ID:</strong>321000001</p>
-                        <p class="mb-0"><strong class="pr-1">Class:</strong>4</p>
-                        <p class="mb-0"><strong class="pr-1">Section:</strong>A</p>
-                        <button class="btn btn-primary">Update Profile</button>
+                <?php 
+                    $get_profile_info =  $student->get_student_info($_SESSION['email_address']);
+                ?>
+                <div class="col-lg-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-transparent text-center">
+                            <img class="profile_img" src="https://placeimg.com/640/480/arch/any" alt="">
+                            <h3><?php echo $get_profile_info['fullname'];?></h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0"><strong class="pr-1">Member ID:</strong><?php echo $get_profile_info['member_id'];?></p>
+                            <p class="mb-0"><strong class="pr-1">Class:</strong><?php echo $get_profile_info['class'];?></p>
+                            <p class="mb-0"><strong class="pr-1">Section:</strong><?php echo $get_profile_info['section'];?></p>
+                            <br/>
+                            <a class="btn btn-primary" href="update_student_profile.php">Update Profile</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-8">
+                <div class="col-lg-8">
                     <div class="card shadow-sm">
                         <div class="card-header bg-transparent border-0">
                             <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
@@ -30,37 +34,62 @@
                                 <tr>
                                     <th width="30%">First Name</th>
                                     <td width="2%">:</td>
-                                    <td>John</td>
+                                    <td><?php echo $get_profile_info['firstname'];?></td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Last Name</th>
                                     <td width="2%">:</td>
-                                    <td>Doe</td>
+                                    <td><?php echo $get_profile_info['last_name'];?></td>
+                                </tr>
+                                <tr>
+                                    <th width="30%">Email</th>
+                                    <td width="2%">:</td>
+                                    <td><?php echo $get_profile_info['email_address'];?></td>
+                                </tr>
+                                <tr>
+                                    <th width="30%">Phone Number</th>
+                                    <td width="2%">:</td>
+                                    <td><?php echo $get_profile_info['phone_number'];?></td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Gender</th>
                                     <td width="2%">:</td>
-                                    <td>Male</td>
+                                    <td>
+                                        <?php echo !empty($get_profile_info['gender']) ?
+                                                        $get_profile_info['gender'] :  '';?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Age</th>
                                     <td width="2%">:</td>
-                                    <td>18</td>
+                                    <td>
+                                        <?php echo !empty($get_profile_info['age']) ?
+                                                        $get_profile_info['age'] :  '';?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Birthday</th>
                                     <td width="2%">:</td>
-                                    <td>July 23, 2004</td>
+                                    <td>
+                                        <?php echo !empty($get_profile_info['birthday']) ?
+                                                $get_profile_info['birthday'] :  '';?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Religion</th>
                                     <td width="2%">:</td>
-                                    <td>Group</td>
+                                    <td>
+                                        <?php echo !empty($get_profile_info['religion']) ?
+                                                        $get_profile_info['religion'] :  '';?>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th width="30%">blood</th>
+                                    <th width="30%">Blood Type</th>
                                     <td width="2%">:</td>
-                                    <td>B+</td>
+                                    <td>
+                                        <?php echo !empty($get_profile_info['blood_type']) ?
+                                                        $get_profile_info['blood_type'] :  '';?>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -72,12 +101,14 @@
                                 <tr>
                                     <th width="30%">Academic Year</th>
                                     <td width="2%">:</td>
-                                    <td>2020</td>
+                                    <td> <?php echo !empty($get_profile_info['academic_year']) ?
+                                                        $get_profile_info['academic_year'] :  '';?></td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Course</th>
                                     <td width="2%">:</td>
-                                    <td>Engineering</td>
+                                    <td><?php echo !empty($get_profile_info['course']) ?
+                                                        $get_profile_info['course'] :  '';?></td>
                                 </tr>
                             </table>
                         </div>

@@ -131,14 +131,14 @@
     //Delete function
     else {
         $id = $_GET['id'];
-        $delete_exam_cat = $admin_program->delete_exam_category($id);
+        $delete_exam_cat = $admin_exams->delete_exam_category($id);
         if($delete_exam_cat) {
-            $_SESSION['message_success'] = "Exam Category has been successfully deleted."; 
-            header('location:../admin_exam_cat.php');
+            $_SESSION['message_success'] = "Exam has been successfully deleted."; 
+            header('location:../admin_exams.php');
         }
         else {
-            $_SESSION['message_error'] = "Exam Category cannot be deleted. An error has occurred."; 
-            header('location:../admin_exam_cat.php');
+            $_SESSION['message_error'] = "Exam cannot be deleted. An error has occurred."; 
+            header('location:../admin_exams.php');
         }
     }
 ?>

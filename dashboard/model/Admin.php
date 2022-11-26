@@ -17,8 +17,8 @@
                 $filename,
                 $filename_files,
                 $date_created){
-            $check =  $this->isProgramIDExist($id);
-            if (!$check){
+            //$check =  $this->isProgramIDExist($member_id);
+            //if (!$check){
                 $sql1="INSERT INTO programs SET program_name='$program_name',member_id='$member_id',short_desc='$short_desc', 
                             with_exam='$with_exam', 
                             upload_image='$filename',
@@ -30,10 +30,10 @@
                 $sql2="INSERT INTO program_additioonal_info SET program_id='$last_id',program_uploaded_files='$filename_files'";
                 $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
                 return $result;
-            }
-            else{
-                return false;
-            }
+            // }
+            // else{
+            //     return false;
+            // }
 		}
 
         /*** Update new program ***/
@@ -73,7 +73,8 @@
     	public function get_all_program_list($member_id){
     		$sql3="SELECT * FROM programs a
                     LEFT JOIN program_additioonal_info b ON a.program_id = b.program_id
-                    WHERE a.member_id = '$member_id'";
+                    WHERE a.member_id = '$member_id'
+                    AND a.with_exam = '1'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
     	}
@@ -131,7 +132,7 @@
 	        return $user_data = mysqli_fetch_assoc($result);
     	}
 
-        /*** get program info by progtram id ***/
+        /*** get program info by program id ***/
         public function get_program_by_id($id){
             $sql3="SELECT * FROM programs a 
                 LEFT JOIN 	program_additioonal_info b ON b.program_id = a.program_id
@@ -146,7 +147,6 @@
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
-
 
         /*** for showing the fullname ***/
     	public function get_fullname($email_address){
@@ -439,6 +439,51 @@
         /*** get all enrolled students ***/
         public function get_all_students_count($member_id) {
             $sql="SELECT * FROM students WHERE member_id='$member_id' AND unenroll_student = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+         /*** get all enrolled students ***/
+         public function get_all_students_count_program_id($program_id) {
+            $sql="SELECT * FROM students WHERE program_id='$program_id' AND unenroll_student = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+        /*** get all program id from exam ***/
+        public function get_all_program_from_exam($id) {
+            $sql="SELECT * FROM exam WHERE program_id='$id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+        /*** get all students program id from exam ***/
+        public function get_all_students_program_id($id) {
+            $sql="SELECT * FROM students a
+                LEFT JOIN user_account b ON b.id = a.account_id
+                LEFT JOIN user_additional_information c ON c.member_id = b.member_id
+                WHERE program_id='$id'";
+	        $result = mysqli_query($this->db,$sql);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+        /*** get all students with not yet started ***/
+        public function get_all_students_not_started($id) {
+            $sql="SELECT * FROM students
+                WHERE program_id='$id'
+                AND exam_status = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+        /*** get all students with ongoing exam ***/
+        public function get_all_students_ongoing($id) {
+            $sql="SELECT * FROM students
+                WHERE program_id='$id'
+                AND exam_status = '1'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+        /*** get all students with completed exam ***/
+        public function get_all_students_completed($id) {
+            $sql="SELECT * FROM students
+                WHERE program_id='$id'
+                AND exam_status = '2'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
