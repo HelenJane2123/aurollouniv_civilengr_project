@@ -29,7 +29,21 @@
                         }
                         //Essay
                         else {
+                            $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
                     ?>
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <h1 class="h3 mb-2 text-gray-800">Welcome to Online Exam for <?php echo $_GET['program_name']?></h1>
+                                <p class="mb-4"><?php echo $get_exam_details['exam_description'] ?></p>
+                                <img src="uploads/program_images/<?php echo $get_exam_details['member_id']; ?>/<?php echo $get_exam_details['member_id']; ?>_<?php echo $get_exam_details['upload_image']; ?>" style="height:700px;">
+                                <div class="text-center">
+                                    <ul>
+                                        <li style="list-style:none; font-size: 25px"><strong>Question Type:</strong> Essay</li>
+                                    </ul>
+                                    <a class="btn btn-success" href="take_test.php?program_name=<?php echo $_GET['program_name']; ?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>">Start the exam</a>
+                                </div>
+                            </div>
+                        </div>
                     <?php
                         }
                     ?>

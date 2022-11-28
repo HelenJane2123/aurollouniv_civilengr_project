@@ -176,6 +176,12 @@
                     WHERE a.exam_id = '$exam_id'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $user_data = mysqli_fetch_assoc($result);
+        }
+        public function get_my_exam_essay($exam_id) {
+    		$sql3="SELECT * FROM exam_essay a
+                    WHERE a.exam_id = '$exam_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
 
         }
 		/*** unenroll student ***/
