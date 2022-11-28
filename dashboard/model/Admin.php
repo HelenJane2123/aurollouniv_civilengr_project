@@ -304,6 +304,31 @@
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
     	}
 
+
+        public function getQueByOrder_exam_details($exam_id){
+    		$sql3="SELECT * FROM exam_details a
+                    WHERE a.exam_id = '$exam_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function getQueByOrder_exam_details_answer($question_no,$exam_details_id){
+    		$sql3="SELECT * FROM exam_details_answer a
+                    WHERE a.question_no = '$question_no'
+                    AND a.exam_details_id = '$exam_details_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function getQueByOrder_correct_answer($question_no,$exam_details_id){
+    		$sql3="SELECT * FROM exam_details_answer a
+                    WHERE a.question_no = '$question_no'
+                    AND a.exam_details_id = '$exam_details_id'
+                    AND a.correct_answer = '1'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
         /*** Get all exams by ID ***/
     	public function get_all_exams_id($id){
     		$sql3="SELECT * FROM exam a
@@ -327,15 +352,48 @@
             return $result;
         }
         /*** Add new questions ***/
-        public function add_questions($exam_id,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
-            $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
-                        option_1 = '$option1_array',
-                        option_2 = '$option2_array',
-                        option_3 = '$option3_array',
-                        option_4 = '$option4_array',
-                        correct_answer = '$correct_answer_array',
-                        date_created='$date_created'";
-            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+        public function add_questions($exam_id,$question_no_array,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
+            $ans = array();
+            $ans[1] = $option1_array;
+            $ans[2] = $option2_array;
+            $ans[3] = $option3_array;
+            $ans[4] = $option4_array;
+            //Check if there is existing exam details for the selected exam id
+            // $check_questions_exst = $this->get_all_questions_by_exam_id($exam_id);
+            // if($check_questions_exst > 0) {
+            //     $this->delete_exam_details($exam_id);
+            // }
+            // else {
+                $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
+                question_no = '$question_no_array',
+                date_created='$date_created'";
+                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                $last_id = mysqli_insert_id($this->db);
+                if($result) {
+                    //Check if there is existing exam details answer for the selected exam id
+                    $check_questions_exst = $this->get_all_questions_detials_by_exam_id($exam_id);
+                    if($check_questions_exs > 0) {
+                        $this->delete_exam_details($exam_id);
+                        $this->delete_exam_details_answer($exam_id);
+                    }
+                    else {
+                        foreach ($ans as $key => $ansName) {
+                            if ($ansName != '') {
+                                if ($correct_answer_array == $key) {
+                                    $sql2="INSERT INTO exam_details_answer SET question_no='$question_no_array',exam_details_id='$last_id',answers='$ansName',
+                                    correct_answer = '1'";
+                                    $result_question = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
+                                }
+                                else {
+                                    $sql2="INSERT INTO exam_details_answer SET question_no='$question_no_array',exam_details_id='$last_id',answers='$ansName',
+                                    correct_answer = '0'";
+                                    $result_question = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
+                                }
+                            }
+                        }
+                    }
+                }
+            // }
             return $result;
         }
         /*** Update questions ***/
@@ -351,13 +409,34 @@
             return $result;
         }
         /*** Delete questions ***/
-        public function delete_exam($exam_id) {
+        public function delete_exam_details($exam_id) {
             //Delete all questions first
             $delete_exam = "DELETE FROM exam_details WHERE exam_id = $exam_id";
             $result_1 = mysqli_query($this->db,$delete_exam) or die(mysqli_connect_errno()."Data cannot be deleted");
         }
+
+        /*** Delete questions details ***/
+        public function delete_exam_details_answer($exam_id) {
+            //Delete all questions first
+            $delete_exam = "DELETE FROM exam_details_answers WHERE exam_id = $exam_id";
+            $result_1 = mysqli_query($this->db,$delete_exam) or die(mysqli_connect_errno()."Data cannot be deleted");
+        }
+
+        /*** Delete questions ***/
+        public function delete_exam($exam_id) {
+            //Delete all questions first
+            $delete_exam = "DELETE FROM exam WHERE exam_id = $exam_id";
+            $result_1 = mysqli_query($this->db,$delete_exam) or die(mysqli_connect_errno()."Data cannot be deleted");
+        }
+        
         public function get_all_questions_by_exam_id($exam_id) {
             $sql="SELECT * FROM exam_details WHERE exam_id='$exam_id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_all_questions_detials_by_exam_id($exam_id) {
+            $sql="SELECT * FROM exam_details_answer WHERE exam_details_id='$exam_id'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -377,10 +456,12 @@
 
         public function get_all_exam_details($exam_id) {
     		$sql3="SELECT * FROM exam_details a
+                    LEFT JOIN exam_details_answer b ON a.exam_details_id = b.exam_details_id
                     WHERE a.exam_id = '$exam_id'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
+        
         public function get_all_students_list($member_id) {
     		$sql3="SELECT * FROM students a
                     LEFT JOIN programs b on b.program_id = a.program_id

@@ -8,6 +8,12 @@
         $admin->user_logout();
         header("location:../dashboard/login.php");
     }
+
+    header("Cache-Control: no-store, no-cache, must-revalidate"); 
+    header("Cache-Control: pre-check=0, post-check=0, max-age=0"); 
+    header("Pragma: no-cache"); 
+    header("Expires: Mon, 6 Dec 1977 00:00:00 GMT"); 
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +50,9 @@
         <!-- Main Content -->
         <div id="content">
             <!-- notification message -->
-            <?php if (isset($_SESSION['success'])) : ?>
+            <?php
+                if (isset($_SESSION['success'])) {
+            ?>
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <?php 
@@ -52,8 +60,9 @@
                         unset($_SESSION['success']);
                     ?>
                 </div>
-            <?php endif ?>
-            <!-- Topbar -->
+            <?php
+                }
+            ?>
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -66,12 +75,15 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!-- logged in user information -->
-                            <?php 
-                                if (isset($_SESSION['email_address'])) : ?>
+                            <?php
+                                if (isset($_SESSION['email_address'])) : 
+                            ?>
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome, <strong><?php echo $admin->get_fullname($_SESSION['email_address']); ?> (<?php echo $admin->get_usertype($_SESSION['email_address']); ?>)</strong></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
-                            <?php endif ?>
+                            <?php
+                                endif 
+                            ?>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -109,7 +121,6 @@
                     </li>
 
                 </ul>
-
             </nav>
             <!-- End of Topbar -->
 

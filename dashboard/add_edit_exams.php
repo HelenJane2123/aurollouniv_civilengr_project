@@ -139,9 +139,12 @@
                                     <a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field"><i class="fa fa-plus"></i> Add Question</a>
                                 </div>
                                 <div class="card-body pt-0" id="field_wrapper">
-                                    <div class="question_form">
+                                    <div class="question_form_">
                                         <div class="form-group">
+                                            <input type="hidden" class="form-control" name="total_questions" id="total_questions" value="<?php echo $_GET['total_questions']?>">
                                             <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['id']?>">
+                                            <label for="first" class="text-bold">Enter Question No</label>
+                                            <input type="number" class="form-control" name="question_no[]">
                                             <label for="first" class="text-bold">Enter Question</label>
                                             <input type="text" class="form-control" name="question[]">
                                         </div>
@@ -153,8 +156,8 @@
                                             <input type="text" class="form-control" name="option_4[]" placeholder="Enter Choice 4">
                                         </div>
                                         <div class="form-group">
-                                            <label for="first" class="text-bold">Correct Answer</label>
-                                            <input type="text" class="form-control" name="correct_answer[]" placeholder="Enter the correct answer">
+                                            <label for="first" class="text-bold">Correct Answer <small>Note: Enter the correct answer based on the choices from 1-4</small></label>
+                                            <input type="number" class="form-control" name="correct_answer[]" placeholder="Enter the correct answer">
                                         </div>
                                     </div>
                                 </div>
@@ -225,25 +228,42 @@
                                 </div>
                                 <div class="card-body pt-0" id="field_wrapper_">
                                     <?php
-                                        $get_exam_details =  $admin->get_all_exam_details($_GET['id']);
+                                        $get_exam_details =  $admin->getQueByOrder_exam_details($_GET['id']);
                                         foreach($get_exam_details as $exam_details) {
                                     ?>
                                         <div class="question_form">
                                             <div class="form-group">
+                                                <input type="hidden" class="form-control" name="total_questions_update" id="total_questions" value="<?php echo $_GET['total_questions']?>">
                                                 <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['id']?>">
+                                                <label for="first" class="text-bold">Enter Question No</label>
+                                                <input type="number" class="form-control" name="question_no_update[]" value="<?php echo $exam_details['question_no'];?>">
                                                 <label for="first" class="text-bold">Enter Question</label>
                                                 <input type="text" class="form-control" name="question_update[]" value="<?php echo $exam_details['question'];?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="first" class="text-bold">Enter Choices</label>
-                                                <input type="text" class="form-control" name="option_1_update[]" value="<?php echo $exam_details['option_1'];?>">
-                                                <input type="text" class="form-control" name="option_2_update[]" value="<?php echo $exam_details['option_2'];?>">
-                                                <input type="text" class="form-control" name="option_3_update[]" value="<?php echo $exam_details['option_3'];?>">
-                                                <input type="text" class="form-control" name="option_4_update[]" value="<?php echo $exam_details['option_4'];?>">
+                                                <?php
+                                                    $number = $exam_details['question_no'];
+                                                    $get_question_ans =  $admin->getQueByOrder_exam_details_answer($exam_details['question_no'],$exam_details['exam_details_id']);
+                                                    $value = 1;
+                                                    foreach($get_question_ans as $question_ans) {
+                                                ?>
+                                                    <input type="text" class="form-control" name="option_<?php echo $value++?>[]" value="<?php echo $question_ans['answers'];?>">
+                                                <?php
+                                                    }
+                                                ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="first" class="text-bold">Correct Answer</label>
-                                                <input type="text" class="form-control" name="correct_answer_update[]" value="<?php echo $exam_details['correct_answer'];?>">
+                                                <?php
+                                                    $get_correct_ans = $admin->getQueByOrder_correct_answer($exam_details['question_no'],$exam_details['exam_details_id']);
+                                                    $ans = array();
+                                                    foreach($get_question_ans as $question_ans) {
+                                                ?>
+                                                    <input type="text" class="form-control" name="correct_answer_update[]" value="<?php echo $question_ans['correct_answer'];?>">
+                                                <?php
+                                                    }
+                                                ?>
                                             </div>
                                             <a href="javascript:void(0);" class="btn btn-danger remove_button_update"><i class="fa fa-minus"></i> Remove Question</a>
                                         </div>

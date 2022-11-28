@@ -1,5 +1,5 @@
 <?php
-include_once ("../lib/config.php");
+    include_once ("../lib/config.php");
 	class Student{
 		public $db;
 		public function __construct(){
@@ -170,6 +170,14 @@ include_once ("../lib/config.php");
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
+        public function get_my_exam_details($exam_id) {
+    		$sql3="SELECT * FROM exam a
+                    LEFT JOIN programs b ON b.program_id = a.program_id
+                    WHERE a.exam_id = '$exam_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
+
+        }
 		/*** unenroll student ***/
         public function unenroll_program($id) {
             $sql1="DELETE FROM students 
@@ -210,6 +218,71 @@ include_once ("../lib/config.php");
                 AND unenroll_student = '0'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
+        }
+
+        /*** get all questions ***/
+        public function getQuestion(){
+            $query = "SELECT * FROM exam_details";
+	        $result = mysqli_query($this->db,$query);
+	        return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        /*** get all questions by ques ***/
+        public function getQuesByNumber($id){
+            $query = "SELECT * FROM exam_details WHERE question_no ='$id'";
+	        $result = mysqli_query($this->db,$query);
+	        $user_data = mysqli_fetch_assoc($result);
+            return $user_data;
+        }
+        
+        /*** get all questions by ques ***/
+        public function getAnswer($id){
+            $query = "SELECT * FROM exam_details_answer WHERE question_no ='$id'";
+            $getData =  mysqli_query($this->db,$query);
+            return $getData;
+        }
+
+        public function processData($data){
+            $selectedAns            = $data['ans'];
+            $number                 = $data['number'];
+            $program_name           = $data['program_name'];
+            $question_id            = $data['question_id'];
+            $exam_cat               = $data['exam_cat'];
+            $exam_id                = $data['exam_id'];
+            $next                   = $number+1;
+    
+            if (!isset($_SESSION['score'])) {
+                $_SESSION['score'] = '0';
+            }
+    
+            $total = $this->getTotal();
+            $right = $this->rightAns($number);
+
+            if ($right == $selectedAns) {
+                $_SESSION['score']++;
+            }
+            if ($number == $total) {
+                header("Location:final.php");
+                exit();
+            }
+            else {
+                header("location:take_test.php?question_no=$number&program_name=$program_name&exam_cat=$exam_cat&exam_id=$exam_id");
+            }
+        }
+
+        private function getTotal(){
+            $query = "SELECT * FROM exam_details";
+            $check =  $this->db->query($query);
+            return $count_row = $check->num_rows;
+
+        }
+
+        public function rightAns($number) {
+            $query = "SELECT * FROM exam_details_answer WHERE question_no = '$number' AND correct_answer = '1'";
+            $result_ = mysqli_query($this->db,$query);
+            $question_id = mysqli_fetch_assoc($result_);
+            $result = $question_id['exam_details_ans_id'];
+            return $result;
         }
 	}
 ?>

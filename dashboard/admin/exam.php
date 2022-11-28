@@ -50,6 +50,7 @@
     if(isset($_POST['add_exam_question'])) {
         for($i=0;$i<count($_POST['question']);$i++){
             $exam_id                    = $_POST['exam_id'];
+            $question_no_array          = $_POST['question_no'][$i];
             $question_array             = $_POST['question'][$i];
             $option1_array              = $_POST['option_1'][$i];
             $option2_array              = $_POST['option_2'][$i];
@@ -61,7 +62,7 @@
             //print_r($question_array);
 
             if($question_array!=='' ) {
-                $add_questions = $admin_exams->add_questions($exam_id,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created);
+                $add_questions = $admin_exams->add_questions($exam_id,$question_no_array,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created);
                 if($add_questions) {
                     /*Successful*/
                     $_SESSION['message_success'] = "New exam has been successfully added."; 
@@ -100,7 +101,7 @@
         $exam_id                    = $_POST['exam_id'];
         $check_if_exists =  $admin_exams->get_all_questions_by_exam_id($exam_id);
         if($check_if_exists > 0) {
-            $delete_existing_exam = $admin_exams->delete_exam($exam_id);
+            $delete_existing_exam = $admin_exams->delete_exam_details($exam_id);
             for($i=0;$i<count($_POST['question_update']);$i++){
                 $exam_id_                   = $_POST['exam_id'];
                 $question_array             = $_POST['question_update'][$i];
@@ -131,8 +132,8 @@
     //Delete function
     else {
         $id = $_GET['id'];
-        $delete_exam_cat = $admin_exams->delete_exam_category($id);
-        if($delete_exam_cat) {
+        $delete_exam = $admin_exams->delete_exam($id);
+        if($delete_exam) {
             $_SESSION['message_success'] = "Exam has been successfully deleted."; 
             header('location:../admin_exams.php');
         }

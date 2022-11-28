@@ -81,42 +81,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Addons
-            </div> -->
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Settings</span>
-                </a>
-                <?php if (($admin->get_usertype($_SESSION['email_address'])) === 'Student') { ?>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Forgot Password</h6>
-                            <a class="collapse-item" href="../forgot-password.php">Change Password</a>
-                        </div>
-                    </div>
-                <?php } else { ?>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Forgot Password</h6>
-                            <a class="collapse-item" href="login.html">Change Password</a>
-                            <h6 class="collapse-header">Reports</h6>
-                            <a class="collapse-item" href="login.html">Report 1</a>
-                            <a class="collapse-item" href="login.html">Report 2</a>
-                            <a class="collapse-item" href="login.html">Report 3</a>
-                        </div>
-                    </div>
-                <?php }  ?>
-            </li> -->
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider d-none d-md-block"> -->
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
