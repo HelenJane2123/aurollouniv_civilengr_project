@@ -197,7 +197,7 @@
         public function get_all_students_not_started($id) {
             $sql="SELECT * FROM students
                 WHERE student_member_id='$id'
-                AND exam_status = '2'";
+                AND stud_exam_status = '2'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -205,7 +205,7 @@
         public function get_all_students_ongoing($id) {
             $sql="SELECT * FROM students
                 WHERE student_member_id='$id'
-                AND exam_status = '1'";
+                AND stud_exam_status = '1'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -213,7 +213,7 @@
         public function get_all_students_completed($id) {
             $sql="SELECT * FROM students
                 WHERE student_member_id='$id'
-                AND exam_status = '2'";
+                AND stud_exam_status = '2'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -305,7 +305,7 @@
 
 		/*** update student exams ***/
         public function update_student_exam($score,$score_status,$student_id,$date_modified) {
-            $sql1="UPDATE students SET exam_status=2,exam_score='$score', 
+            $sql1="UPDATE students SET stud_exam_status=2,exam_score='$score', 
                             score_status='$score_status', 
                             date_modified='$date_modified'
                     WHERE student_id = '$student_id' AND unenroll_student=0";
