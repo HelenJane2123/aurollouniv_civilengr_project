@@ -196,7 +196,7 @@
         public function get_all_students_not_started($id) {
             $sql="SELECT * FROM students
                 WHERE student_member_id='$id'
-                AND exam_status = '0'";
+                AND exam_status = '2'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -255,6 +255,7 @@
             $question_id            = $data['question_id'];
             $exam_cat               = $data['exam_cat'];
             $exam_id                = $data['exam_id'];
+            $student_id             = $data['student_id'];
             $next                   = $number+1;
     
             if (!isset($_SESSION['score'])) {
@@ -268,11 +269,11 @@
                 $_SESSION['score']++;
             }
             if ($number == $total) {
-                header("Location:final.php");
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
                 exit();
             }
             else {
-                header("location:take_test.php?question_no=$number&program_name=$program_name&exam_cat=$exam_cat&exam_id=$exam_id");
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?question_no=' .$next.'&program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
             }
         }
 
@@ -289,6 +290,30 @@
             $question_id = mysqli_fetch_assoc($result_);
             $result = $question_id['exam_details_ans_id'];
             return $result;
+        }
+
+        public function getQueByOrder($exam_id){
+            $query = "SELECT * FROM exam_details WHERE exam_id ='$exam_id'";
+            $getData =  mysqli_query($this->db,$query);
+            return $getData;
+        }
+
+		/*** update student exams ***/
+        public function update_student_exam($score,$score_status,$student_id,$date_modified) {
+            $sql1="UPDATE students SET exam_status=2,exam_score='$score', 
+                            score_status='$score_status', 
+                            date_modified='$date_modified'
+                    WHERE student_id = '$student_id' AND unenroll_student=0";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
+
+        public function get_my_score($account_id) {
+    		$sql3="SELECT * FROM students a
+                    WHERE a.student_id = '$account_id'
+                    AND unenroll_student = '0'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_assoc($result);
         }
 	}
 ?>

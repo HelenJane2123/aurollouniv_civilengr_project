@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    ob_start();
     require_once ('model/Admin.php');
     require_once ('model/Student.php');
     $admin = new Admin();

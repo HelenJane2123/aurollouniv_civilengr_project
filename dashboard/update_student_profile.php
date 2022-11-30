@@ -22,7 +22,7 @@
                                 <p class="mb-0"><strong class="pr-1">Class:</strong><input type="text" class="form-control" name="class" value="<?php echo $get_profile_info['class'];?>"></p>
                                 <p class="mb-0"><strong class="pr-1">Section:</strong><input type="text" class="form-control" name="section" value="<?php echo $get_profile_info['section'];?>"></p>
                                 <br/>
-                                <a class="btn btn-primary" href="admin_profile.php">Back to  Profile</a>
+                                <a class="btn btn-primary" href="student_profile.php">Back to  Profile</a>
                             </div>
                         </div>
                     </div>

@@ -38,7 +38,7 @@
                                         <select name="program_id" class="form-control" class="exam_cat">
                                             <option value="">Select Program</option>
                                             <?php 
-                                                $get_program =  $admin->get_all_program_list($get_profile_info['member_id']);
+                                                $get_program =  $admin->get_all_program_list_exam($get_profile_info['member_id']);
                                                 foreach($get_program as $program) {
                                             ?>
                                                 <option value="<?php echo $program['program_id']?>"><?php echo $program['program_name']?></option>

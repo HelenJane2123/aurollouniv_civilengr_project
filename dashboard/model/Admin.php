@@ -73,6 +73,15 @@
     	public function get_all_program_list($member_id){
     		$sql3="SELECT * FROM programs a
                     LEFT JOIN program_additioonal_info b ON a.program_id = b.program_id
+                    WHERE a.member_id = '$member_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+    	}
+
+        /*** for showing the List of Programs with exams ***/
+    	public function get_all_program_list_exam($member_id){
+    		$sql3="SELECT * FROM programs a
+                    LEFT JOIN program_additioonal_info b ON a.program_id = b.program_id
                     WHERE a.member_id = '$member_id'
                     AND a.with_exam = '1'";
 	        $result = mysqli_query($this->db,$sql3);

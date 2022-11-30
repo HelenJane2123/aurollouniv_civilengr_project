@@ -48,7 +48,7 @@
                                 <td>
                                     <li class="list-inline-item">
                                         <a class="btn btn-primary btn-sm rounded-0" href="enroll_program.php?action=view_program&id=<?php echo $programs['program_id']?>&program_name=<?php echo $programs['program_name']?>"><i class="fa fa-eye"></i></a>
-                                        <a class="btn btn-danger btn-sm rounded-0" href="student/enroll_program.php?id=<?php echo $programs['student_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>
+                                        <a class="btn btn-danger btn-sm rounded-0" href="student/enroll_program.php?id=<?php echo $programs['student_id']?>"><i class="fa fa-trash"></i> Unenroll Program</a>
                                     </li>
                                 </td>
                             </tr>

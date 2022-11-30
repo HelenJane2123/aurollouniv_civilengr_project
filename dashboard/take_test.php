@@ -16,6 +16,7 @@
                             }
                             $question = $student->getQuesByNumber($number);
                             $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
+                            
                             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $process = $student->processData($_POST);
                             }
@@ -26,7 +27,7 @@
                                 <h1 class="h3 mb-2 text-gray-800">Welcome to Online Exam for <?php echo $_GET['program_name']?></h1>
                                 <div class="text-center">
                                     <h3>Question <?php echo $question['question_no']; ?> of <?php echo $get_exam_details['total_questions']; ?></h3>
-                                    <form method="post" action="">
+                                    <form method="POST" action="">
                                         <table  class="table"> 
                                             <tr>
                                                 <td colspan="2">
@@ -34,6 +35,7 @@
                                                     <input type="hidden" name="program_name" value="<?php echo $_GET['program_name']?>">
                                                     <input type="hidden" name="exam_cat" value="<?php echo $_GET['exam_cat']?>">
                                                     <input type="hidden" name="exam_id" value="<?php echo $_GET['exam_id']?>">
+                                                    <input type="hidden" name="student_id" value="<?php echo $_GET['student_id']?>">
 
                                                     <h3>Question <?php echo $question['question_no']; ?>: <?php echo $question['question']; ?></h3>
                                                 </td>
@@ -54,7 +56,7 @@
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <input type="submit" name="submit" value="Next Question"/>
+                                                    <input type="submit" class="btn btn-primary" name="submit_test" value="Next Question"/>
                                                     <input type="hidden" name="number" value="<?php echo $number; ?>" />
                                                 </td>
                                             </tr>

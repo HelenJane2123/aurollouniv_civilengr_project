@@ -62,7 +62,7 @@
                                 <td><?php echo $students['program_name'] ?></td>
                                 <td>
                                     <?php
-                                        if($students['with_exam'] == 0) {
+                                        if($students['with_exam'] == 2) {
                                     ?>
                                         <span class="badge badge-secondary">No exam linked</span>
                                     <?php
@@ -84,7 +84,12 @@
                                             }
                                             else if($students['exam_status'] == '1') {
                                     ?>
-                                                <span class="badge badge-success">Started</span>
+                                                <span class="badge badge-info">Started</span>
+                                    <?php
+                                            }
+                                            else if($students['exam_status'] == '2') {
+                                    ?>
+                                            <span class="badge badge-success">Completed</span>
                                     <?php
                                             }
                                         }

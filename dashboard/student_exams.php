@@ -56,13 +56,15 @@
                                     ?>
                                 </td>
                                 <td>
-                                    0
+                                    <?php 
+                                        echo $programs['exam_score'];
+                                    ?>
                                 </td>
                                 <td>
                                     <?php
                                         if($programs['exam_id'] != '') {
                                     ?>
-                                        <a class="btn btn-success" target="_blank" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>">Take Exam</a>
+                                        <a class="btn btn-success" target="_blank" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
                                         <a class="btn btn-primary" href="view_exam_details.php?program_id=<?php echo $programs['program_id']?>">View Exam Details</a>
                                     <?php
                                         }
