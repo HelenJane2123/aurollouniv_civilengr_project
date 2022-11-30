@@ -77,17 +77,17 @@
                                 <td>
                                     <?php
                                         if($students['with_exam'] != 0) {
-                                            if($students['exam_status'] == 0) {
+                                            if($students['stud_exam_status'] == 0) {
                                     ?>
                                                 <span class="badge badge-secondary">Not yet Started</span>
                                     <?php
                                             }
-                                            else if($students['exam_status'] == '1') {
+                                            else if($students['stud_exam_status'] == '1') {
                                     ?>
                                                 <span class="badge badge-info">Started</span>
                                     <?php
                                             }
-                                            else if($students['exam_status'] == '2') {
+                                            else if($students['stud_exam_status'] == '2') {
                                     ?>
                                             <span class="badge badge-success">Completed</span>
                                     <?php

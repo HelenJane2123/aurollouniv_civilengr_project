@@ -164,14 +164,16 @@
             <!-- Illustrations -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">What is Lorem Ipsum?</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Web Reviewer for Araullians Program (WRAP)</h6>
                 </div>
                 <div class="card-body">
                     <div class="text-center">
                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
                             src="img/undraw_posting_photo.svg" alt="...">
                     </div>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p>Web Reviewer for Araullians Program (WRAP) is a web-based review platform for Civil Engineering students of the College of Information Technology and Engineering (CITE) of the PHINMA-Araullo University aiming to take the Civil Engineering Licensure Examination after graduation.</p>
+                    <p>Starting as a thesis project of selected graduating BS Information Technology students, WRAP has integrated the PHINMA instructional design and pedagogical concepts to ensure optimum learning and to keep the students abreast with all latest knowledge, trends, and challenges in the industry. It currently covers the three subject areas included in the Civil Engineering Licensure Examination, namely: Surveying, Mathematics, and Transportation Engineering; Hydraulics and Geotechnical Engineering; and the Construction and Structural Engineering.</p>
+                    <p>WRAP is geared towards future expansion, with its core concept and design made flexible to accommodate other tertiary education programs with board examinations.</p>
                 </div>
             </div>
 

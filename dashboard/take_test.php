@@ -36,12 +36,13 @@
                                                     <input type="hidden" name="exam_cat" value="<?php echo $_GET['exam_cat']?>">
                                                     <input type="hidden" name="exam_id" value="<?php echo $_GET['exam_id']?>">
                                                     <input type="hidden" name="student_id" value="<?php echo $_GET['student_id']?>">
+                                                    <input type="hidden" name="exam_details_id" value="<?php echo $_GET['exam_details_id']?>">
 
                                                     <h3>Question <?php echo $question['question_no']; ?>: <?php echo $question['question']; ?></h3>
                                                 </td>
                                             </tr>
                                             <?php
-                                                $answer = $student->getAnswer($number);
+                                                $answer = $student->getAnswer($number,$_GET['exam_id']);
                                                 if ($answer) {
                                                     while ($result = $answer->fetch_assoc()) {
                                             ?>

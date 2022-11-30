@@ -318,14 +318,19 @@
                                                 <td><?php echo $students['academic_year'] ?></td>
                                                 <td>
                                                     <?php
-                                                        if($students['exam_status'] == 0) {
+                                                        if($students['stud_exam_status'] == 0) {
                                                     ?>
-                                                            <span class="badge badge-secondary">Not yet Started</span>
+                                                        <h5><span class="badge badge-secondary">Not yet started</span></h5>
                                                     <?php
                                                         }
-                                                        else if($students['exam_status'] == '1') {
+                                                        elseif($students['stud_exam_status'] == 1) {
                                                     ?>
-                                                            <span class="badge badge-success">Started</span>
+                                                        <h5><span class="badge badge-warning">Ongoing</span></h5>
+                                                    <?php
+                                                        }
+                                                        elseif($students['stud_exam_status'] == 2) { 
+                                                    ?>
+                                                        <h5><span class="badge badge-success">Completed</span></h5>
                                                     <?php
                                                         }
                                                     ?>

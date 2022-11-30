@@ -189,14 +189,19 @@
                                                             <td width="2%">:</td>
                                                             <td>
                                                                 <?php
-                                                                    if($get_student_profile['exam_status'] == 0) {
+                                                                    if($get_student_profile['stud_exam_status'] == 0) {
                                                                 ?>
-                                                                    <span class="badge badge-secondary">Not yet Started</span>
+                                                                    <h5><span class="badge badge-secondary">Not yet started</span></h5>
                                                                 <?php
                                                                     }
-                                                                    else if($get_student_profile['exam_status'] == '1') {
+                                                                    elseif($get_student_profile['stud_exam_status'] == 1) {
                                                                 ?>
-                                                                    <span class="badge badge-success">Started</span>
+                                                                    <h5><span class="badge badge-warning">Ongoing</span></h5>
+                                                                <?php
+                                                                    }
+                                                                    elseif($get_student_profile['stud_exam_status'] == 2) { 
+                                                                ?>
+                                                                    <h5><span class="badge badge-success">Completed</span></h5>
                                                                 <?php
                                                                     }
                                                                 ?>

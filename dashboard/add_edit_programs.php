@@ -250,9 +250,6 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <div class="form-group">
-                                        <input class="btn btn-primary pull-right" type="Submit" name="edit_program">
-                                    </div>
                                 </div>
                             </div>
                         </form>

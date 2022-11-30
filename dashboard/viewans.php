@@ -31,7 +31,7 @@
                                                     </tr>
                                                     <?php 
                                                         $number = $question['question_no'];
-                                                        $answer = $student->getAnswer($number);
+                                                        $answer = $student->getAnswer($number,$_GET['exam_id']);
                                                         if ($answer) {
                                                             while ($result = $answer->fetch_assoc()) {
                                                     ?>

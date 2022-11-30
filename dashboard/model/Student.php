@@ -173,6 +173,7 @@
         public function get_my_exam_details($exam_id) {
     		$sql3="SELECT * FROM exam a
                     LEFT JOIN programs b ON b.program_id = a.program_id
+                    LEFT JOIN exam_details c ON c.exam_id = a.exam_id
                     WHERE a.exam_id = '$exam_id'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $user_data = mysqli_fetch_assoc($result);
@@ -242,8 +243,10 @@
         }
         
         /*** get all questions by ques ***/
-        public function getAnswer($id){
-            $query = "SELECT * FROM exam_details_answer WHERE question_no ='$id'";
+        public function getAnswer($id, $exam_id){
+            $query = "SELECT * FROM exam_details_answer a
+                    LEFT JOIN exam_details b ON a.exam_details_id = b.exam_details_id
+                WHERE a.question_no ='$id' AND b.exam_id='$exam_id'";
             $getData =  mysqli_query($this->db,$query);
             return $getData;
         }
@@ -255,14 +258,16 @@
             $question_id            = $data['question_id'];
             $exam_cat               = $data['exam_cat'];
             $exam_id                = $data['exam_id'];
+            $exam_details_id        = $data['exam_details_id'];
             $student_id             = $data['student_id'];
             $next                   = $number+1;
+            $next_                  = $exam_id+1;
     
             if (!isset($_SESSION['score'])) {
                 $_SESSION['score'] = '0';
             }
     
-            $total = $this->getTotal();
+            $total = $this->getTotal($exam_id);
             $right = $this->rightAns($number);
 
             if ($right == $selectedAns) {
@@ -273,12 +278,12 @@
                 exit();
             }
             else {
-                header('Location: ' . $_SERVER['PHP_SELF'] . '?question_no=' .$next.'&program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?exam_details_id=' .$next_.'&question_no=' .$next.'&program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
             }
         }
 
-        private function getTotal(){
-            $query = "SELECT * FROM exam_details";
+        private function getTotal($exam_id){
+            $query = "SELECT * FROM exam_details WHERE exam_id = '$exam_id'";
             $check =  $this->db->query($query);
             return $count_row = $check->num_rows;
 
@@ -315,5 +320,15 @@
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_assoc($result);
         }
+
+        /*** get program by id ***/
+        public function get_exam_details_by_student_id($student_id){
+            $sql3="SELECT * FROM students a 
+                LEFT JOIN programs c on c.program_id = a.program_id
+                WHERE a.student_id = '$student_id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+        
 	}
 ?>

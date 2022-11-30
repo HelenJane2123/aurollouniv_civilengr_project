@@ -124,15 +124,6 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <div class="form-group">
-                                    <?php
-                                        if ($get_program['with_exam'] == '1') {
-                                    ?>
-                                        <a class="btn btn-primary" href="take_exam.php?action=view_program&id=<?php echo $programs['program_id']?>&program_name=<?php echo $programs['program_name']?>">Take Exam</a>
-                                    <?php
-                                        }
-                                    ?>
-                                </div>
                             </div>
                         </div>
                     <?php

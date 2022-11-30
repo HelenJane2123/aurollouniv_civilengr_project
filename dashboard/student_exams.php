@@ -11,7 +11,7 @@
                     <thead>
                         <tr>
                             <th>Program</th>
-                            <th>Exam</th>
+                            <th width="70%">Exam Description</th>
                             <th>Status</th>
                             <th>My Score</th>
                             <th>Action</th>
@@ -20,7 +20,7 @@
                     <tfoot>
                         <tr>
                             <th>Program</th>
-                            <th>Exam</th>
+                            <th width="70%">Exam Description</th>
                             <th>Status</th>
                             <th>My Score</th>
                             <th>Action</th>
@@ -38,17 +38,17 @@
                                 <td><?php echo $programs['exam_description'] ?></td>
                                 <td>
                                     <?php
-                                        if($programs['exam_status'] == 0) {
+                                        if($programs['stud_exam_status'] == 0) {
                                     ?>
-                                        <h5><span class="badge badge-secondary">N/A</span></h5>
+                                        <h5><span class="badge badge-secondary">Not yet started</span></h5>
                                     <?php
                                         }
-                                        elseif($programs['exam_status'] == 1) {
+                                        elseif($programs['stud_exam_status'] == 1) {
                                     ?>
                                         <h5><span class="badge badge-warning">Ongoing</span></h5>
                                     <?php
                                         }
-                                        elseif($programs['exam_status'] == 2) { 
+                                        elseif($programs['stud_exam_status'] == 2) { 
                                     ?>
                                         <h5><span class="badge badge-success">Completed</span></h5>
                                     <?php
@@ -65,7 +65,7 @@
                                         if($programs['exam_id'] != '') {
                                     ?>
                                         <a class="btn btn-success" target="_blank" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
-                                        <a class="btn btn-primary" href="view_exam_details.php?program_id=<?php echo $programs['program_id']?>">View Exam Details</a>
+                                        <a class="btn btn-primary" href="view_exam_details.php?program_id=<?php echo $programs['program_id']?>&student_id=<?php echo $programs['student_id']?>&exam_cat=<?php echo $programs['exam_category_id']?>">View Exam</a>
                                     <?php
                                         }
                                     ?>

@@ -19,7 +19,7 @@
                 $date_created){
             //$check =  $this->isProgramIDExist($member_id);
             //if (!$check){
-                $sql1="INSERT INTO programs SET program_name='$program_name',member_id='$member_id',short_desc='$short_desc', 
+                $sql1="INSERT INTO programs SET program_name='$program_name',member_id='$member_id',short_desc='".mysqli_real_escape_string($this->db,$short_desc)."', 
                             with_exam='$with_exam', 
                             upload_image='$filename',
                             date_created='$date_created'";
@@ -288,7 +288,7 @@
         public function add_exams($member_id,$program_id,$exam_category_id,$exam_description,$duration,$total_questions,$status,$date_created) {
             $sql1="INSERT INTO exam SET member_id='$member_id',exam_category_id='$exam_category_id', 
                         program_id='$program_id',
-                        exam_description = '$exam_description',
+                        exam_description = '".mysqli_real_escape_string($this->db,$exam_description)."',
                         duration = '$duration',
                         total_questions = '$total_questions',
                         exam_status = '$status',
@@ -557,7 +557,7 @@
         public function get_all_students_not_started($id) {
             $sql="SELECT * FROM students
                 WHERE program_id='$id'
-                AND exam_status = '0'";
+                AND stud_exam_status = '0'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -565,7 +565,7 @@
         public function get_all_students_ongoing($id) {
             $sql="SELECT * FROM students
                 WHERE program_id='$id'
-                AND exam_status = '1'";
+                AND stud_exam_status = '1'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -573,7 +573,7 @@
         public function get_all_students_completed($id) {
             $sql="SELECT * FROM students
                 WHERE program_id='$id'
-                AND exam_status = '2'";
+                AND stud_exam_status = '2'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
