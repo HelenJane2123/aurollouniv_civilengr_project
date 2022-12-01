@@ -14,7 +14,7 @@
                             else{
                                 header("Location:take_exam.php");
                             }
-                            $question = $student->getQuesByNumber($number);
+                            $question = $student->getQuesByNumber($number,$_GET['exam_id']);
                             $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
                             
                             if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -57,7 +57,7 @@
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <input type="submit" class="btn btn-primary" name="submit_test" value="Next Question"/>
+                                                    <input type="submit" class="btn btn-primary" name="submit" value="Next Question"/>
                                                     <input type="hidden" name="number" value="<?php echo $number; ?>" />
                                                 </td>
                                             </tr>

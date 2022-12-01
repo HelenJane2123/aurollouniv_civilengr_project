@@ -228,15 +228,17 @@
         }
 
         /*** get all questions ***/
-        public function getQuestion(){
-            $query = "SELECT * FROM exam_details";
+        public function getQuestion($exam_id){
+            $query = "SELECT * FROM exam_details
+                    WHERE exam_id = '$exam_id'";
 	        $result = mysqli_query($this->db,$query);
 	        return $user_data = mysqli_fetch_assoc($result);
         }
 
         /*** get all questions by ques ***/
-        public function getQuesByNumber($id){
-            $query = "SELECT * FROM exam_details WHERE question_no ='$id'";
+        public function getQuesByNumber($id, $exam_id){
+            $query = "SELECT * FROM exam_details WHERE question_no ='$id'
+                    AND exam_id = '$exam_id'";
 	        $result = mysqli_query($this->db,$query);
 	        $user_data = mysqli_fetch_assoc($result);
             return $user_data;
@@ -261,20 +263,20 @@
             $exam_details_id        = $data['exam_details_id'];
             $student_id             = $data['student_id'];
             $next                   = $number+1;
-            $next_                  = $exam_id+1;
+            $next_                  = $exam_details_id+1;
     
             if (!isset($_SESSION['score'])) {
                 $_SESSION['score'] = '0';
             }
     
             $total = $this->getTotal($exam_id);
-            $right = $this->rightAns($number);
+            $right = $this->rightAns($number,$exam_details_id);
 
             if ($right == $selectedAns) {
-                $_SESSION['score']++;
+                $_SESSION['score'] = $_SESSION['score'] + 1;
             }
             if ($number == $total) {
-                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id.'&score='.$_SESSION['score']);
                 exit();
             }
             else {
@@ -289,8 +291,13 @@
 
         }
 
-        public function rightAns($number) {
-            $query = "SELECT * FROM exam_details_answer WHERE question_no = '$number' AND correct_answer = '1'";
+        public function rightAns($number,$exam_details_id) {
+            $query = "SELECT * FROM exam_details_answer a 
+                -- LEFT JOIN exam_details b ON b.exam_details_id = a.exam_details_id
+                WHERE a.question_no = '$number' 
+                AND a.exam_details_id = '$exam_details_id'
+                AND a.correct_answer = '1'
+                GROUP BY a.question_no";
             $result_ = mysqli_query($this->db,$query);
             $question_id = mysqli_fetch_assoc($result_);
             $result = $question_id['exam_details_ans_id'];

@@ -8,7 +8,7 @@
                     <?php
                         //Multiple Choice
                         if($_GET['exam_cat'] == '2') {
-                        $question = $student->getQuestion();
+                        $question = $student->getQuestion($_GET['exam_id']);
                         $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
                     ?>
                         <div class="card shadow mb-4">
@@ -21,7 +21,7 @@
                                         <li style="list-style:none; font-size: 25px"><strong>Number of Questions:</strong> <?php echo $get_exam_details['total_questions'] ?></li>
                                         <li style="list-style:none; font-size: 25px"><strong>Question Type:</strong> Multiple Choice</li>
                                     </ul>
-                                    <a class="btn btn-success" target="_blank" href="take_test.php?exam_details_id=<?php echo $question['exam_details_id']; ?>&question_no=<?php echo $question['question_no']; ?>&program_name=<?php echo $_GET['program_name']; ?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>&student_id=<?php echo $_GET['student_id']?>">Start the exam</a>
+                                    <a class="btn btn-success" target="_blank" href="take_test.php?exam_details_id=<?php echo $get_exam_details['exam_details_id']; ?>&question_no=<?php echo $question['question_no']; ?>&program_name=<?php echo $_GET['program_name']; ?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>&student_id=<?php echo $_GET['student_id']?>">Start the exam</a>
                                 </div>
                             </div>
                         </div>
