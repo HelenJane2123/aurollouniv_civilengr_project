@@ -78,7 +78,7 @@
                                         //Multiple Choice
                                         if($programs['exam_category_id'] == 2) {
                                             echo $score = $programs['exam_score'];
-                                            if(($score >= 25 && $score < 60) || ($score == 0)) {
+                                            if(($score >= 25 && $score < 60) || ($score == 0 && $programs['stud_exam_status'] == '2')) {
                                     ?>
                                                 <h5><span class="badge badge-danger">Failed</span></h5>
                                     <?php

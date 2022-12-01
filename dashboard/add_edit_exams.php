@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="first" class="text-bold">Duration:</label>
-                                            <input type="number" class="form-control" name="duration" placeholder="Enter exam duration">
+                                            <input type="number" class="form-control" name="duration" placeholder="Enter exam duration in minutes">
                                         </div>
                                         <div class="form-group">
                                             <label for="first" class="text-bold">Total Questions</label>
