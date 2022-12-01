@@ -373,9 +373,9 @@
             //     $this->delete_exam_details($exam_id);
             // }
             // else {
-                $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
-                question_no = '$question_no_array',
-                date_created='$date_created'";
+                $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='".mysqli_real_escape_string($this->db,$question_array)."',
+                    question_no = '$question_no_array',
+                    date_created='$date_created'";
                 $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
                 $last_id = mysqli_insert_id($this->db);
                 if($result) {
@@ -407,7 +407,7 @@
         }
         /*** Update questions ***/
         public function update_questions($exam_id,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
-            $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='$question_array',
+            $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='".mysqli_real_escape_string($this->db,$question_array)."',
                 option_1 = '$option1_array',
                 option_2 = '$option2_array',
                 option_3 = '$option3_array',

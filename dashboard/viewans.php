@@ -61,7 +61,10 @@
                                             <?php
                                                 //score computation
                                                 $score = ($_GET['score']/$get_exam_details['total_questions']) * 100;
-                                                if($score >= 25 && $score < 60) {
+                                                if($score == 0) {
+                                                    $score_status = 'Failed';
+                                                }
+                                                elseif($score >= 25 && $score < 60) {
                                                     $score_status = 'Failed';
                                                 }
                                                 else if($score >= 60 && $score < 80) {
