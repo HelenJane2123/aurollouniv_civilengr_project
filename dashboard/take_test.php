@@ -48,7 +48,7 @@
                                             ?>
                                                 <tr>
                                                     <td>
-                                                        <input type="radio" name="ans" value="<?php echo $result['exam_details_ans_id']; ?>" /> <?php echo $result['answers']; ?>
+                                                        <input type="radio" name="ans" value="<?php echo $result['exam_details_id']; ?>" /> <?php echo $result['answers']; ?>
                                                     </td>
                                                 </tr>
                                             <?php

@@ -270,10 +270,10 @@
             }
     
             $total = $this->getTotal($exam_id);
-            $right = $this->rightAns($number,$exam_details_id);
+            $right = $this->rightAns($number,$exam_id);
 
             if ($right == $selectedAns) {
-                $_SESSION['score'] = $_SESSION['score'] + 1;
+                $_SESSION['score']++;
             }
             if ($number == $total) {
                 header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id.'&score='.$_SESSION['score']);
@@ -291,16 +291,14 @@
 
         }
 
-        public function rightAns($number,$exam_details_id) {
+        public function rightAns($number,$exam_id) {
             $query = "SELECT * FROM exam_details_answer a 
-                -- LEFT JOIN exam_details b ON b.exam_details_id = a.exam_details_id
                 WHERE a.question_no = '$number' 
-                AND a.exam_details_id = '$exam_details_id'
                 AND a.correct_answer = '1'
                 GROUP BY a.question_no";
             $result_ = mysqli_query($this->db,$query);
             $question_id = mysqli_fetch_assoc($result_);
-            $result = $question_id['exam_details_ans_id'];
+            $result = $question_id['exam_details_id'];
             return $result;
         }
 
