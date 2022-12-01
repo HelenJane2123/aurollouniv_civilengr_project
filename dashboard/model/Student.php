@@ -143,7 +143,7 @@
             $sql1="INSERT INTO students SET account_id='$account_id',member_id='$get_program_member_id',
                 student_member_id = '$student_member_id',
                 program_id = '$program_id',
-                exam_status = '0',
+                stud_exam_status = '0',
                 date_modified='$date_modified'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
             return $result;

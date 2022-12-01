@@ -500,7 +500,7 @@
             $sql1="INSERT INTO students SET account_id='$student_id',member_id='$member_id',
                 student_member_id = '$get_student_member_id',
                 program_id = '$program_id',
-                exam_status = '0',
+                stud_exam_status = '0',
                 date_modified='$date_modified'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
             return $result;
