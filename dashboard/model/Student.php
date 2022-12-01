@@ -178,6 +178,7 @@
 	        $result = mysqli_query($this->db,$sql3);
 	        return $user_data = mysqli_fetch_assoc($result);
         }
+
         public function get_my_exam_essay($exam_id) {
     		$sql3="SELECT * FROM exam_essay a
                     WHERE a.exam_id = '$exam_id'";
@@ -197,7 +198,7 @@
         public function get_all_students_not_started($id) {
             $sql="SELECT * FROM students
                 WHERE student_member_id='$id'
-                AND stud_exam_status = '2'";
+                AND stud_exam_status = '0'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
         }
@@ -253,6 +254,7 @@
             return $getData;
         }
 
+        /*** process multiple choice answers ***/
         public function processData($data){
             $selectedAns            = $data['ans'];
             $number                 = $data['number'];
@@ -264,19 +266,21 @@
             $student_id             = $data['student_id'];
             $next                   = $number+1;
             $next_                  = $exam_details_id+1;
-    
-            if (!isset($_SESSION['score'])) {
-                $_SESSION['score'] = '0';
-            }
-    
-            $total = $this->getTotal($exam_id);
-            $right = $this->rightAns($number,$exam_id);
 
-            if ($right == $selectedAns) {
-                $_SESSION['score']++;
+            $total = $this->getTotal($exam_id);
+            $right = $this->rightAns($number,$exam_details_id);
+
+            for($i=0;$i<count($data['ans']);$i++){
+                $exam_id                    = $data['exam_id'];
+                $student_id                 = $data['student_id'];
+                $exam_details_ans_id        = $data['exam_details_ans_id'][$i];
+                $user_answer                = $data['ans'][$i];
+
+                $this->save_student_answers($exam_id,$student_id,$exam_details_ans_id,$user_answer);
             }
+    
             if ($number == $total) {
-                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id.'&score='.$_SESSION['score']);
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
                 exit();
             }
             else {
@@ -284,16 +288,36 @@
             }
         }
 
+        /*** process essay answers ***/
+        public function processEssayData($data){
+            $exam_id                = $data['exam_id'];
+            $student_id             = $data['student_id'];
+            $exam_essay_id          = $data['exam_essay_id'];
+            $student_answer         = $data['student_answer'];
+
+            $essay_answer = $this->save_student_essay_answer($exam_id,$student_id,$exam_essay_id,$student_answer);
+    
+            if ($essay_answer) {
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
+                $_SESSION['message_success'] = "Congratulatons! You have successfully submitted your answer."; 
+                exit();
+            }
+            else {
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
+                $_SESSION['message_error'] = "An error has occurred. Please try again later."; 
+            }
+        }
+
         private function getTotal($exam_id){
             $query = "SELECT * FROM exam_details WHERE exam_id = '$exam_id'";
             $check =  $this->db->query($query);
             return $count_row = $check->num_rows;
-
         }
 
-        public function rightAns($number,$exam_id) {
+        public function rightAns($number,$exam_details_id) {
             $query = "SELECT * FROM exam_details_answer a 
-                WHERE a.question_no = '$number' 
+                WHERE a.question_no = '$number'
+                AND a.exam_details_id = '$exam_details_id'
                 AND a.correct_answer = '1'
                 GROUP BY a.question_no";
             $result_ = mysqli_query($this->db,$query);
@@ -334,6 +358,52 @@
             $result = mysqli_query($this->db,$sql3);
             return $user_data = mysqli_fetch_assoc($result);
         }
+
+        public function save_student_answers($exam_id,$student_id,$exam_details_ans_id,$user_answer) {
+            $sql1="INSERT INTO student_answers SET exam_id='$exam_id',student_id='$student_id',
+                exam_details_ans_id = '$exam_details_ans_id',
+                answer = '$user_answer'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
+            return $result;
+        }
+
+        public function save_student_essay_answer($exam_id,$student_id,$exam_essay_id,$student_answer) {
+            $date_modified               = date("Y-m-d h:i:s");
+            $sql1="INSERT INTO student_essay_answer SET exam_id = '$exam_id',
+                    exam_essay_id='$exam_essay_id',
+                    student_id='$student_id',
+                    student_answer = '".mysqli_real_escape_string($this->db,$student_answer)."'";
+
+            if($sql1) {
+                //Update exam status to completed
+                $sql2="UPDATE students SET stud_exam_status=2,
+                                date_modified='$date_modified'
+                        WHERE student_id = '$student_id' AND unenroll_student=0";
+                $result2 = mysqli_query($this->db,$sql2);            
+            }
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
+            return $result;
+        }
+
+        public function get_student_answer($exam_id, $student_id) {
+    		$sql3="SELECT * FROM exam_details_answer a
+                    INNER JOIN student_answers b on b.exam_details_ans_id = a.exam_details_ans_id
+                    WHERE a.exam_id = '$exam_id'
+                    AND student_id = '$student_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_student_score($exam_id,$student_id){
+    		$sql3="SELECT * FROM exam_details_answer a
+                    INNER JOIN student_answers b on b.exam_details_ans_id = a.exam_details_ans_id
+                    WHERE b.exam_id = '$exam_id'
+                    AND b.student_id = '$student_id'
+                    AND b.answer = '1'";
+            $check =  $this->db->query($sql3);
+            return $count_row = $check->num_rows;
+        }
+
         
 	}
 ?>

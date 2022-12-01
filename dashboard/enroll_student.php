@@ -72,7 +72,7 @@
                     <?php
                         }
                         elseif ($_GET['action'] == 'view_student') {
-                            $get_student_profile =  $admin->get_student_details($_GET['id']);
+                            $get_student_profile =  $admin->get_student_details($_GET['student_id']);
                     ?>  
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">

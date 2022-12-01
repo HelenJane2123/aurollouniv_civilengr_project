@@ -95,11 +95,45 @@
                                         }
                                     ?>
                                 </td>
-                                <td><span class="badge badge-secondary"><?php echo $students['exam_score'] ?></span></td>
+                                <td>
+                                    <?php
+                                        //Multiple Choice
+                                        if($students['exam_category_id'] == 2) {
+                                            echo $score = $students['exam_score'];
+                                            if(($score >= 25 && $score < 60) || ($score == 0)) {
+                                    ?>
+                                                <h5><span class="badge badge-danger">Failed</span></h5>
+                                    <?php
+                                            }
+                                            elseif($score >= 60 && $score < 80) {
+                                    ?>
+                                            <h5><span class="badge badge-info">Satisfactory</span></h5>
+                                    <?php
+                                            }
+                                            elseif($score >= 80 && $score < 95) { 
+                                    ?>
+                                                <h5><span class="badge badge-primary">Passed</span></h5>
+                                    <?php
+                                            }
+                                            elseif($score >= 95 && $score <= 100) { 
+                                    ?>
+                                                <h5><span class="badge badge-success">Outstanding</span></h5>
+                                    <?php
+                                            }
+                                        }
+                                        //Essay
+                                        else {
+                                    ?>
+
+                                    <?php
+                                        }
+                                    ?>     
+                                </td>
                                 <td>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-primary btn-sm rounded-0" href="enroll_student.php?action=view_student&id=<?php echo $students['account_id']?>"><i class="fa fa-eye"></i></a>
-                                        <a class="btn btn-danger btn-sm rounded-0" href="admin/enroll_student.php?id=<?php echo $students['account_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>
+                                        <a class="btn btn-primary btn-sm rounded-0" href="enroll_student.php?action=view_student&id=<?php echo $students['account_id']?>&student_id=<?php echo $students['student_id']?>"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-danger btn-sm rounded-0" href="admin/enroll_student.php?student_id=<?php echo $students['student_id']?>&id=<?php echo $students['account_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>
+                                        <a class="btn btn-info btn-sm rounded-0" href="admin/enroll_student.php?student_id=<?php echo $students['student_id']?>&id=<?php echo $students['account_id']?>"><i class="fa fa-paper"></i> View Exam Details</a>
                                     </li>
                                 </td>
                             </tr>

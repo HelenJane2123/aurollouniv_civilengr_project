@@ -40,7 +40,7 @@
                                     <ul>
                                         <li style="list-style:none; font-size: 25px"><strong>Question Type:</strong> Essay</li>
                                     </ul>
-                                    <a class="btn btn-success" href="take_test.php?exam_details_id=<?php echo $_GET['exam_details_id']; ?>&program_name=<?php echo $_GET['program_name']; ?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>">Start the exam</a>
+                                    <a class="btn btn-success" target="_blank" href="take_test.php?exam_details_id=<?php echo $get_exam_details['exam_details_id']; ?>&program_name=<?php echo $_GET['program_name']; ?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>&student_id=<?php echo $_GET['student_id']?>">Start the exam</a>
                                 </div>
                             </div>
                         </div>

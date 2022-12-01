@@ -48,7 +48,8 @@
                                             ?>
                                                 <tr>
                                                     <td>
-                                                        <input type="radio" name="ans" value="<?php echo $result['exam_details_id']; ?>" /> <?php echo $result['answers']; ?>
+                                                        <input type="hidden" name="exam_details_ans_id[]" value="<?php echo $result['exam_details_ans_id']; ?>" />
+                                                        <input type="radio" name="ans[]" value="<?php echo $result['correct_answer']; ?>" /> <?php echo $result['answers']; ?>
                                                     </td>
                                                 </tr>
                                             <?php
@@ -71,6 +72,9 @@
                         //Essay
                         else {
                             $get_exam_essay = $student->get_my_exam_essay($_GET['exam_id']);
+                            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                $process_essay = $student->processEssayData($_POST);
+                            }
                     ?>
                         <div class="card shadow mb-4">
                             <div class="card-body">
@@ -78,21 +82,23 @@
                                 <div class="text-center">
                                     <h3><?php echo $get_exam_essay['essay']; ?></h3>
                                     <form method="post" action="">
-                                    <div class="card shadow-sm">
-                                        <div class="card-header bg-transparent border-0">
-                                        </div>
-                                        <div class="card-body pt-0">
-                                            <div class="form-group">
-                                                <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['exam_id'];?>">
+                                        <div class="card shadow-sm">
+                                            <div class="card-header bg-transparent border-0">
+                                            </div>
+                                            <div class="card-body pt-0">
                                                 <div class="form-group">
-                                                    <textarea id="basic-example" name="essay"></textarea>
+                                                    <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['exam_id'];?>">
+                                                    <input type="hidden" class="form-control" name="student_id" value="<?php echo $_GET['student_id'];?>">
+                                                    <input type="hidden" class="form-control" name="exam_essay_id" value="<?php echo $get_exam_essay['exam_essay_id'];?>">
+                                                    <div class="form-group">
+                                                        <textarea id="basic-example" name="student_answer"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="btn btn-primary pull-right" type="Submit" name="save_answer_essaye" value="Save Answer">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <input class="btn btn-primary pull-right" type="Submit" name="save_answer_essaye" value="Save Answer">
-                                            </div>
                                         </div>
-                                    </div>
                                     </form>
                                 </div>
                             </div>

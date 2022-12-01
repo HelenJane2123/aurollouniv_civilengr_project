@@ -11,7 +11,8 @@
                     <thead>
                         <tr>
                             <th>Program</th>
-                            <th width="70%">Exam Description</th>
+                            <th>Exam Type</th>
+                            <th width="65%">Exam Description</th>
                             <th>Status</th>
                             <th>My Score</th>
                             <th>Action</th>
@@ -20,7 +21,8 @@
                     <tfoot>
                         <tr>
                             <th>Program</th>
-                            <th width="70%">Exam Description</th>
+                            <th>Exam Type</th>
+                            <th width="65%">Exam Description</th>
                             <th>Status</th>
                             <th>My Score</th>
                             <th>Action</th>
@@ -35,7 +37,23 @@
                         ?>
                             <tr>
                                 <td><?php echo $programs['program_name'] ?></td>
-                                <td><?php echo $programs['exam_description'] ?></td>
+                                <td>
+                                    <?php 
+                                        if ($programs['exam_category_id'] == '2') {
+                                    ?>
+                                        Multiple Choice
+                                    <?php
+                                        } 
+                                        else {
+                                    ?>
+                                        Essay
+                                    <?php
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $programs['exam_description'] ?>
+                                </td>
                                 <td>
                                     <?php
                                         if($programs['stud_exam_status'] == 0) {
@@ -56,15 +74,50 @@
                                     ?>
                                 </td>
                                 <td>
-                                    <?php 
-                                        echo $programs['exam_score'];
+                                    <?php
+                                        //Multiple Choice
+                                        if($programs['exam_category_id'] == 2) {
+                                            echo $score = $programs['exam_score'];
+                                            if(($score >= 25 && $score < 60) || ($score == 0)) {
                                     ?>
+                                                <h5><span class="badge badge-danger">Failed</span></h5>
+                                    <?php
+                                            }
+                                            elseif($score >= 60 && $score < 80) {
+                                    ?>
+                                            <h5><span class="badge badge-info">Satisfactory</span></h5>
+                                    <?php
+                                            }
+                                            elseif($score >= 80 && $score < 95) { 
+                                    ?>
+                                                <h5><span class="badge badge-primary">Passed</span></h5>
+                                    <?php
+                                            }
+                                            elseif($score >= 95 && $score <= 100) { 
+                                    ?>
+                                                <h5><span class="badge badge-success">Outstanding</span></h5>
+                                    <?php
+                                            }
+                                        }
+                                        //Essay
+                                        else {
+                                    ?>
+
+                                    <?php
+                                        }
+                                    ?>     
                                 </td>
                                 <td>
                                     <?php
                                         if($programs['exam_id'] != '') {
                                     ?>
-                                        <a class="btn btn-success" target="_blank" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
+                                        <?php
+                                            if($programs['stud_exam_status'] != '2') {
+                                        ?>
+                                            <a class="btn btn-success" target="_blank" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
+                                        <?php
+                                            }
+                                        ?>
                                         <a class="btn btn-primary" href="view_exam_details.php?program_id=<?php echo $programs['program_id']?>&student_id=<?php echo $programs['student_id']?>&exam_cat=<?php echo $programs['exam_category_id']?>">View Exam</a>
                                     <?php
                                         }

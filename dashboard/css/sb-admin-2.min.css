@@ -10300,6 +10300,17 @@ body.sidebar-toggled footer.sticky-footer {
     text-align: center;
 }
 
+.msg_success {
+    margin: 30px auto; 
+    padding: 10px; 
+    border-radius: 5px; 
+    color: #fff; 
+    background: #207a38; 
+    border: 1px solid #207a38;
+    width: 50%;
+    text-align: center;
+}
+
 .box{
     display: none;
     margin-top: 20px;

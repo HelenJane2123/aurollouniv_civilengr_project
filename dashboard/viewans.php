@@ -57,10 +57,10 @@
                                                     } 
                                                 ?>
                                             </table>
-                                            <p class="text-center" style="font-size: 25px;">You've got a total score of <?php echo $_GET['score'] ?> out of <?php echo $get_exam_details['total_questions']?></p>
                                             <?php
                                                 //score computation
-                                                $score = ($_GET['score']/$get_exam_details['total_questions']) * 100;
+                                                $get_my_score = $student->get_student_score($_GET['exam_id'],$_GET['student_id']);
+                                                $score = ($get_my_score/$get_exam_details['total_questions']) * 100;
                                                 if($score == 0) {
                                                     $score_status = 'Failed';
                                                 }
@@ -78,6 +78,7 @@
                                                 }
 
                                             ?>
+                                            <p class="text-center" style="font-size: 25px;">You've got a total score of <?php echo $get_my_score ?> out of <?php echo $get_exam_details['total_questions']?></p>
                                             <p class="text-center" style="font-size: 25px;">Your equivalent score is <?php echo $score?>/<?php echo $score_status?></p>
                                             <input type="hidden" name="score" value="<?php echo $score?>">
                                             <input type="hidden" name="score_status" value="<?php echo $score_status?>">

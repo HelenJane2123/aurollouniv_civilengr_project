@@ -14,20 +14,26 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <h1 class="h3 mb-2 text-gray-800">You are done taking Exam for <?php echo $_GET['program_name']?></h1>
-                                <div class="text-center">
+                                <div class="main-card mb-3 text-center">
                                     <h3>Congratulations! You have just completed the test.</h3>
+                                    <?php
+                                        $get_my_score = $student->get_student_score($_GET['exam_id'],$_GET['student_id']);
+                                    ?>
                                     <h2>You've got: 
-                                        <?php 
-                                            if (isset($_SESSION['score'])) {
-                                                echo $_SESSION['score'];
-                                            }
-                                        ?>
+                                        <span style="color:blue;font-weight:bold;">
+                                            <?php 
+                                            echo $get_my_score;
+                                            ?>
+                                        </span>
                                         out of
-                                        <?php 
-                                            echo $get_exam_details['total_questions'];
-                                        ?>
+                                        <span style="color:green;font-weight:bold;">
+                                            <?php 
+                                                echo $get_exam_details['total_questions'];
+                                            ?>
+                                        </span>
+                                        correct answers
                                     </h2>
-                                    <a class="btn btn-primary" href="viewans.php?program_name=<?php echo $_GET['program_name']?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>&student_id=<?php echo $_GET['student_id']?>&score=<?php echo $_SESSION['score']?>">View Answers</a>
+                                    <a class="btn btn-primary pull-right" href="viewans.php?program_name=<?php echo $_GET['program_name']?>&exam_cat=<?php echo $_GET['exam_cat']?>&exam_id=<?php echo $_GET['exam_id']?>&student_id=<?php echo $_GET['student_id']?>">View Answers</a>
                                 </div>
                             </div>
                         </div>
@@ -37,28 +43,34 @@
                         else {
                             $get_exam_essay = $student->get_my_exam_essay($_GET['exam_id']);
                     ?>
+                        <?php if (isset($_SESSION['message_error'])) { ?>
+                            <div class="msg_error">
+                                <?php 
+                                    echo $_SESSION['message_error']; 
+                                    unset($_SESSION['message_error']);
+                                ?>
+                            </div>
+                        <?php }
+                            else {
+                        ?>
+                            <div class="msg">
+                                <?php 
+                                    echo $_SESSION['message_success']; 
+                                    unset($_SESSION['message_success']);
+                                ?>
+                            </div>
+                        <?php
+                            } 
+                        ?>
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                                <h1 class="h3 mb-2 text-gray-800">Welcome to Online Exam for <?php echo $_GET['program_name']?></h1>
-                                <div class="text-center">
-                                    <h3><?php echo $get_exam_essay['essay']; ?></h3>
-                                    <form method="post" action="">
-                                    <div class="card shadow-sm">
-                                        <div class="card-header bg-transparent border-0">
-                                        </div>
-                                        <div class="card-body pt-0">
-                                            <div class="form-group">
-                                                <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['exam_id'];?>">
-                                                <div class="form-group">
-                                                    <textarea id="basic-example" name="essay"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="btn btn-primary pull-right" type="Submit" name="save_answer_essaye" value="Save Answer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </form>
+                                <div class="main-card mb-3 text-center">
+                                    <h3>Congratulations! You have just completed the test.</h3>
+                                    <?php
+                                        $get_my_score = $student->get_student_score($_GET['exam_id'],$_GET['student_id']);
+                                    ?>
+                                    <h2>Wait for your Professor to grade your answer.</h2>
+                                    <a class="btn btn-primary pull-right" href="student_exams.php">Back to my Exams</a>
                                 </div>
                             </div>
                         </div>

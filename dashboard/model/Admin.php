@@ -476,6 +476,7 @@
                     LEFT JOIN programs b on b.program_id = a.program_id
                     LEFT JOIN user_account c on c.member_id = a.student_member_id
                     LEFT JOIN user_additional_information d on d.member_id = c.member_id
+                    LEFT JOIN exam e on b.program_id = e.program_id
                     WHERE a.member_id = '$member_id'
                     AND c.user_type = 'Student'
                     AND unenroll_student = '0'";
@@ -512,7 +513,7 @@
                     LEFT JOIN program_additioonal_info e on b.program_id = e.program_id
                     LEFT JOIN user_account c on c.id = a.account_id
                     LEFT JOIN user_additional_information d on d.member_id = c.member_id
-                    WHERE a.account_id = '$student_id'
+                    WHERE a.student_id = '$student_id'
                     AND c.user_type = 'Student'";
 	        $result = mysqli_query($this->db,$sql3);
             return $user_data = mysqli_fetch_assoc($result);

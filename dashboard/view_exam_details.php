@@ -83,7 +83,7 @@
                                         <td>
                                             <?php
                                                 $score = $get_exam_details['exam_score'];
-                                                if($score >= 25 && $score < 60) {
+                                                if(($score >= 25 && $score < 60) || ($score == 0)) {
                                             ?>
                                                 <h5><span class="badge badge-danger">Failed</span></h5>
                                             <?php
