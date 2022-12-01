@@ -41,15 +41,15 @@ System Functionalities:
             [x] Add Questions
             [x] Edit Questions
             [x] Delete Questions
-        [] Status
+        [x] Status
             - Added
             - Updated
             - Has an ongoing exam
-    [] Students
+    [x] Students
         [] Exam Status
             - 0 Not yet started
             - 1 Ongoing exam
             - 2 Exam completed
-[] List of Programs page
-    [] Expected is to see the list of programs for the students
+[x] List of Programs page
+    [x] Expected is to see the list of programs for the students
     [] Students may choose the programs/lessons to take but may require registration

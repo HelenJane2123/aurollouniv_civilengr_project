@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2022 at 02:16 PM
+-- Generation Time: Dec 01, 2022 at 02:20 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -45,8 +45,10 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` (`exam_id`, `exam_category_id`, `program_id`, `exam_description`, `duration`, `total_questions`, `member_id`, `date_created`, `exam_status`, `date_modified`) VALUES
-(8, 1, 24, 'test', 0, 0, 'M-1705', '2022-11-28', 'Added', '0000-00-00 00:00:00'),
-(9, 2, 30, '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable.</p>', 2, 5, 'M-1705', '2022-11-30', 'Added', '0000-00-00 00:00:00');
+(10, 2, 32, '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', 2, 3, 'M-1705', '2022-11-30', 'Added', '0000-00-00 00:00:00'),
+(11, 2, 33, '<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>', 3, 2, 'M-1705', '2022-11-30', 'Added', '0000-00-00 00:00:00'),
+(12, 2, 34, '<p>fsdfsdfsadfsadfsa</p>', 3, 2, 'M-1705', '2022-12-01', 'Added', '0000-00-00 00:00:00'),
+(13, 1, 35, '', 0, 0, 'M-1705', '2022-12-01', 'Added', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83,15 +85,13 @@ CREATE TABLE `exam_details` (
 --
 
 INSERT INTO `exam_details` (`exam_details_id`, `exam_id`, `question_no`, `question`, `date_created`, `date_modified`) VALUES
-(95, 5, 1, 'Which of the following does not apply to external styles?', '2022-11-28 11:27:30', '0000-00-00 00:00:00'),
-(96, 5, 2, 'sdfsdfsa', '2022-11-28 11:27:30', '0000-00-00 00:00:00'),
-(97, 5, 3, 'fgdfsgdfsgdf', '2022-11-28 11:27:31', '0000-00-00 00:00:00'),
-(98, 5, 4, 'fghfghfgdhfdg', '2022-11-28 11:27:31', '0000-00-00 00:00:00'),
-(99, 9, 1, 'Test 1', '2022-11-30 01:50:37', '0000-00-00 00:00:00'),
-(100, 9, 2, 'Test 2', '2022-11-30 01:50:37', '0000-00-00 00:00:00'),
-(101, 9, 3, 'Test 3', '2022-11-30 01:50:37', '0000-00-00 00:00:00'),
-(102, 9, 4, 'Test 4', '2022-11-30 01:50:37', '0000-00-00 00:00:00'),
-(103, 9, 5, 'Test 5', '2022-11-30 01:50:38', '0000-00-00 00:00:00');
+(104, 10, 1, 'Question 1 sdfsafsdf', '2022-11-30 03:56:57', '0000-00-00 00:00:00'),
+(105, 10, 2, 'Question 2 sdasdasd', '2022-11-30 03:56:58', '0000-00-00 00:00:00'),
+(106, 10, 3, 'Question 3 sadasdfas', '2022-11-30 03:56:58', '0000-00-00 00:00:00'),
+(107, 11, 1, 'Question 1 sdfsdfsd', '2022-11-30 03:59:22', '0000-00-00 00:00:00'),
+(108, 11, 2, 'Question 2 sadasfdasedfs', '2022-11-30 03:59:23', '0000-00-00 00:00:00'),
+(109, 12, 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever', '2022-12-01 04:42:13', '0000-00-00 00:00:00'),
+(110, 12, 2, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever sdfsdfsadfsadfsa', '2022-12-01 04:42:14', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -112,31 +112,6 @@ CREATE TABLE `exam_details_answer` (
 --
 
 INSERT INTO `exam_details_answer` (`exam_details_ans_id`, `question_no`, `exam_details_id`, `answers`, `correct_answer`) VALUES
-(107, 1, 95, 'clean separation of design & content', '1'),
-(108, 1, 95, 'minimal code duplication', '0'),
-(109, 1, 95, 'Highest priority', '0'),
-(110, 1, 95, 'Reduces page download time', '0'),
-(111, 2, 96, 'fdgdfgfdgdfsg', '0'),
-(112, 2, 96, 'gfdg', '1'),
-(113, 2, 96, 'dfgdsfg', '0'),
-(114, 2, 96, 'dfsgdsfgds', '0'),
-(115, 3, 97, 'gdfg', '0'),
-(116, 3, 97, 'dfgd', '0'),
-(117, 3, 97, 'fsgdfgdfg', '0'),
-(118, 3, 97, 'fdgdfgdsfgds', '1'),
-(119, 4, 98, 'dfgdfg', '1'),
-(120, 4, 98, 'dfg', '0'),
-(121, 4, 98, 'dfgdf', '0'),
-(122, 4, 98, 'gdgfds', '0'),
-(123, 1, 99, 'a. 1', '1'),
-(124, 1, 99, 'B. SDFASDFSD', '0'),
-(125, 1, 99, 'C.dfsdfsdf', '0'),
-(126, 1, 99, 'D. DFRSDFTSDFTGSD', '0'),
-(127, 2, 100, 'a. dsfhsjkdfhjskdfh', '0'),
-(128, 2, 100, 'b. hsjdhjasdhasdf', '0'),
-(129, 2, 100, 'c. hsjdhsafdhsdf', '0'),
-(130, 2, 100, 'd. hsdjfhsdjfgsdjkf', '1'),
-(131, 3, 101, 'dfsdfsd', '0'),
 (132, 3, 101, 'ffsdfsdfsdf', '0'),
 (133, 3, 101, 'dfsdfsdf', '1'),
 (134, 3, 101, 'sdfsdfsdfsd', '0'),
@@ -147,7 +122,35 @@ INSERT INTO `exam_details_answer` (`exam_details_ans_id`, `question_no`, `exam_d
 (139, 5, 103, 'fgfdghfgh', '1'),
 (140, 5, 103, 'gfhfg', '0'),
 (141, 5, 103, 'hfghfg', '0'),
-(142, 5, 103, 'hfghfgd', '0');
+(142, 5, 103, 'hfghfgd', '0'),
+(143, 1, 104, 'Question 101', '1'),
+(144, 1, 104, 'Question 102', '0'),
+(145, 1, 104, 'Question 103', '0'),
+(146, 1, 104, 'Question 104', '0'),
+(147, 2, 105, 'Question 201', '0'),
+(148, 2, 105, 'Question 202', '1'),
+(149, 2, 105, 'Question 203', '0'),
+(150, 2, 105, 'Question 204', '0'),
+(151, 3, 106, 'Question 301', '0'),
+(152, 3, 106, 'Question 302', '0'),
+(153, 3, 106, 'Question 303', '1'),
+(154, 3, 106, 'Question 304', '0'),
+(155, 1, 107, 'dfsdfsd', '0'),
+(156, 1, 107, 'fgsadfg', '1'),
+(157, 1, 107, 'fgdfgdfsgds', '0'),
+(158, 1, 107, 'fdgdfgdfgd', '0'),
+(159, 2, 108, 'gdfg', '0'),
+(160, 2, 108, 'dfgdg', '0'),
+(161, 2, 108, 'dfgdsgdfsg', '0'),
+(162, 2, 108, 'fgdfsgdsfg', '1'),
+(163, 1, 109, 'fsdfsadf', '1'),
+(164, 1, 109, 'sdfsad', '0'),
+(165, 1, 109, 'fsadfsad', '0'),
+(166, 1, 109, 'fasdfsadfsad', '0'),
+(167, 2, 110, 'fsadfs', '0'),
+(168, 2, 110, 'adfsdf', '1'),
+(169, 2, 110, 'sdfsd', '0'),
+(170, 2, 110, 'fsdfsdfsdaf', '0');
 
 -- --------------------------------------------------------
 
@@ -168,22 +171,7 @@ CREATE TABLE `exam_essay` (
 --
 
 INSERT INTO `exam_essay` (`exam_essay_id`, `exam_id`, `essay`, `date_created`, `date_modified`) VALUES
-(3, 8, '<ol>\r\n<li class=\"p1\">\r\n<p class=\"p1\"><span class=\"s1\">It has been said, \"Not everything that is learned is contained in books.\" Compare and contrast knowledge gained from experience with knowledge gained from books. In your opinion, which source is more important? Why?&nbsp;</span></p>\r\n</li>\r\n</ol>', '2022-11-28 02:42:46', '0000-00-00 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `exam_essay_answer`
---
-
-CREATE TABLE `exam_essay_answer` (
-  `essay_answer_id` int(11) NOT NULL,
-  `exam_essay_id` int(11) NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `essay_score` int(11) NOT NULL,
-  `date_exam_taken` date NOT NULL,
-  `date_modified` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(4, 13, '<ol>\r\n<li class=\"p1\"><span class=\"s1\">Do you agree or disagree with the following statement? Parents are the best teachers. Use specific reasons and examples to support your answer.&nbsp;</span></li>\r\n</ol>', '2022-12-01 12:50:12', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -207,12 +195,10 @@ CREATE TABLE `programs` (
 --
 
 INSERT INTO `programs` (`program_id`, `member_id`, `program_name`, `short_desc`, `with_exam`, `upload_image`, `date_created`, `date_modified`) VALUES
-(24, 'M-1705', 'Program 01', '<h2 class=\"h4 pt3\">What is Civil Engineering?</h2>\r\n<p>One of the oldest engineering disciplines, civil engineering is the applied science of physics and mathematics to address the infrastructural needs of human civilization. This includes construction engineering, bridge engineering, highway engineering, and the basic maintenance of roads, canals, dams, and buildings. Throughout history civil engineers have not only been key to advancing societies, but their work has produced some of our most enduring artifacts - take, for example, the Ancient Egyptian pyramids or the Roman aqueducts &ndash; both stand as enormous feats of civil engineering.</p>', 1, '1.jpg', '2022-11-26 04:30:20', '0000-00-00 00:00:00'),
-(25, 'M-1705', 'Program 02', '<h2 class=\"h4 pt3\">What is a Civil Engineer?</h2>\r\n<p>A civil engineer helps to design and build public works infrastructure including roads, bridges, canals, dams, airports, sewerage systems, pipelines, buildings, and railways.</p>', 1, '2.jpg', '2022-11-26 05:00:28', '0000-00-00 00:00:00'),
-(27, 'M-1705', 'Program 03', '<p>Beyond the study of structural engineering books, today most civil engineers work in offices designing structural plans that can withstand changes in our environment including earthquakes and hurricanes. Civil engineers are also often responsible for the construction management of civil engineering projects in the field.</p>', 2, '3.jpg', '2022-11-26 05:18:49', '0000-00-00 00:00:00'),
-(28, 'M-1705', 'Program 04', '<h2 class=\"h4 pt3\">Jobs in Civil Engineering</h2>\r\n<p>According to the United States Bureau of Employment Statistics, the median income for civil engineers in 2016 was over $80,000 per year. According to the same report, employment opportunities for civil engineers is projected to grow by 11 percent from 2016 to 2026, exceeding the growth average for all occupations.</p>', 2, '4.jpg', '2022-11-26 05:19:38', '0000-00-00 00:00:00'),
-(30, 'M-1705', 'Test Program 6', '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>', 1, 'Spring-Images-Desktop-Wallpaper.jpg', '2022-11-30 01:41:06', '0000-00-00 00:00:00'),
-(31, 'M-1705', 'Test Program 4', '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.&nbsp;</p>', 2, '171142.jpg', '2022-11-30 01:41:38', '0000-00-00 00:00:00');
+(32, 'M-1705', 'Test Program 6', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.</p>', 1, '171142.jpg', '2022-11-30 03:53:02', '0000-00-00 00:00:00'),
+(33, 'M-1705', 'Test Program 1', '<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>', 1, '632900.jpg', '2022-11-30 03:58:27', '0000-00-00 00:00:00'),
+(34, 'M-1705', 'Test Program 4', '<p>fsdfsdfsdfsdfsdfs</p>', 1, 'Spring-Images-Desktop-Wallpaper.jpg', '2022-12-01 04:41:09', '0000-00-00 00:00:00'),
+(35, 'M-1705', 'Test Program 2', '<p>dfsdfsdfsdfsdfsdfsdfsdf</p>', 1, '20473183.png', '2022-12-01 12:48:50', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -231,13 +217,10 @@ CREATE TABLE `program_additioonal_info` (
 --
 
 INSERT INTO `program_additioonal_info` (`program_info_id`, `program_id`, `program_uploaded_files`) VALUES
-(19, 24, '04_Handout_191-Stacks.pdf'),
-(20, 25, 'medical.pdf'),
-(21, 26, '06_Handout_16-Trees.pdf'),
-(22, 27, '06_Handout_16-Trees.pdf'),
-(23, 28, '05_Handout_19-Queues...pdf'),
-(25, 30, '04_Handout_191-Stacks.pdf'),
-(26, 31, 'medical.pdf');
+(27, 32, '05_Handout_19-Queues...pdf'),
+(28, 33, '04_Handout_191-Stacks.pdf'),
+(29, 34, 'medical.pdf'),
+(30, 35, '06_Handout_16-Trees.pdf');
 
 -- --------------------------------------------------------
 
@@ -251,7 +234,7 @@ CREATE TABLE `students` (
   `member_id` varchar(50) NOT NULL,
   `student_member_id` varchar(50) NOT NULL,
   `program_id` int(11) NOT NULL,
-  `exam_status` int(11) NOT NULL,
+  `stud_exam_status` int(11) NOT NULL,
   `exam_score` int(11) NOT NULL,
   `score_status` varchar(20) NOT NULL,
   `unenroll_student` int(11) NOT NULL,
@@ -262,16 +245,58 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `account_id`, `member_id`, `student_member_id`, `program_id`, `exam_status`, `exam_score`, `score_status`, `unenroll_student`, `date_modified`) VALUES
-(8, 27, 'M-1705', 'M-5882', 25, 0, 0, '', 0, '2022-11-26 02:45:14'),
-(9, 27, 'M-1705', 'M-5882', 24, 2, 25, 'Failed', 0, '2022-11-30 01:05:44'),
-(11, 27, 'M-1705', 'M-5882', 28, 0, 0, '', 0, '2022-11-26 03:18:22'),
-(13, 31, 'M-1705', 'M-486', 24, 2, 50, 'Failed', 1, '2022-11-30 01:57:29'),
-(14, 31, 'M-1705', 'M-486', 31, 0, 0, '', 1, '2022-11-30 01:57:29'),
-(15, 28, 'M-1705', 'M-3744', 27, 0, 0, '', 0, '2022-11-30 01:59:16'),
-(18, 28, 'M-1705', 'M-3744', 25, 0, 0, '', 0, '2022-11-30 02:02:13'),
-(19, 28, 'M-1705', 'M-3744', 28, 0, 0, '', 0, '2022-11-30 02:02:24'),
-(20, 28, 'M-1705', 'M-3744', 30, 0, 0, '', 0, '2022-11-30 02:02:35');
+INSERT INTO `students` (`student_id`, `account_id`, `member_id`, `student_member_id`, `program_id`, `stud_exam_status`, `exam_score`, `score_status`, `unenroll_student`, `date_modified`) VALUES
+(26, 31, 'M-1705', 'M-486', 32, 2, 67, 'Satisfactory', 0, '2022-12-01 07:54:13'),
+(27, 31, 'M-1705', 'M-486', 34, 2, 100, 'Outstanding', 0, '2022-12-01 07:54:41'),
+(28, 27, 'M-1705', 'M-5882', 32, 2, 100, 'Outstanding', 0, '2022-12-01 12:35:18'),
+(29, 27, 'M-1705', 'M-5882', 33, 2, 0, 'Failed', 0, '2022-12-01 12:35:57'),
+(30, 27, 'M-1705', 'M-5882', 35, 2, 0, '', 0, '2022-12-01 02:09:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_answers`
+--
+
+CREATE TABLE `student_answers` (
+  `student_answer_id` int(11) NOT NULL,
+  `exam_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `exam_details_ans_id` int(11) NOT NULL,
+  `answer` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_answers`
+--
+
+INSERT INTO `student_answers` (`student_answer_id`, `exam_id`, `student_id`, `exam_details_ans_id`, `answer`) VALUES
+(43, 10, 28, 143, 1),
+(44, 10, 28, 147, 1),
+(45, 10, 28, 151, 1),
+(46, 11, 29, 155, 0),
+(47, 11, 29, 159, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_essay_answer`
+--
+
+CREATE TABLE `student_essay_answer` (
+  `essay_answer_id` int(11) NOT NULL,
+  `exam_essay_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `student_answer` longtext NOT NULL,
+  `exam_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_essay_answer`
+--
+
+INSERT INTO `student_essay_answer` (`essay_answer_id`, `exam_essay_id`, `student_id`, `student_answer`, `exam_id`) VALUES
+(5, 4, 30, '<div>\r\n<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n</div>\r\n<div>\r\n<h2>Why do we use it?</h2>\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n</div>\r\n<p>&nbsp;</p>\r\n<div>\r\n<h2>Where does it come from?</h2>\r\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p>\r\n</div>', 13);
 
 -- --------------------------------------------------------
 
@@ -369,12 +394,6 @@ ALTER TABLE `exam_essay`
   ADD PRIMARY KEY (`exam_essay_id`);
 
 --
--- Indexes for table `exam_essay_answer`
---
-ALTER TABLE `exam_essay_answer`
-  ADD PRIMARY KEY (`essay_answer_id`);
-
---
 -- Indexes for table `programs`
 --
 ALTER TABLE `programs`
@@ -391,6 +410,18 @@ ALTER TABLE `program_additioonal_info`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`student_id`);
+
+--
+-- Indexes for table `student_answers`
+--
+ALTER TABLE `student_answers`
+  ADD PRIMARY KEY (`student_answer_id`);
+
+--
+-- Indexes for table `student_essay_answer`
+--
+ALTER TABLE `student_essay_answer`
+  ADD PRIMARY KEY (`essay_answer_id`);
 
 --
 -- Indexes for table `user_account`
@@ -412,7 +443,7 @@ ALTER TABLE `user_additional_information`
 -- AUTO_INCREMENT for table `exam`
 --
 ALTER TABLE `exam`
-  MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `exam_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `exam_category`
@@ -424,43 +455,49 @@ ALTER TABLE `exam_category`
 -- AUTO_INCREMENT for table `exam_details`
 --
 ALTER TABLE `exam_details`
-  MODIFY `exam_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `exam_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `exam_details_answer`
 --
 ALTER TABLE `exam_details_answer`
-  MODIFY `exam_details_ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+  MODIFY `exam_details_ans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 
 --
 -- AUTO_INCREMENT for table `exam_essay`
 --
 ALTER TABLE `exam_essay`
-  MODIFY `exam_essay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `exam_essay_answer`
---
-ALTER TABLE `exam_essay_answer`
-  MODIFY `essay_answer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `exam_essay_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `program_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `program_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `program_additioonal_info`
 --
 ALTER TABLE `program_additioonal_info`
-  MODIFY `program_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `program_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `student_answers`
+--
+ALTER TABLE `student_answers`
+  MODIFY `student_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `student_essay_answer`
+--
+ALTER TABLE `student_essay_answer`
+  MODIFY `essay_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_account`
