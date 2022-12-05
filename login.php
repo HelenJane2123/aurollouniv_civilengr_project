@@ -24,17 +24,6 @@
 <body class="bg-gradient-primary">
 
     <div class="container">
-        <!-- <?php session_start(); if (isset($_SESSION['login'])) : ?>
-            <div class="alert alert-error" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?php 
-                    if($_SESSION['message'] != '') {
-                        echo $_SESSION['message']; 
-                        unset($_SESSION['message']);
-                    }
-                ?>
-            </div>
-        <?php endif ?> -->
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
@@ -49,6 +38,16 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form action="register/login_account.php"  method="post"  id="login" class="needs-validation" novalidate enctype="multipart/form-data">
+                                        <?php if (isset($_SESSION['login'])): ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <?php 
+                                                   if(isset($_SESSION['message'])) {
+                                                        echo $_SESSION['message']; 
+                                                        unset($_SESSION['message']);
+                                                    }
+                                                ?>
+                                            </div>
+                                        <?php endif ?>    
                                         <div class="form-group">
                                             <input type="email" name="email_address" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
@@ -58,9 +57,7 @@
                                             <input type="password" name="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password" required>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block" name="login_user">
-                                            Login
-                                        </button>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block"  name="login_user" value="Login"/>
                                     </form>
                                     <hr>
                                     <div class="text-center">

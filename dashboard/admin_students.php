@@ -28,6 +28,7 @@
                             <th>Course</th>
                             <th>Year</th>
                             <th>Enrolled Program</th>
+                            <th>Exam Type</th>
                             <th>With Exam</th>
                             <th>Exam Status</th>
                             <th>Score</th>
@@ -41,6 +42,7 @@
                             <th>Course</th>
                             <th>Year</th>
                             <th>Enrolled Program</th>
+                            <th>Exam Type</th>
                             <th>With Exam</th>
                             <th>Exam Status</th>
                             <th>Score</th>
@@ -60,6 +62,20 @@
                                 <td><?php echo $students['course'] ?></td>
                                 <td><?php echo $students['academic_year'] ?></td>
                                 <td><?php echo $students['program_name'] ?></td>
+                                <td>
+                                    <?php 
+                                        if ($students['exam_category_id'] == '1') {
+                                    ?>
+                                        Essay
+                                    <?php
+                                        }
+                                        else {
+                                    ?>
+                                        Multiple Choice
+                                    <?php
+                                        }
+                                    ?>
+                                </td>
                                 <td>
                                     <?php
                                         if($students['with_exam'] == 2) {
@@ -97,43 +113,34 @@
                                 </td>
                                 <td>
                                     <?php
-                                        //Multiple Choice
-                                        if($students['exam_category_id'] == 2) {
-                                            echo $score = $students['exam_score'];
-                                            if(($score >= 25 && $score < 60) || ($score == 0)) {
+                                        echo $score = $students['exam_score'];
+                                        if(($students['score_status'] == 'Failed')) {
                                     ?>
-                                                <h5><span class="badge badge-danger">Failed</span></h5>
+                                            <h5><span class="badge badge-danger">Failed</span></h5>
                                     <?php
-                                            }
-                                            elseif($score >= 60 && $score < 80) {
+                                        }
+                                        elseif($students['score_status'] == 'Satisfactory') {
                                     ?>
                                             <h5><span class="badge badge-info">Satisfactory</span></h5>
                                     <?php
-                                            }
-                                            elseif($score >= 80 && $score < 95) { 
-                                    ?>
-                                                <h5><span class="badge badge-primary">Passed</span></h5>
-                                    <?php
-                                            }
-                                            elseif($score >= 95 && $score <= 100) { 
-                                    ?>
-                                                <h5><span class="badge badge-success">Outstanding</span></h5>
-                                    <?php
-                                            }
                                         }
-                                        //Essay
-                                        else {
+                                        elseif($students['score_status'] == 'Passed') { 
                                     ?>
-
+                                            <h5><span class="badge badge-primary">Passed</span></h5>
                                     <?php
                                         }
-                                    ?>     
+                                        elseif($students['score_status'] == 'Outstanding') { 
+                                    ?>
+                                            <h5><span class="badge badge-success">Outstanding</span></h5>
+                                    <?php
+                                        }
+                                    ?>
                                 </td>
                                 <td>
                                     <li class="list-inline-item">
                                         <a class="btn btn-primary btn-sm rounded-0" href="enroll_student.php?action=view_student&id=<?php echo $students['account_id']?>&student_id=<?php echo $students['student_id']?>"><i class="fa fa-eye"></i></a>
                                         <a class="btn btn-danger btn-sm rounded-0" href="admin/enroll_student.php?student_id=<?php echo $students['student_id']?>&id=<?php echo $students['account_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>
-                                        <a class="btn btn-info btn-sm rounded-0" href="admin/enroll_student.php?student_id=<?php echo $students['student_id']?>&id=<?php echo $students['account_id']?>"><i class="fa fa-paper"></i> View Exam Details</a>
+                                        <a class="btn btn-info btn-sm rounded-0" href="enroll_student.php?action=view_exam_details&student_id=<?php echo $students['student_id']?>&exam_id=<?php echo $students['exam_id']?>&program_id=<?php echo $students['program_id']?>"><i class="fa fa-paper"></i> View Exam Details</a>
                                     </li>
                                 </td>
                             </tr>

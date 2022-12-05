@@ -9,7 +9,7 @@
                         //Multiple Choice
                         if($_GET['exam_cat'] == '2') {
                             $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
-                                                    
+                            $get_retakes = $student->get_student_retake($_GET['student_id']);
                     ?>
                         <div class="card shadow mb-4">
                             <div class="card-body">
@@ -83,6 +83,7 @@
                                             <input type="hidden" name="score" value="<?php echo $score?>">
                                             <input type="hidden" name="score_status" value="<?php echo $score_status?>">
                                             <input type="hidden" name="student_id" value="<?php echo $_GET['student_id']?>">
+                                            <input type="hidden" name="retakes" value="<?php echo $get_retakes?>">
                                         </div>
                                         <div class="form-group">
                                             <input class="btn btn-primary pull-right" type="Submit" name="submit_exam" value="Submit this Exam">

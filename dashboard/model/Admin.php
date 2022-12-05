@@ -463,6 +463,13 @@
 	        return $result_data = mysqli_fetch_assoc($result);
         }
 
+        public function get_essay_answer($student_id) {
+    		$sql3="SELECT * FROM exam_essay a
+                    WHERE a.exam_essay_id = '$id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_assoc($result);
+        }
+
         public function get_all_exam_details($exam_id) {
     		$sql3="SELECT * FROM exam_details a
                     LEFT JOIN exam_details_answer b ON a.exam_details_id = b.exam_details_id
@@ -488,6 +495,17 @@
                     WHERE user_type = 'Student'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+        
+        public function get_all_students_graph() {
+    		$sql3="SELECT 
+                        student_id,
+                        exam_score,
+                        score_status 
+                    FROM students
+                ORDER BY student_id";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result;
         }
         /*** get student by id ***/
         public function get_student_member_id($id){
@@ -518,6 +536,41 @@
 	        $result = mysqli_query($this->db,$sql3);
             return $user_data = mysqli_fetch_assoc($result);
         }
+
+        /*** Get Student Details ***/
+        public function get_student_details_by_essay_exam_id($student_id,$exam_id) {
+            $sql3="SELECT * FROM exam_essay a
+                    INNER JOIN exam b ON b.exam_id = a.exam_id
+                    INNER JOIN students c ON c.program_id = b.program_id
+                    INNER JOIN student_essay_answer d ON a.exam_essay_id = d.exam_essay_id
+                    WHERE c.student_id = '$student_id'
+                    AND b.exam_id = '$exam_id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function grade_essay_student($student_id,$exam_score,$prof_comment_if_essay,$date_modified) {
+            if(($exam_score >= 25 && $exam_score < 60) || ($exam_score == 0)) {
+                $score_staus = 'Failed';
+            }
+            elseif($exam_score >= 60 && $exam_score < 80) {
+                $score_staus = 'Satisfactory';
+            }
+            elseif($exam_score >= 80 && $exam_score < 95) { 
+                $score_staus = 'Passed';
+            }
+            elseif($exam_score >= 95 && $exam_score <= 100) { 
+                $score_staus = 'Outstanding';
+            }
+            $sql1="UPDATE students SET exam_score='$exam_score', 
+                        prof_comment_if_essay='$prof_comment_if_essay',
+                        score_status='$score_staus',
+                        date_modified = '$date_modified'
+                    WHERE student_id='$student_id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot updated");
+            return $result;
+        }
+
         /*** unenroll student ***/
         public function unenroll_student($id) {
             $date = date("Y-m-d h:i:s");
@@ -527,6 +580,7 @@
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot updated");
             return $result;
         }
+
         /*** get all enrolled students ***/
         public function get_all_students_count($member_id) {
             $sql="SELECT * FROM students WHERE member_id='$member_id' AND unenroll_student = '0'";

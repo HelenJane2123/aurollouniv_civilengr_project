@@ -275,10 +275,12 @@
                 $student_id                 = $data['student_id'];
                 $exam_details_ans_id        = $data['exam_details_ans_id'][$i];
                 $user_answer                = $data['ans'][$i];
-
-                $this->save_student_answers($exam_id,$student_id,$exam_details_ans_id,$user_answer);
+                $exam_taken                 = date("Y-m-d h:i:s");
+                
+                $this->update_saved_answers($student_id,$exam_id,$exam_details_ans_id);
+                $this->save_student_answers($exam_id,$student_id,$exam_details_ans_id,$user_answer,$exam_taken);
             }
-    
+            
             if ($number == $total) {
                 header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
                 exit();
@@ -354,18 +356,39 @@
         public function get_exam_details_by_student_id($student_id){
             $sql3="SELECT * FROM students a 
                 LEFT JOIN programs c on c.program_id = a.program_id
+                LEFT JOIN exam b on b.program_id = c.program_id
                 WHERE a.student_id = '$student_id'";
             $result = mysqli_query($this->db,$sql3);
             return $user_data = mysqli_fetch_assoc($result);
         }
 
-        public function save_student_answers($exam_id,$student_id,$exam_details_ans_id,$user_answer) {
+        public function save_student_answers($exam_id,$student_id,$exam_details_ans_id,$user_answer,$exam_taken) {
+            //insert new data
             $sql1="INSERT INTO student_answers SET exam_id='$exam_id',student_id='$student_id',
                 exam_details_ans_id = '$exam_details_ans_id',
-                answer = '$user_answer'";
+                status = 'new',
+                answer = '$user_answer',
+                exam_taken = '$exam_taken'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
             return $result;
         }
+
+        public function update_saved_answers($student_id,$exam_id,$exam_details_ans_id) {
+            $sql1="UPDATE student_answers SET 
+                            status='old'
+                    WHERE student_id = '$student_id' AND exam_id = '$exam_id'
+                    AND exam_details_ans_id = '$exam_details_ans_id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
+
+        public function check_exisitng_exam($exam_id,$student_id){
+            $sql="SELECT * FROM student_answers WHERE exam_id='$exam_id' AND student_id = '$student_id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+
 
         public function save_student_essay_answer($exam_id,$student_id,$exam_essay_id,$student_answer) {
             $date_modified               = date("Y-m-d h:i:s");
@@ -399,11 +422,73 @@
                     INNER JOIN student_answers b on b.exam_details_ans_id = a.exam_details_ans_id
                     WHERE b.exam_id = '$exam_id'
                     AND b.student_id = '$student_id'
-                    AND b.answer = '1'";
+                    AND b.status = 'new'
+                    AND b.answer = '1'
+                    ORDER BY b.exam_taken DESC";
             $check =  $this->db->query($sql3);
             return $count_row = $check->num_rows;
         }
 
-        
+        public function get_student_details_by_essay_exam_id($student_id,$exam_id) {
+            $sql3="SELECT * FROM exam_essay a
+                    INNER JOIN exam b ON b.exam_id = a.exam_id
+                    INNER JOIN students c ON c.program_id = b.program_id
+                    INNER JOIN student_essay_answer d ON a.exam_essay_id = d.exam_essay_id
+                    WHERE c.student_id = '$student_id'
+                    AND b.exam_id = '$exam_id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function get_student_retake($student_id) {
+            $query = "SELECT * FROM students a 
+                WHERE a.student_id = '$student_id'";
+            $result_ = mysqli_query($this->db,$query);
+            $question_id = mysqli_fetch_assoc($result_);
+            $result = $question_id['exam_attempt'];
+            return $result;
+        }
+
+        /*** update student exams ***/
+        public function updateRetakes($student_id,$retake) {
+            $date_modified          =  date("Y-m-d h:i:s");
+            $next_count             = $retake+1;
+            $sql1="UPDATE students SET
+                            exam_attempt='$next_count', 
+                            date_modified='$date_modified'
+                    WHERE student_id = '$student_id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
+
+        /*** Get Student Details ***/
+        public function get_student_essay_exam_id($student_id,$exam_id) {
+            $sql3="SELECT * FROM exam_essay a
+                    INNER JOIN exam b ON b.exam_id = a.exam_id
+                    INNER JOIN students c ON c.program_id = b.program_id
+                    INNER JOIN student_essay_answer d ON a.exam_essay_id = d.exam_essay_id
+                    WHERE c.student_id = '$student_id'
+                    AND b.exam_id = '$exam_id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function getStudentAnswer($question, $exam_id) {
+            $query = "SELECT * FROM exam_details_answer a
+                    INNER JOIN student_answers  b ON a.exam_details_ans_id = b.exam_details_ans_id
+                    INNER JOIN exam_details c ON a.exam_details_id = c.exam_details_id
+                WHERE a.question_no ='$question' AND b.exam_id='$exam_id'";
+            $getData =  mysqli_query($this->db,$query);
+            return $getData;
+
+            
+        }
+
+        public function get_exam_limit($exam_id) {
+            $sql3="SELECT * FROM exam a
+            WHERE a.exam_id = '$exam_id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
 	}
 ?>

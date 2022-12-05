@@ -56,6 +56,10 @@
         <script src="js/sb-admin-2.min.js"></script>
         <script src="js/admin.js"></script>
 
+
+        <!-- Page level custom scripts -->
+        <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
+        <!-- <script src="js/chart-bar.js"></script> -->
         <!-- Page level plugins -->
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -65,6 +69,77 @@
 
         <!-- TinyMCE -->
         <script src="js/tinymce/tinymce.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+        <?php if ($admin->get_usertype($_SESSION['email_address']) != 'Student') { ?>
+            <script type="text/javascript">
+                var ctx = document.getElementById("myBarChart").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels:<?php echo json_encode($score_status); ?>,
+                            datasets: [{
+                                backgroundColor: [
+                                "#5969ff",
+                                    "#ff407b",
+                                    "#25d5f2",
+                                    "#ffc750",
+                                    "#2ec551",
+                                    "#7040fa",
+                                    "#ff004e"
+                                ],
+                                data:<?php echo json_encode($exam_score); ?>,
+                            }]
+                        },
+                        options: {
+                        legend: {
+                            display: false,
+                            position: 'bottom',
+    
+                            labels: {
+                                fontColor: '#71748d',
+                                fontFamily: 'Circular Std Book',
+                                fontSize: 14,
+                            }
+                        },
+                        }
+                });
+
+                var ctx_enrolled = document.getElementById("myProgram").getContext('2d');
+                    var myChart = new Chart(ctx_enrolled, {
+                        type: 'bar',
+                        data: {
+                            labels:<?php echo json_encode($program_name); ?>,
+                            datasets: [{
+                                backgroundColor: [
+                                "#5969ff",
+                                    "#ff407b",
+                                    "#25d5f2",
+                                    "#ffc750",
+                                    "#2ec551",
+                                    "#7040fa",
+                                    "#ff004e"
+                                ],
+                                data:<?php echo json_encode($program_count); ?>,
+                            }]
+                        },
+                        options: {
+                        legend: {
+                            display: false,
+                            position: 'bottom',
+    
+                            labels: {
+                                fontColor: '#71748d',
+                                fontFamily: 'Circular Std Book',
+                                fontSize: 14,
+                            }
+                        },
+                        }
+                });
+            </script>
+        <?php
+            }
+        ?>
     </body>
 
 </html>

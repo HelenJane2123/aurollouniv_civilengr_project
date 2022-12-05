@@ -42,21 +42,21 @@
 		}
 
 		/*** for login process ***/
-		public function check_login($emailusername, $password){
+		public function check_login($emailusername){
         	$password = md5($password);
-			$sql2="SELECT member_id from user_account WHERE email_address='$emailusername' and password='$password'";
+			$sql2="SELECT * from user_account WHERE email_address='$emailusername'";
 
 			//checking if the username is available in the table
-        	$result = mysqli_query($this->db,$sql2);
-        	$user_data = mysqli_fetch_array($result);
-        	$count_row = $result->num_rows;
-
-	        if ($count_row == 1) {
-	            return true;
-	        }
-	        else{
-			    return false;
-			}
+			$check =  $this->db->query($sql2);
+        	// $result = mysqli_query($this->db,$sql2);
+        	// $user_data = mysqli_fetch_array($result);
+        	return $count_row = $check->num_rows;
+	        // if ($count_row == 1) {
+	        //     return true;
+	        // }
+	        // else{
+			//     return false;
+			// }
     	}
 
     	/*** starting the session ***/

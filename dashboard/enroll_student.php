@@ -19,7 +19,7 @@
                         <?php endif ?>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="admin_exam.php">Students</a></li>
+                                <li class="breadcrumb-item"><a href="admin_students.php">Students</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Enroll Students</li>
                             </ol>
                         </nav>
@@ -222,6 +222,62 @@
                                 </div>
                             </div>
                         </div>
+                    <?php
+                        }
+                        elseif ($_GET['action'] == 'view_exam_details') {
+                    ?>
+                        <!-- Page Heading -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="admin_students.php">Students</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">View Exam Details</li>
+                            </ol>
+                        </nav>
+                        <form action="admin/enroll_student.php?q=exam_score" method="post" enctype='multipart/form-data'>
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-transparent border-0">
+                                    <h3 class="mb-0"><i class="far fa-clone pr-1"></i> Exam Details</h3>
+                                    <?php 
+                                        $get_profile_info =  $admin->get_student_details($_GET['student_id']);
+                                        $get_exam_details =  $admin->get_student_details_by_essay_exam_id($_GET['student_id'],$_GET['exam_id']);
+                                    ?>
+                                </div>
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <h1 class="h3 mb-2 text-gray-800">View Online Exam for <?php echo $get_profile_info['program_name']?></h1>
+                                        <div class="essay_answer">
+                                            <h3><?php echo $get_exam_details['essay']; ?></h3>
+                                            <form method="post" action="">
+                                                <div class="card shadow-sm">
+                                                    <div class="card-header bg-transparent border-0">
+                                                    </div>
+                                                    <div class="card-body pt-0">
+                                                        <div class="form-group">
+                                                            <label for="first" class="text-bold">Answer:</label>
+                                                            <input type="hidden" class="form-control" name="student_id" value="<?php echo $_GET['student_id'];?>">
+                                                            <?php echo $get_exam_details['student_answer'];?>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="first" class="text-bold">Put your comments here (optional):</label>
+                                                            <textarea id="basic-example" name="prof_comment_if_essay"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="first" class="text-bold">Your grade:</label>
+                                                            <input type="text" name="exam_score" class="form-control" placeholder="Please enter your grades here">
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="form-group">
+                                        <input class="btn btn-primary pull-right" type="Submit" name="submit_exam_score" value="Submit">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     <?php
                         }
                     ?>

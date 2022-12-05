@@ -24,6 +24,25 @@
             header('location:../admin_students.php');
         }
     }
+    // Grade a student
+    if(isset($_POST['submit_exam_score'])) {
+        $student_id                 =   $_POST['student_id'];
+        $exam_score                 =   $_POST['exam_score'];
+        $prof_comment_if_essay      =   $_POST['prof_comment_if_essay'];
+        $date_modified              =   date("Y-m-d h:i:s");
+
+        $grade_essay = $admin_enroll->grade_essay_student($student_id,$exam_score,$prof_comment_if_essay,$date_modified);
+        if($enroll) {
+            /*Successful*/
+            header('location:../admin_students.php');
+        }
+        else
+        {
+            /*sorry your profile is not update*/
+            $_SESSION['message_error'] = "An error has occurred."; 
+            header('location:../admin_students.php');
+        }
+    }
     //Unenroll Student
     else {
         $id = $_GET['id'];

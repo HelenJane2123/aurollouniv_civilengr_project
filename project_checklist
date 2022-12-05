@@ -55,15 +55,26 @@ System Functionalities:
     [] Students may choose the programs/lessons to take but may require registration
 
 
+DONE:
+    [x] Professor Ratings to essay
+    [x] Exam History to show right and wrong answers
+	[x] Exam Part (Exam Retake - maximum of 3 retakes)
+	[x] Analytics Page for exam (For improvement)
+		- Student's Ratings by Exam Score
+		- Enrolled Students per Program
 
-TO DO tomorrow:
- - Professor Ratings to essay
- - Exam Duration
- - Exam History to show right and wrong answers
- [] Login pictures (Logo of department)
- [x] Sign Up (Change 'Repeat password' to 'Change password')
- [x] Add Exam (Duration lagyan ng indication kung hour or minutes)
-
+STILL TO DO:
+    [] Exam Duration
+	[] Lessons/Programs
+		- Add upload video
+	[] Questions Page
+		- Upload Image
+	[] Picture of Faculty Member and details in Homepage
+	[] Isang page for team members details
+	[] Survey Form Page (Not priority)
+    [x] Login pictures (Logo of department)
+    [x] Sign Up (Change 'Repeat password' to 'Change password')
+    [x] Add Exam (Duration lagyan ng indication kung hour or minutes)
 
 - To consider yung questions need palitan
 - Defense: For next week

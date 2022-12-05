@@ -10315,3 +10315,8 @@ body.sidebar-toggled footer.sticky-footer {
     display: none;
     margin-top: 20px;
 }
+
+#myBarChart {
+    width: 100%;
+    height: 250px;
+}

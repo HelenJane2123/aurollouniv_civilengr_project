@@ -12,7 +12,8 @@
                         <tr>
                             <th>Program</th>
                             <th>Exam Type</th>
-                            <th width="65%">Exam Description</th>
+                            <th width="55%">Exam Description</th>
+                            <th>Retakes</th>
                             <th>Status</th>
                             <th>My Score</th>
                             <th>Action</th>
@@ -22,7 +23,8 @@
                         <tr>
                             <th>Program</th>
                             <th>Exam Type</th>
-                            <th width="65%">Exam Description</th>
+                            <th width="55%">Exam Description</th>
+                            <th>Retakes</th>
                             <th>Status</th>
                             <th>My Score</th>
                             <th>Action</th>
@@ -55,6 +57,9 @@
                                     <?php echo $programs['exam_description'] ?>
                                 </td>
                                 <td>
+                                    <?php echo $programs['exam_attempt'] ?>
+                                </td>
+                                <td>
                                     <?php
                                         if($programs['stud_exam_status'] == 0) {
                                     ?>
@@ -74,50 +79,58 @@
                                     ?>
                                 </td>
                                 <td>
-                                    <?php
-                                        //Multiple Choice
-                                        if($programs['exam_category_id'] == 2) {
-                                            echo $score = $programs['exam_score'];
-                                            if(($score >= 25 && $score < 60) || ($score == 0 && $programs['stud_exam_status'] == '2')) {
+                                <?php
+                                        echo $score = $programs['exam_score'];
+                                        if(($programs['score_status'] == 'Failed')) {
                                     ?>
-                                                <h5><span class="badge badge-danger">Failed</span></h5>
+                                            <h5><span class="badge badge-danger">Failed</span></h5>
                                     <?php
-                                            }
-                                            elseif($score >= 60 && $score < 80) {
+                                        }
+                                        elseif($programs['score_status'] == 'Satisfactory') {
                                     ?>
                                             <h5><span class="badge badge-info">Satisfactory</span></h5>
                                     <?php
-                                            }
-                                            elseif($score >= 80 && $score < 95) { 
+                                        }
+                                        elseif($programs['score_status'] == 'Passed') { 
                                     ?>
-                                                <h5><span class="badge badge-primary">Passed</span></h5>
+                                            <h5><span class="badge badge-primary">Passed</span></h5>
+                                    <?php
+                                        }
+                                        elseif($programs['score_status'] == 'Outstanding') { 
+                                    ?>
+                                            <h5><span class="badge badge-success">Outstanding</span></h5>
+                                    <?php
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php 
+                                        //Multiple Choice
+                                        if ($programs['exam_category_id'] == '2') {
+                                            if($programs['exam_attempt'] == '0') {
+                                    ?>
+                                                <a class="btn btn-success" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
+                                                <a class="btn btn-primary" href="view_exam_details.php?exam_id=<?php echo $programs['exam_id']?>&program_id=<?php echo $programs['program_id']?>&student_id=<?php echo $programs['student_id']?>&exam_cat=<?php echo $programs['exam_category_id']?>">View Exam</a>
                                     <?php
                                             }
-                                            elseif($score >= 95 && $score <= 100) { 
+                                            elseif($programs['exam_attempt'] < 3 && $programs['exam_attempt'] != '0') {
                                     ?>
-                                                <h5><span class="badge badge-success">Outstanding</span></h5>
+                                                <a class="btn btn-success" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Retake Exam</a>
+                                                <a class="btn btn-primary" href="view_exam_details.php?exam_id=<?php echo $programs['exam_id']?>&program_id=<?php echo $programs['program_id']?>&student_id=<?php echo $programs['student_id']?>&exam_cat=<?php echo $programs['exam_category_id']?>">View Exam</a>
+                                    <?php
+                                            }
+                                            //Disable button
+                                            else {
+                                    ?>
+                                                <h5>You have already reached the maximum take of this exam.</h5>
+                                                <a class="btn btn-primary" href="view_exam_details.php?exam_id=<?php echo $programs['exam_id']?>&program_id=<?php echo $programs['program_id']?>&student_id=<?php echo $programs['student_id']?>&exam_cat=<?php echo $programs['exam_category_id']?>">View Exam</a>
                                     <?php
                                             }
                                         }
                                         //Essay
                                         else {
                                     ?>
-
-                                    <?php
-                                        }
-                                    ?>     
-                                </td>
-                                <td>
-                                    <?php
-                                        if($programs['exam_id'] != '') {
-                                    ?>
-                                        <?php
-                                            if($programs['stud_exam_status'] != '2') {
-                                        ?>
-                                            <a class="btn btn-success" target="_blank" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
-                                        <?php
-                                            }
-                                        ?>
+                                        <a class="btn btn-success" href="take_exam.php?exam_id=<?php echo $programs['exam_id']?>&program_name=<?php echo $programs['program_name']?>&exam_cat=<?php echo $programs['exam_category_id']?>&student_id=<?php echo $programs['student_id']?>">Take Exam</a>
                                         <a class="btn btn-primary" href="view_exam_details.php?program_id=<?php echo $programs['program_id']?>&student_id=<?php echo $programs['student_id']?>&exam_cat=<?php echo $programs['exam_category_id']?>">View Exam</a>
                                     <?php
                                         }

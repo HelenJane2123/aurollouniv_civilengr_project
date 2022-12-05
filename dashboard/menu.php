@@ -75,6 +75,12 @@
                         <span>Students</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin_chart.php">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
             <?php } ?>
             <!-- End Student Access -->
 

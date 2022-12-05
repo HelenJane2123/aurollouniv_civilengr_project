@@ -1,5 +1,11 @@
+<script type="text/javascript" >
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+</script>
 <?php
     include_once('db_header.php');
+    $exam_limit = $student->get_exam_limit($_GET['exam_id']);
 ?>
     <div class="student-profile py-4">
         <div class="container">
@@ -31,6 +37,7 @@
                                         <table  class="table"> 
                                             <tr>
                                                 <td colspan="2">
+                                                    <input type="hidden" name="" id="timeExamLimit" value="<?php echo $exam_limit['duration']; ?>">
                                                     <input type="hidden" name="question_id" value="<?php echo $number?>">
                                                     <input type="hidden" name="program_name" value="<?php echo $_GET['program_name']?>">
                                                     <input type="hidden" name="exam_cat" value="<?php echo $_GET['exam_cat']?>">
