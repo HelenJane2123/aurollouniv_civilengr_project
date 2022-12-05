@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2022 at 02:20 PM
+-- Generation Time: Dec 05, 2022 at 05:04 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -234,9 +234,11 @@ CREATE TABLE `students` (
   `member_id` varchar(50) NOT NULL,
   `student_member_id` varchar(50) NOT NULL,
   `program_id` int(11) NOT NULL,
+  `exam_attempt` int(11) NOT NULL,
   `stud_exam_status` int(11) NOT NULL,
   `exam_score` int(11) NOT NULL,
   `score_status` varchar(20) NOT NULL,
+  `prof_comment_if_essay` longtext NOT NULL,
   `unenroll_student` int(11) NOT NULL,
   `date_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -245,12 +247,12 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `account_id`, `member_id`, `student_member_id`, `program_id`, `stud_exam_status`, `exam_score`, `score_status`, `unenroll_student`, `date_modified`) VALUES
-(26, 31, 'M-1705', 'M-486', 32, 2, 67, 'Satisfactory', 0, '2022-12-01 07:54:13'),
-(27, 31, 'M-1705', 'M-486', 34, 2, 100, 'Outstanding', 0, '2022-12-01 07:54:41'),
-(28, 27, 'M-1705', 'M-5882', 32, 2, 100, 'Outstanding', 0, '2022-12-01 12:35:18'),
-(29, 27, 'M-1705', 'M-5882', 33, 2, 0, 'Failed', 0, '2022-12-01 12:35:57'),
-(30, 27, 'M-1705', 'M-5882', 35, 2, 0, '', 0, '2022-12-01 02:09:14');
+INSERT INTO `students` (`student_id`, `account_id`, `member_id`, `student_member_id`, `program_id`, `exam_attempt`, `stud_exam_status`, `exam_score`, `score_status`, `prof_comment_if_essay`, `unenroll_student`, `date_modified`) VALUES
+(40, 27, 'M-1705', 'M-5882', 32, 3, 2, 67, 'Satisfactory', '', 0, '2022-12-05 04:11:18'),
+(41, 27, 'M-1705', 'M-5882', 34, 3, 2, 50, 'Failed', '', 0, '2022-12-05 04:13:43'),
+(42, 31, 'M-1705', 'M-486', 34, 3, 2, 100, 'Outstanding', '', 0, '2022-12-05 04:20:09'),
+(43, 28, 'M-1705', 'M-3744', 35, 0, 0, 0, '', '', 0, '2022-12-05 04:21:05'),
+(44, 31, 'M-1705', 'M-486', 35, 0, 0, 0, '', '', 0, '2022-12-05 05:02:31');
 
 -- --------------------------------------------------------
 
@@ -263,19 +265,37 @@ CREATE TABLE `student_answers` (
   `exam_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `exam_details_ans_id` int(11) NOT NULL,
-  `answer` int(11) NOT NULL
+  `answer` int(11) NOT NULL,
+  `status` varchar(25) NOT NULL,
+  `exam_taken` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student_answers`
 --
 
-INSERT INTO `student_answers` (`student_answer_id`, `exam_id`, `student_id`, `exam_details_ans_id`, `answer`) VALUES
-(43, 10, 28, 143, 1),
-(44, 10, 28, 147, 1),
-(45, 10, 28, 151, 1),
-(46, 11, 29, 155, 0),
-(47, 11, 29, 159, 0);
+INSERT INTO `student_answers` (`student_answer_id`, `exam_id`, `student_id`, `exam_details_ans_id`, `answer`, `status`, `exam_taken`) VALUES
+(151, 10, 40, 143, 1, 'old', '2022-12-05 03:39:10'),
+(152, 10, 40, 147, 1, 'old', '2022-12-05 03:39:11'),
+(153, 10, 40, 151, 1, 'old', '2022-12-05 03:39:12'),
+(170, 10, 40, 143, 1, 'old', '2022-12-05 04:10:23'),
+(171, 10, 40, 147, 0, 'old', '2022-12-05 04:10:31'),
+(172, 10, 40, 151, 0, 'old', '2022-12-05 04:10:39'),
+(173, 10, 40, 143, 1, 'new', '2022-12-05 04:10:56'),
+(174, 10, 40, 147, 1, 'new', '2022-12-05 04:11:04'),
+(175, 10, 40, 151, 0, 'new', '2022-12-05 04:11:10'),
+(176, 12, 41, 163, 0, 'old', '2022-12-05 04:12:53'),
+(177, 12, 41, 167, 0, 'old', '2022-12-05 04:12:54'),
+(178, 12, 41, 163, 1, 'old', '2022-12-05 04:13:15'),
+(179, 12, 41, 167, 0, 'old', '2022-12-05 04:13:22'),
+(180, 12, 41, 163, 0, 'new', '2022-12-05 04:13:38'),
+(181, 12, 41, 167, 1, 'new', '2022-12-05 04:13:40'),
+(182, 12, 42, 163, 1, 'old', '2022-12-05 04:19:33'),
+(183, 12, 42, 167, 0, 'old', '2022-12-05 04:19:35'),
+(184, 12, 42, 163, 0, 'old', '2022-12-05 04:19:53'),
+(185, 12, 42, 167, 1, 'old', '2022-12-05 04:19:56'),
+(186, 12, 42, 163, 1, 'new', '2022-12-05 04:20:04'),
+(187, 12, 42, 167, 1, 'new', '2022-12-05 04:20:06');
 
 -- --------------------------------------------------------
 
@@ -296,7 +316,7 @@ CREATE TABLE `student_essay_answer` (
 --
 
 INSERT INTO `student_essay_answer` (`essay_answer_id`, `exam_essay_id`, `student_id`, `student_answer`, `exam_id`) VALUES
-(5, 4, 30, '<div>\r\n<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n</div>\r\n<div>\r\n<h2>Why do we use it?</h2>\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>\r\n</div>\r\n<p>&nbsp;</p>\r\n<div>\r\n<h2>Where does it come from?</h2>\r\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p>\r\n</div>', 13);
+(6, 4, 33, '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', 13);
 
 -- --------------------------------------------------------
 
@@ -485,19 +505,19 @@ ALTER TABLE `program_additioonal_info`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `student_answers`
 --
 ALTER TABLE `student_answers`
-  MODIFY `student_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `student_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT for table `student_essay_answer`
 --
 ALTER TABLE `student_essay_answer`
-  MODIFY `essay_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `essay_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_account`
