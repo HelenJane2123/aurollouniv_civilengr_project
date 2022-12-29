@@ -50,6 +50,7 @@
     if(isset($_POST['add_exam_question'])) {
         for($i=0;$i<count($_POST['question']);$i++){
             $exam_id                    = $_POST['exam_id'];
+            $member_id                  = $_POST['member_id'];
             $question_no_array          = $_POST['question_no'][$i];
             $question_array             = $_POST['question'][$i];
             $option1_array              = $_POST['option_1'][$i];
@@ -59,10 +60,27 @@
             $correct_answer_array       = $_POST['correct_answer'][$i];
             $date_created               = date("Y-m-d h:i:s");
 
-            //print_r($question_array);
+            //upload image
+            $question_filename = $_FILES['upload_question_image']['name'][$i];
+            $img_question_location = "../uploads/questions/".$exam_id."/".$member_id;
+            // Create directory if it does not exist
+            if(!is_dir($img_question_location)){
+                mkdir('../uploads/questions/'.$exam_id."/".$member_id, 0777, true);
+            }
+            $img_question_location .= "/".$question_filename;
+            move_uploaded_file($_FILES['upload_question_image']['tmp_name'][$i],$img_question_location);
 
             if($question_array!=='' ) {
-                $add_questions = $admin_exams->add_questions($exam_id,$question_no_array,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created);
+                $add_questions = $admin_exams->add_questions($exam_id,
+                    $question_no_array,
+                    $question_filename,
+                    $question_array,
+                    $option1_array,
+                    $option2_array,
+                    $option3_array,
+                    $option4_array,
+                    $correct_answer_array,
+                    $date_created);
                 if($add_questions) {
                     /*Successful*/
                     $_SESSION['message_success'] = "New exam has been successfully added."; 
@@ -71,7 +89,7 @@
                 else
                 {
                     /*sorry your profile is not update*/
-                    $_SESSION['message_error'] = "New exam exam cannot be added. An error has occurred."; 
+                    $_SESSION['message_error'] = "New exam cannot be added. An error has occurred."; 
                     header('location:../admin_exams.php');
                 }
             }

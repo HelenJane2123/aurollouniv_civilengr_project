@@ -251,9 +251,9 @@
             return $result;
         }
 
-        /*** for showing the List of Exam Category ***/
-    	public function get_all_exam_cat_list($member_id){
-    		$sql3="SELECT * FROM exam_category a
+        /*** for showing the List of Survey ***/
+    	public function get_all_survey_list($member_id){
+    		$sql3="SELECT * FROM survey a
                     WHERE a.member_id = '$member_id'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -361,20 +361,16 @@
             return $result;
         }
         /*** Add new questions ***/
-        public function add_questions($exam_id,$question_no_array,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
+        public function add_questions($exam_id,$question_no_array,$question_filename,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
             $ans = array();
             $ans[1] = $option1_array;
             $ans[2] = $option2_array;
             $ans[3] = $option3_array;
             $ans[4] = $option4_array;
-            //Check if there is existing exam details for the selected exam id
-            // $check_questions_exst = $this->get_all_questions_by_exam_id($exam_id);
-            // if($check_questions_exst > 0) {
-            //     $this->delete_exam_details($exam_id);
-            // }
-            // else {
+           
                 $sql1="INSERT INTO exam_details SET exam_id='$exam_id',question='".mysqli_real_escape_string($this->db,$question_array)."',
                     question_no = '$question_no_array',
+                    question_image = '$question_filename',
                     date_created='$date_created'";
                 $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
                 $last_id = mysqli_insert_id($this->db);
@@ -402,7 +398,6 @@
                         }
                     }
                 }
-            // }
             return $result;
         }
         /*** Update questions ***/
@@ -631,6 +626,205 @@
                 AND stud_exam_status = '2'";
             $check =  $this->db->query($sql);
             return $count_row = $check->num_rows;
+        }
+
+        //Add survey
+        public function add_survey($member_id,
+            $survey_title,
+            $survey_description,
+            $date_created) {
+
+            $sql1="INSERT INTO survey SET member_id='$member_id',survey_title='".mysqli_real_escape_string($this->db,$survey_title)."',
+                survey_description='".mysqli_real_escape_string($this->db,$survey_description)."',
+                date_created='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+            $last_id = mysqli_insert_id($this->db);
+            return $result;
+        }
+
+         /*** Delete a survey ***/
+         public function delete_survey($id) {
+            $delete_program = "DELETE FROM survey WHERE survey_id=$id";
+            $result = mysqli_query($this->db,$delete_program) or die(mysqli_connect_errno()."Data cannot be deleted");
+
+            return $result;
+        }
+
+         /*** Delete a survey ***/
+         public function delete_survey_details($id) {
+            $sql2="DELETE FROM survey_details WHERE survey_questions_id=$id";
+            $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot be deleted");
+
+            return $result2;
+        }
+
+        /*** get survey info by id ***/
+        public function get_survey_by_id($id){
+            $sql3="SELECT * FROM survey a 
+                WHERE a.survey_id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        /*** get survey info by id ***/
+        public function get_survey_options($survey_questions_id){
+    		$sql3="SELECT * FROM survey_details a
+                    WHERE a.survey_questions_id = '$survey_questions_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+         public function get_survey_questions($survey_questions_id){
+    		$sql3="SELECT * FROM survey_questions a
+                    WHERE a.survey_questions_id = '$survey_questions_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        //Update survey
+        public function update_survey($survey_id,
+            $survey_description,
+            $survey_title,
+            $date_modified) {
+
+            $sql1="UPDATE survey SET survey_title='".mysqli_real_escape_string($this->db,$survey_title)."',
+                survey_description='".mysqli_real_escape_string($this->db,$survey_description)."',
+                date_modified='$date_modified'";
+            $sql1 .= "WHERE survey_id = '$survey_id'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                
+            return $result;
+        }
+
+        /*** check existing survey details ***/
+        public function get_survey_details_cnt($survey_questions_id) {
+    		$sql3="SELECT * FROM survey_details a
+                    WHERE a.survey_questions_id = '$survey_questions_id'";
+            $check =  $this->db->query($sql3);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_survey_cnt($id) {
+            $sql="SELECT * FROM survey
+                WHERE survey_id='$id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        /*** get survey question count ***/
+        public function get_survey_question_cnt($id) {
+            $sql="SELECT * FROM survey_questions sq
+                LEFT JOIN survey s ON s.survey_id = sq.survey_questions
+            WHERE sq.survey_id='$id'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_survey_by_member_id($member_id) {
+            $sql="SELECT * FROM survey sq
+            WHERE sq.member_id ='$member_id'";
+	        $result = mysqli_query($this->db,$sql);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_survey_list_by_member_id($member_id) {
+            $sql="SELECT * FROM survey_questions sq
+            LEFT JOIN survey s ON sq.survey_id = s.survey_id
+            WHERE s.member_id ='$member_id'";
+	        $result = mysqli_query($this->db,$sql);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        /*** Add survey questions ***/
+        public function add_survey_questions($survey_id,
+            $question_array,
+            $option1_array,
+            $option2_array,
+            $option3_array,
+            $option4_array,
+            $date_created) {
+
+            $ans = array();
+            $ans[1] = $option1_array;
+            $ans[2] = $option2_array;
+            $ans[3] = $option3_array;
+            $ans[4] = $option4_array;
+           
+                $sql1="INSERT INTO survey_questions SET survey_id='$survey_id',survey_questions='".mysqli_real_escape_string($this->db,$question_array)."',
+                    date_created='$date_created'";
+                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                $last_id = mysqli_insert_id($this->db);
+                if($result) {
+                    foreach ($ans as $ansName) {
+                        if ($ansName != '') {
+                            $sql2="INSERT INTO survey_details SET survey_questions_id='$last_id',options='$ansName'";
+                            $result_question = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
+                        }
+                    }
+                }
+            return $result;
+        }
+
+        public function update_survey_questions($survey_id,
+            $survey_questions_id,
+            $question_array,
+            $option1_array,
+            $option2_array,
+            $option3_array,
+            $option4_array) {
+
+                $ans = array();
+                $ans[1] = $option1_array;
+                $ans[2] = $option2_array;
+                $ans[3] = $option3_array;
+                $ans[4] = $option4_array;
+           
+                $sql1="UPDATE survey_questions SET survey_questions='".mysqli_real_escape_string($this->db,$question_array)."'";
+                $sql1.="WHERE survey_id='$survey_id' AND survey_questions_id='$survey_questions_id'";
+                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                if($result) {
+                    //Check if there is existing question details
+                    $check_survey_dtls = $this->get_survey_details_cnt($survey_questions_id);
+                    if($check_survey_dtls > 0) {
+                        $delete = $this->delete_survey_details($survey_questions_id);
+                        //if($delete) {
+                            foreach ($ans as $ansName => $value) {
+                                if ($value != '') {
+                                    $sql2="INSERT INTO survey_details SET options='$value', survey_questions_id='$survey_questions_id'";
+                                    $result_question = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot inserted");
+                                }
+                            }
+                        //}
+                    }
+                }
+            return $result;
+        }
+
+        /*** Enroll a student for survey ***/
+        public function enroll_student_survey($survey_id,$student_member_id,$date_created) {
+            $sql1="INSERT INTO student_survey SET survey_id='$survey_id',student_member_id='$student_member_id',
+                date_created='$date_created'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
+            return $result;
+        }
+
+        public function get_all_students_survey_list() {
+    		$sql3="SELECT * FROM student_survey a
+                    LEFT JOIN user_account c on c.member_id = a.student_member_id
+                    LEFT JOIN user_additional_information d on d.member_id = c.member_id
+                    AND c.user_type = 'Student'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+         public function unenroll_student_survey($id) {
+            $sql2="DELETE FROM student_survey WHERE student_survey_id=$id";
+            $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot be deleted");
+
+            //Student survey answer will also be deleted
+            $sql3="DELETE FROM student_survey_answer WHERE student_survey_id=$id";
+            $result2 = mysqli_query($this->db,$sql3) or die(mysqli_connect_errno()."Data cannot be deleted");
+            return $result2;
         }
 	}
 ?>

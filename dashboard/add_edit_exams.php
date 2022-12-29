@@ -143,10 +143,13 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" name="total_questions" id="total_questions" value="<?php echo $_GET['total_questions']?>">
                                             <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['id']?>">
+                                            <input type="hidden" class="form-control" name="member_id" value="<?php echo $_GET['memberid']?>">
                                             <label for="first" class="text-bold">Enter Question No</label>
                                             <input type="number" class="form-control" name="question_no[]">
                                             <label for="first" class="text-bold">Enter Question</label>
                                             <input type="text" class="form-control" name="question[]">
+                                            <label for="first" class="text-bold">Upload Image (optional)</label>
+                                            <input type="file" class="form-control" name="upload_question_image[]" id="file" accept="image/*" >
                                         </div>
                                         <div class="form-group">
                                             <label for="first" class="text-bold">Enter Choices</label>
@@ -239,6 +242,10 @@
                                                 <input type="number" class="form-control" name="question_no_update[]" value="<?php echo $exam_details['question_no'];?>">
                                                 <label for="first" class="text-bold">Enter Question</label>
                                                 <input type="text" class="form-control" name="question_update[]" value="<?php echo $exam_details['question'];?>">
+                                                <label for="first" class="text-bold">Upload Image (optional)</label>
+                                                <br/>
+                                                <img src="uploads/questions/<?php echo $_GET['id']; ?>/<?php echo $_GET['memberid']; ?>/<?php echo $exam_details['question_image']; ?>" style="height:200px;">
+                                                <input type="file" class="form-control" name="upload_question_image[]" id="file" accept="image/*" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="first" class="text-bold">Enter Choices</label>

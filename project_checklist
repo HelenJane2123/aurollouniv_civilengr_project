@@ -67,8 +67,10 @@ STILL TO DO:
     [] Exam Duration
 	[] Lessons/Programs
 		- Add upload video
-	[] Questions Page
-		- Upload Image
+	[x] Add Questions Page
+		- [x] Add Upload Image
+    [] Edit Questions Page
+		- [] Edit Upload Image
 	[] Picture of Faculty Member and details in Homepage
 	[] Isang page for team members details
 	[] Survey Form Page (Not priority)

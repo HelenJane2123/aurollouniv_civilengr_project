@@ -46,9 +46,11 @@ $(function(){
   var fieldHTML = ' <div class="question_form_">';
       fieldHTML += '<div class="form-group">';
         fieldHTML += '<label for="first" class="text-bold">Enter Question No</label>';
-        fieldHTML += '<input type="number" class="form-control" name="question_no[]"></input>';
+        fieldHTML += '<input type="number" class="form-control" name="question_no[]">';
         fieldHTML += '<label for="first" class="text-bold">Enter Question</label>';
         fieldHTML += '<input type="text" class="form-control" name="question[]">';
+        fieldHTML += '<label for="first" class="text-bold">Upload Image (optional)</label>';
+        fieldHTML += '<input type="file" class="form-control" name="upload_question_image[]" id="file">';
       fieldHTML += '</div>';
       fieldHTML += '<div class="form-group">';
         fieldHTML += '<label for="first" class="text-bold">Enter Choices</label>';
@@ -127,5 +129,38 @@ $(function(){
     else {
       alert("You've already reached the total no. of questions to be added on this exam.");
     }
+  });
+
+  //For survey questions
+  var addButton_survey = $('.add_survey_btn'); //Add button selector
+  var survey_wrapper = $('#field_wrapper_survey'); //Input field wrapper
+  var survey_fieldHTML = ' <div class="question_form_survey">';
+      survey_fieldHTML += '<div class="form-group">';
+      survey_fieldHTML += '<label for="first" class="text-bold">Enter Survey Question</label>';
+      survey_fieldHTML += '<input type="text" class="form-control" name="survey_question[]">';
+      survey_fieldHTML += '</div>';
+      survey_fieldHTML += '<div class="form-group">';
+      survey_fieldHTML += '<label for="first" class="text-bold">Enter Choices</label>';
+      survey_fieldHTML += '<input type="text" class="form-control" name="survey_1[]" placeholder="Enter Choice 1">';
+      survey_fieldHTML += '<input type="text" class="form-control" name="survey_2[]" placeholder="Enter Choice 2">';
+      survey_fieldHTML += '<input type="text" class="form-control" name="survey_3[]" placeholder="Enter Choice 3">';
+      survey_fieldHTML += '<input type="text" class="form-control" name="survey_4[]" placeholder="Enter Choice 4">';
+      survey_fieldHTML += '</div>';
+      survey_fieldHTML += '<a href="javascript:void(0);" class="btn btn-danger remove_button_survey"><i class="fa fa-minus"></i> Remove Survey Question</a></div>'; 
+  //New input field html 
+  var x = 1; //Initial field counter is 1
+    
+  //Once add button is clicked
+  $(addButton_survey).click(function(){
+      //Check maximum number of input fields
+        x++; //Increment field counter
+        $(survey_wrapper).append(survey_fieldHTML); //Add field html
+  });
+  
+  //Once remove button is clicked
+  $(survey_wrapper).on('click', '.remove_button_survey', function(e){
+      e.preventDefault();
+      $(this).parent('div').remove(); //Remove field html
+      x--; //Decrement field counter
   });
 });

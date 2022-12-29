@@ -57,12 +57,6 @@
                         <span>Programs/Lessons</span>
                     </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="admin_exam_cat.php">
-                        <i class="fas fa-fw fa-file"></i>
-                        <span>Exam Category</span>
-                    </a>
-                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="admin_exams.php">
                         <i class="fas fa-fw fa-file"></i>
@@ -81,6 +75,27 @@
                         <span>Analytics</span>
                     </a>
                 </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <li class="nav-item">
+                    <a class="nav-link" href="admin_survey.php">
+                        <i class="fas fa-fw fa-list"></i>
+                        <span>Survey</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin_survey_questions.php">
+                        <i class="fas fa-fw fa-plus"></i>
+                        <span>Survey Questions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin_survey_list.php">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Student Survey List</span>
+                    </a>
+                </li>    
             <?php } ?>
             <!-- End Student Access -->
 
