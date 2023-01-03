@@ -43,6 +43,14 @@
                         <span>My Exams</span>
                     </a>
                 </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <li class="nav-item">
+                    <a class="nav-link" href="student_survey.php">
+                        <i class="fas fa-fw fa-list"></i>
+                        <span>My Survey</span>
+                    </a>
+                </li>
             <?php } else { ?>
             <!-- Teacher Access -->
                 <li class="nav-item">

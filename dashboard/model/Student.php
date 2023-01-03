@@ -170,11 +170,35 @@
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
+        public function get_my_survey($account_id) {
+    		$sql3="SELECT * FROM student_survey a
+                    LEFT JOIN survey b on b.survey_id = a.survey_id
+                    WHERE a.student_member_id = '$account_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_student_by_survey_id($survey_id) {
+    		$sql3="SELECT * FROM student_survey a
+                    WHERE a.survey_id = '$survey_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
         public function get_my_exam_details($exam_id) {
     		$sql3="SELECT * FROM exam a
                     LEFT JOIN programs b ON b.program_id = a.program_id
                     LEFT JOIN exam_details c ON c.exam_id = a.exam_id
                     WHERE a.exam_id = '$exam_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function get_my_survey_details($survey_id) {
+    		$sql3="SELECT * FROM survey a
+                    LEFT JOIN survey_questions b ON a.survey_id = b.survey_id
+                    LEFT JOIN student_survey c ON c.survey_id = b.survey_id
+                    WHERE a.survey_id = $survey_id";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $user_data = mysqli_fetch_assoc($result);
         }
@@ -244,6 +268,13 @@
 	        $user_data = mysqli_fetch_assoc($result);
             return $user_data;
         }
+
+        public function getSurveyByNumber($survey_id, $question_no){
+            $query = "SELECT * FROM survey_questions WHERE survey_id ='$survey_id' AND question_no='$question_no'";
+	        $result = mysqli_query($this->db,$query);
+	        $user_data = mysqli_fetch_assoc($result);
+            return $user_data;
+        }
         
         /*** get all questions by ques ***/
         public function getAnswer($id, $exam_id){
@@ -253,6 +284,15 @@
             $getData =  mysqli_query($this->db,$query);
             return $getData;
         }
+
+        public function getSurveyOptions($id,$survey_id){
+            $query = "SELECT * FROM survey_questions a
+                    LEFT JOIN survey_details b ON a.survey_questions_id = b.survey_questions_id
+                WHERE a.question_no='$id' AND a.survey_id = '$survey_id'";
+            $getData =  mysqli_query($this->db,$query);
+            return $getData;
+        }
+
 
         /*** process multiple choice answers ***/
         public function processData($data){
@@ -290,6 +330,33 @@
             }
         }
 
+        /*** process survey ***/
+        public function processSurveyData($data){
+            $selectedAns            = $data['ans'];
+            $survey_question        = $data['survey_questions_id'];
+            $number                 = $data['number'];
+            $next                   = $number+1;
+            $survey_id              = $data['survey_id'];
+            
+
+            $total = $this->getSurveyTotal($survey_id);
+            for($i=0;$i<count($data['ans']);$i++){
+                $survey_questions_id        = $survey_question[$i];
+                $user_answer                = $selectedAns[$i];
+                $student_survey_id          = $data['student_id'][$i];
+                
+                $this->save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id);
+            }
+            
+            if ($number == $total) {
+                header('Location:final_survey.php?survey_id=' .$survey_id.'&student_id=' .$student_survey_id.'&question_no='.$next);
+                exit();
+            }
+            else {
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?survey_id=' .$survey_id.'&student_id=' .$student_survey_id.'&question_no='.$next);
+            }
+        }
+
         /*** process essay answers ***/
         public function processEssayData($data){
             $exam_id                = $data['exam_id'];
@@ -312,6 +379,12 @@
 
         private function getTotal($exam_id){
             $query = "SELECT * FROM exam_details WHERE exam_id = '$exam_id'";
+            $check =  $this->db->query($query);
+            return $count_row = $check->num_rows;
+        }
+
+        private function getSurveyTotal($survey_id){
+            $query = "SELECT * FROM survey_questions WHERE survey_id = '$survey_id'";
             $check =  $this->db->query($query);
             return $count_row = $check->num_rows;
         }
@@ -379,6 +452,19 @@
                     WHERE student_id = '$student_id' AND exam_id = '$exam_id'
                     AND exam_details_ans_id = '$exam_details_ans_id'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
+            return $result;
+        }
+
+        public function save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id) {
+            //insert new data
+            $sql1="INSERT INTO student_survey_answer SET student_survey_id='$student_survey_id',survey_questions_id='$survey_questions_id',
+                answers = '$user_answer'";
+            $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot insert");
+
+            if($sql1) {
+                $sql2="UPDATE student_survey SET survey_status= 1 WHERE survey_id = '$survey_id'";
+                $result1 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot update");
+            }
             return $result;
         }
 
