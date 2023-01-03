@@ -347,23 +347,24 @@
             $number                 = $data['number'];
             $next                   = $number+1;
             $survey_id              = $data['survey_id'];
+            $student_id             = $data['student_id'];
             
 
             $total = $this->getSurveyTotal($survey_id);
             for($i=0;$i<count($data['ans']);$i++){
                 $survey_questions_id        = $survey_question[$i];
                 $user_answer                = $selectedAns[$i];
-                $student_survey_id          = $data['student_id'][$i];
+                $student_survey_id          = $student_id;
                 
                 $this->save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id);
             }
             
             if ($number == $total) {
-                header('Location:final_survey.php?survey_id=' .$survey_id.'&student_id=' .$student_survey_id.'&question_no='.$next);
+                header('Location:final_survey.php?survey_id=' .$survey_id.'&student_id='.$student_id.'&question_no='.$next);
                 exit();
             }
             else {
-                header('Location: ' . $_SERVER['PHP_SELF'] . '?survey_id=' .$survey_id.'&student_id=' .$student_survey_id.'&question_no='.$next);
+                header('Location: ' . $_SERVER['PHP_SELF'] . '?survey_id=' .$survey_id.'&student_id='.$student_id.'&question_no='.$next);
             }
         }
 

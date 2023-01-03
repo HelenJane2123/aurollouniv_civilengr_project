@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2022 at 05:41 PM
+-- Generation Time: Jan 03, 2023 at 02:38 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -276,6 +276,13 @@ CREATE TABLE `students` (
   `date_modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`student_id`, `account_id`, `member_id`, `student_member_id`, `program_id`, `exam_attempt`, `stud_exam_status`, `exam_score`, `score_status`, `prof_comment_if_essay`, `unenroll_student`, `date_modified`) VALUES
+(45, 33, 'M-8665', 'M-2681', 36, 0, 0, 0, '', '', 0, '2023-01-02 11:14:59');
+
 -- --------------------------------------------------------
 
 --
@@ -316,8 +323,18 @@ CREATE TABLE `student_survey` (
   `student_survey_id` int(11) NOT NULL,
   `survey_id` int(11) NOT NULL,
   `student_member_id` varchar(50) NOT NULL,
+  `survey_status` int(11) NOT NULL,
   `date_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_survey`
+--
+
+INSERT INTO `student_survey` (`student_survey_id`, `survey_id`, `student_member_id`, `survey_status`, `date_created`) VALUES
+(8, 22, 'M-2681', 1, '2023-01-02'),
+(9, 22, 'M-2495', 1, '2023-01-03'),
+(10, 23, 'M-2495', 1, '2023-01-03');
 
 -- --------------------------------------------------------
 
@@ -328,8 +345,21 @@ CREATE TABLE `student_survey` (
 CREATE TABLE `student_survey_answer` (
   `student_survey_answer_id` int(11) NOT NULL,
   `student_survey_id` int(11) NOT NULL,
-  `answers` int(11) NOT NULL
+  `survey_questions_id` int(11) NOT NULL,
+  `answers` varchar(155) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_survey_answer`
+--
+
+INSERT INTO `student_survey_answer` (`student_survey_answer_id`, `student_survey_id`, `survey_questions_id`, `answers`) VALUES
+(51, 9, 7, 'Yes'),
+(52, 9, 8, 'sdfsdf 3'),
+(53, 8, 7, 'No'),
+(54, 8, 8, 'fsdfsdfs 1'),
+(55, 1, 9, 'fgdsf'),
+(56, 1, 10, 'dsfsdfs');
 
 -- --------------------------------------------------------
 
@@ -351,7 +381,8 @@ CREATE TABLE `survey` (
 --
 
 INSERT INTO `survey` (`survey_id`, `member_id`, `survey_title`, `survey_description`, `date_created`, `date_modified`) VALUES
-(22, 'M-8665', 'Survey Title Test 1', '<p>Once you know their favorite product, you need to understand why they like it so much. The qualitative data will help your marketing and sales teams attract and engage customers. They\'ll know which features to advertise most and can seek out new leads similar to your existing customers.</p>', '2022-12-29', '2022-12-29');
+(22, 'M-8665', 'Survey Title Test 1', '<p>Once you know their favorite product, you need to understand why they like it so much. The qualitative data will help your marketing and sales teams attract and engage customers. They\'ll know which features to advertise most and can seek out new leads similar to your existing customers.</p>', '2022-12-29', '2022-12-29'),
+(23, 'M-8665', 'Survey Title 2', '<p>Hello test</p>', '2023-01-03', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -374,7 +405,13 @@ INSERT INTO `survey_details` (`survey_details_id`, `survey_questions_id`, `optio
 (90, 7, 'No'),
 (94, 8, 'fsdfsdfs 1'),
 (95, 8, 'dfsdfsd 2'),
-(96, 8, 'sdfsdf 3');
+(96, 8, 'sdfsdf 3'),
+(97, 9, 'fgdsf'),
+(98, 9, 'gdsfg'),
+(99, 9, 'fdgdfsg'),
+(100, 9, 'gdsfgds'),
+(101, 10, 'dfsdfs'),
+(102, 10, 'dsfsdfs');
 
 -- --------------------------------------------------------
 
@@ -385,6 +422,7 @@ INSERT INTO `survey_details` (`survey_details_id`, `survey_questions_id`, `optio
 CREATE TABLE `survey_questions` (
   `survey_questions_id` int(11) NOT NULL,
   `survey_id` int(11) NOT NULL,
+  `question_no` int(11) NOT NULL,
   `survey_questions` varchar(255) NOT NULL,
   `date_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -393,9 +431,11 @@ CREATE TABLE `survey_questions` (
 -- Dumping data for table `survey_questions`
 --
 
-INSERT INTO `survey_questions` (`survey_questions_id`, `survey_id`, `survey_questions`, `date_created`) VALUES
-(7, 22, 'Survey Question 1', '2022-12-29'),
-(8, 22, 'Survey Question 2', '2022-12-29');
+INSERT INTO `survey_questions` (`survey_questions_id`, `survey_id`, `question_no`, `survey_questions`, `date_created`) VALUES
+(7, 22, 1, 'Survey Question 1', '2022-12-29'),
+(8, 22, 2, 'Survey Question 2', '2022-12-29'),
+(9, 23, 1, 'Survey Question Test 1', '2023-01-03'),
+(10, 23, 2, 'Survey Question Test 2', '2023-01-03');
 
 -- --------------------------------------------------------
 
@@ -428,7 +468,8 @@ CREATE TABLE `user_account` (
 
 INSERT INTO `user_account` (`id`, `member_id`, `email_address`, `firstname`, `last_name`, `phone_number`, `age`, `birthday`, `religion`, `blood_type`, `upload_image`, `gender`, `user_type`, `password`, `date_created`, `date_updated`) VALUES
 (32, 'M-8665', 'johndoemaster@gmail.com', 'John Master', 'Doe', 41465465, 0, '', '', '', '', '', 'Professor', 'password123', '2022-12-27 09:39:27am', ''),
-(33, 'M-2681', 'manalohelenjane@gmail.com', 'Helen Jane', 'Manalo', 41465465, 0, '', '', '', '', '', 'Student', 'password123', '2022-12-29 02:04:10pm', '');
+(33, 'M-2681', 'manalohelenjane@gmail.com', 'Helen Jane', 'Manalo', 41465465, 0, '', '', '', '', '', 'Student', 'password123', '2022-12-29 02:04:10pm', ''),
+(34, 'M-2495', 'manalohelenjane1@gmail.com', 'Helen Jane 1', 'Manalo 1', 41465465, 0, '', '', '', '', '', 'Student', 'password123', '2023-01-03 12:56:12pm', '');
 
 -- --------------------------------------------------------
 
@@ -602,7 +643,7 @@ ALTER TABLE `program_additioonal_info`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `student_answers`
@@ -620,37 +661,37 @@ ALTER TABLE `student_essay_answer`
 -- AUTO_INCREMENT for table `student_survey`
 --
 ALTER TABLE `student_survey`
-  MODIFY `student_survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `student_survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `student_survey_answer`
 --
 ALTER TABLE `student_survey_answer`
-  MODIFY `student_survey_answer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `student_survey_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `survey`
 --
 ALTER TABLE `survey`
-  MODIFY `survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `survey_details`
 --
 ALTER TABLE `survey_details`
-  MODIFY `survey_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `survey_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `survey_questions`
 --
 ALTER TABLE `survey_questions`
-  MODIFY `survey_questions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `survey_questions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_account`
 --
 ALTER TABLE `user_account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `user_additional_information`
