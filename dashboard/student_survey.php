@@ -50,7 +50,12 @@
                                     ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="take_survey.php?survey_id=<?php echo $survey_list['survey_id']?>&survey_title=<?php echo $survey_list['survey_title']?>&student_survey_id=<?php echo $survey_list['student_survey_id']?>">Take the Survey</a>
+                                    <?php
+                                        if ($survey_list['survey_status'] == 1) {
+                                            $btn = 'disabled_survey_btn';
+                                        }
+                                    ?>
+                                    <a class="btn btn-success <?php echo $btn?>" href="take_survey.php?survey_id=<?php echo $survey_list['survey_id']?>&survey_title=<?php echo $survey_list['survey_title']?>&student_survey_id=<?php echo $survey_list['student_survey_id']?>">Take the Survey</a>
                                 </td>
                             </tr>
                         <?php

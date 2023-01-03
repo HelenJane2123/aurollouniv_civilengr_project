@@ -27,6 +27,8 @@
                             <th>Student Member ID</th>
                             <th>Course</th>
                             <th>Year</th>
+                            <th>Survey Title</th>
+                            <th>Survey Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -36,6 +38,8 @@
                             <th>Student Member ID</th>
                             <th>Course</th>
                             <th>Year</th>
+                            <th>Survey Title</th>
+                            <th>Survey Status</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -51,6 +55,21 @@
                                 <td><?php echo $students['student_member_id'] ?></td>
                                 <td><?php echo $students['course'] ?></td>
                                 <td><?php echo $students['academic_year'] ?></td>
+                                <td><?php echo $students['survey_title'] ?></td>
+                                <td>
+                                    <?php
+                                        if($students['survey_status'] == 0) {
+                                    ?>
+                                        <h5><span class="badge badge-secondary">Not yet started</span></h5>
+                                    <?php
+                                        }
+                                        elseif($students['survey_status'] == 1) { 
+                                    ?>
+                                        <h5><span class="badge badge-success">Completed</span></h5>
+                                    <?php
+                                        }
+                                    ?>
+                                </td>
                                 <td>
                                     <li class="list-inline-item">
                                         <a class="btn btn-danger btn-sm rounded-0" href="admin/survey.php?student_id=<?php echo $students['student_survey_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>

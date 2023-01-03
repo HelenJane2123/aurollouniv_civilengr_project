@@ -24,6 +24,7 @@
                     <thead>
                         <tr>
                             <th>Survey Title</th>
+                            <th>Question No</th>
                             <th>Survey Question</th>
                             <th>Action</th>
                         </tr>
@@ -31,6 +32,7 @@
                     <tfoot>
                         <tr>
                             <th>Survey Title</th>
+                            <th>Question No</th>
                             <th>Survey Question</th>
                             <th>Action</th>
                         </tr>
@@ -43,6 +45,7 @@
                         ?>
                             <tr>
                                 <td><?php echo $survey_questions['survey_title'] ?></td>
+                                <td><?php echo $survey_questions['question_no'] ?></td>
                                 <td><?php echo $survey_questions['survey_questions'] ?></td>
                                 <td>
                                     <li class="list-inline-item">

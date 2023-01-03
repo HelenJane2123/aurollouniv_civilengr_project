@@ -136,6 +136,8 @@ $(function(){
   var survey_wrapper = $('#field_wrapper_survey'); //Input field wrapper
   var survey_fieldHTML = ' <div class="question_form_survey">';
       survey_fieldHTML += '<div class="form-group">';
+      survey_fieldHTML += '<label for="first" class="text-bold">Question No</label>';
+      survey_fieldHTML += '<input type="number" class="form-control" name="question_no[]">';
       survey_fieldHTML += '<label for="first" class="text-bold">Enter Survey Question</label>';
       survey_fieldHTML += '<input type="text" class="form-control" name="survey_question[]">';
       survey_fieldHTML += '</div>';

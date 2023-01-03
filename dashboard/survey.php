@@ -18,7 +18,7 @@
                             header("Location:take_survey.php");
                         }
                         $question = $student->getSurveyByNumber($_GET['survey_id'],$_GET['question_no']);
-                        $get_exam_details = $student->get_my_survey_details($_GET['survey_id']);
+                        $get_exam_details = $student->get_my_survey_by_id($_GET['survey_id']);
 
                         if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $process_survey = $student->processSurveyData($_POST);

@@ -55,6 +55,9 @@
                                             <div class="card-body pt-0" id="field_wrapper_survey">
                                                 <div class="question_form_survey">
                                                     <div class="form-group">
+                                                        <label for="first" class="text-bold">Question No</label>
+                                                        <input type="number" class="form-control" name="question_no[]">
+
                                                         <label for="first" class="text-bold">Enter Question</label>
                                                         <input type="text" class="form-control" name="survey_question[]">
                                                     </div>
@@ -109,6 +112,8 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="survey_questions_id" value="<?php echo $survey_details['survey_questions_id']?>">
                                                 <input type="hidden" class="form-control" name="survey_id" value="<?php echo $_GET['id']?>">
+                                                <label for="first" class="text-bold">Enter Survey Question</label>
+                                                <input type="text" class="form-control" name="question_update[]" disabled value="<?php echo $survey_details['question_no'];?>">
                                                 <label for="first" class="text-bold">Enter Survey Question</label>
                                                 <input type="text" class="form-control" name="question_update[]" value="<?php echo $survey_details['survey_questions'];?>">
                                             </div>

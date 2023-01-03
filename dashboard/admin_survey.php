@@ -54,7 +54,7 @@
                                         <a class="btn btn-danger" href="admin/survey.php?action=delete&id=<?php echo $survey['survey_id']?>"><i class="fa fa-trash"></i></a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class="btn btn-info" href="survey_result.php?action=show_result&id=<?php echo $survey['survey_id']?>"><i class="fa fa-list"></i> Show Result</a>
+                                        <a class="btn btn-info" href="admin_survey_result.php?action=show_result&id=<?php echo $survey['survey_id']?>"><i class="fa fa-list"></i> Show Result</a>
                                     </li>
                                 </td>
                             </tr>

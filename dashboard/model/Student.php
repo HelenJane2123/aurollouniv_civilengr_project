@@ -194,7 +194,16 @@
 	        return $user_data = mysqli_fetch_assoc($result);
         }
 
-        public function get_my_survey_details($survey_id) {
+        public function get_my_survey_details($survey_id,$student_survey_id) {
+    		$sql3="SELECT * FROM survey a
+                    LEFT JOIN survey_questions b ON a.survey_id = b.survey_id
+                    LEFT JOIN student_survey c ON c.survey_id = b.survey_id
+                    WHERE a.survey_id = $survey_id AND c.student_survey_id = '$student_survey_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function get_my_survey_by_id($survey_id) {
     		$sql3="SELECT * FROM survey a
                     LEFT JOIN survey_questions b ON a.survey_id = b.survey_id
                     LEFT JOIN student_survey c ON c.survey_id = b.survey_id
@@ -292,6 +301,7 @@
             $getData =  mysqli_query($this->db,$query);
             return $getData;
         }
+        
 
 
         /*** process multiple choice answers ***/

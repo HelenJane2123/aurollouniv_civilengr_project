@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <?php
-                        $get_survey_details = $student->get_my_survey_details($_GET['survey_id']);
+                        $get_survey_details = $student->get_my_survey_details($_GET['survey_id'],$_GET['student_survey_id']);
                     ?>
                     <form method="POST" action="">
                         <div class="card shadow mb-4">

@@ -674,11 +674,44 @@
 	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
-         public function get_survey_questions($survey_questions_id){
+        public function get_my_survey($survey_id) {
+    		$sql3="SELECT * FROM survey a
+                    WHERE a.survey_id = $survey_id";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function get_survey_questions($survey_questions_id){
     		$sql3="SELECT * FROM survey_questions a
                     WHERE a.survey_questions_id = '$survey_questions_id'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_survey_questions_by_survey_id($survey_id){
+    		$sql3="SELECT * FROM survey_questions a
+                    WHERE a.survey_id = '$survey_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function getSurveyOptions($id,$survey_id){
+            $query = "SELECT * FROM survey_questions a
+                    LEFT JOIN survey_details b ON a.survey_questions_id = b.survey_questions_id
+                WHERE a.question_no='$id' AND a.survey_id = '$survey_id'";
+            $getData =  mysqli_query($this->db,$query);
+            return $getData;
+        }
+
+        public function getSurveyAnswer($survey_id,$survey_questions_id){
+            $query = "SELECT * FROM student_survey a
+                    LEFT JOIN student_survey_answer b ON a.student_survey_id = b.student_survey_id
+                    WHERE a.survey_id='$survey_id'
+                    AND b.survey_questions_id = '$survey_questions_id'
+                    AND a.survey_status = '1'";
+            $check =  $this->db->query($query);
+            return $count_row = $check->num_rows;
+           
         }
 
         //Update survey
@@ -738,6 +771,7 @@
         /*** Add survey questions ***/
         public function add_survey_questions($survey_id,
             $question_array,
+            $question_no_array,
             $option1_array,
             $option2_array,
             $option3_array,
@@ -750,7 +784,7 @@
             $ans[3] = $option3_array;
             $ans[4] = $option4_array;
            
-                $sql1="INSERT INTO survey_questions SET survey_id='$survey_id',survey_questions='".mysqli_real_escape_string($this->db,$question_array)."',
+                $sql1="INSERT INTO survey_questions SET survey_id='$survey_id',question_no = '$question_no_array',survey_questions='".mysqli_real_escape_string($this->db,$question_array)."',
                     date_created='$date_created'";
                 $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
                 $last_id = mysqli_insert_id($this->db);
@@ -812,6 +846,7 @@
     		$sql3="SELECT * FROM student_survey a
                     LEFT JOIN user_account c on c.member_id = a.student_member_id
                     LEFT JOIN user_additional_information d on d.member_id = c.member_id
+                    LEFT JOIN survey e on e.survey_id = a.survey_id
                     AND c.user_type = 'Student'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);

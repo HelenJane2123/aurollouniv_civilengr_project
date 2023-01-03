@@ -28,17 +28,19 @@
     }
     else if(isset($_POST['add_survey_questions'])) {
         for($i=0;$i<count($_POST['survey_question']);$i++){
-            $survey_id                    = $_POST['survey_id'];
+            $survey_id                      = $_POST['survey_id'];
             $question_array                 = $_POST['survey_question'][$i];
+            $question_no_array              = $_POST['question_no'][$i];
             $option1_array                  = $_POST['survey_1'][$i];
             $option2_array                  = $_POST['survey_2'][$i];
             $option3_array                  = $_POST['survey_3'][$i];
             $option4_array                  = $_POST['survey_4'][$i];
-            $date_created               = date("Y-m-d h:i:s");
+            $date_created                   = date("Y-m-d h:i:s");
 
             if($question_array!=='' ) {
                 $add_questions = $admin_exams->add_survey_questions($survey_id,
                     $question_array,
+                    $question_no_array,
                     $option1_array,
                     $option2_array,
                     $option3_array,
