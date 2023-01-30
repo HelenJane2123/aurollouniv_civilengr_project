@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2023 at 02:38 PM
+-- Generation Time: Jan 30, 2023 at 02:49 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -334,7 +334,7 @@ CREATE TABLE `student_survey` (
 INSERT INTO `student_survey` (`student_survey_id`, `survey_id`, `student_member_id`, `survey_status`, `date_created`) VALUES
 (8, 22, 'M-2681', 1, '2023-01-02'),
 (9, 22, 'M-2495', 1, '2023-01-03'),
-(10, 23, 'M-2495', 1, '2023-01-03');
+(10, 23, 'M-2495', 0, '2023-01-03');
 
 -- --------------------------------------------------------
 
@@ -346,6 +346,7 @@ CREATE TABLE `student_survey_answer` (
   `student_survey_answer_id` int(11) NOT NULL,
   `student_survey_id` int(11) NOT NULL,
   `survey_questions_id` int(11) NOT NULL,
+  `survey_details_id` int(11) NOT NULL,
   `answers` varchar(155) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -353,13 +354,9 @@ CREATE TABLE `student_survey_answer` (
 -- Dumping data for table `student_survey_answer`
 --
 
-INSERT INTO `student_survey_answer` (`student_survey_answer_id`, `student_survey_id`, `survey_questions_id`, `answers`) VALUES
-(51, 9, 7, 'Yes'),
-(52, 9, 8, 'sdfsdf 3'),
-(53, 8, 7, 'No'),
-(54, 8, 8, 'fsdfsdfs 1'),
-(55, 1, 9, 'fgdsf'),
-(56, 1, 10, 'dsfsdfs');
+INSERT INTO `student_survey_answer` (`student_survey_answer_id`, `student_survey_id`, `survey_questions_id`, `survey_details_id`, `answers`) VALUES
+(66, 8, 7, 90, 'Yes'),
+(67, 8, 8, 96, 'dfsdfsd 2');
 
 -- --------------------------------------------------------
 
@@ -667,7 +664,7 @@ ALTER TABLE `student_survey`
 -- AUTO_INCREMENT for table `student_survey_answer`
 --
 ALTER TABLE `student_survey_answer`
-  MODIFY `student_survey_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `student_survey_answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `survey`
