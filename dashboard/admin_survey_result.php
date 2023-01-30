@@ -19,7 +19,6 @@
                         <div class="card-body pt-0" id="field_wrapper_">
                             <?php
                                 $get_survey =  $admin->get_my_survey($_GET['id']);
-                                $ans = array();
                             ?>
                             <div class="card-body p-0 py-2">
                                 <div class="container-fluid">
@@ -39,19 +38,20 @@
                         <div class="card-body ui-sortable">
                             <?php
                                 $get_survey_questions = $admin->get_survey_questions_by_survey_id($_GET['id']);
-
                                 foreach($get_survey_questions as $survey_question) {
                             ?>
                                 <div class="callout callout-info">
                                     <h5><?php echo $survey_question['survey_questions'] ?></h5>
                                     <?php
                                         $get_options = $admin->getSurveyOptions($survey_question['question_no'],$_GET['id']);
+                                        //Get total no of students who has taken the survey by survey id
+                                        $taken = $admin->getSurveyAnswerCount($_GET['id']);
+                                        $ans = array();
                                     ?>
                                     <ul>
                                         <?php
                                             if ($get_options) {
                                                 while ($result = $get_options->fetch_assoc()) {
-                                                    $taken = $admin->getSurveyAnswer($_GET['id'],$result['survey_questions_id']);
                                                     if($taken > 0) {
                                                         $prog = ((isset($result['survey_questions_id']) ? count((array)$result['survey_questions_id']) : 0) / $taken) * 100;
                                                         $prog = round($prog,2);

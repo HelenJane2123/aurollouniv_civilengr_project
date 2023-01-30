@@ -690,7 +690,8 @@
 
         public function get_survey_questions_by_survey_id($survey_id){
     		$sql3="SELECT * FROM survey_questions a
-                    WHERE a.survey_id = '$survey_id'";
+                    WHERE a.survey_id = '$survey_id'
+                    ORDER BY abs($survey_id) asc";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
@@ -703,15 +704,21 @@
             return $getData;
         }
 
-        public function getSurveyAnswer($survey_id,$survey_questions_id){
-            $query = "SELECT * FROM student_survey a
-                    LEFT JOIN student_survey_answer b ON a.student_survey_id = b.student_survey_id
-                    WHERE a.survey_id='$survey_id'
-                    AND b.survey_questions_id = '$survey_questions_id'
-                    AND a.survey_status = '1'";
-            $check =  $this->db->query($query);
+        public function getSurveyAnswerCount($survey_id){
+            $sql3="SELECT * FROM student_survey_answer a
+                    LEFT JOIN student_survey b ON a.student_survey_id = b.student_survey_id
+                    WHERE b.survey_id = '$survey_id'";
+            $check =  $this->db->query($sql3);
             return $count_row = $check->num_rows;
-           
+        }
+
+        public function getSurveyAnswer($survey_id,$survey_questions_id){
+            $query = "SELECT * FROM student_survey_answer a
+                    LEFT JOIN survey_questions b ON a.survey_questions_id = b.survey_questions_id
+                    WHERE b.survey_id='$survey_id'
+                    AND b.survey_questions_id = '$survey_questions_id'";
+            $result =  $this->db->query($query);
+            return $result_data= mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
         //Update survey

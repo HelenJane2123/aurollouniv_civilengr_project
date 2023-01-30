@@ -75,6 +75,12 @@ STILL TO DO:
 	[] Isang page for team members details
 	[] Survey Form Page
         [x] Professor Page
+            [x] Add
+            [x] Edit
+            [x] Delete
+            [] Survey Result
+        [] Student Page
+            [] Take Survey
     [x] Login pictures (Logo of department)
     [x] Sign Up (Change 'Repeat password' to 'Change password')
     [x] Add Exam (Duration lagyan ng indication kung hour or minutes)
