@@ -699,6 +699,7 @@
         public function getSurveyOptions($id,$survey_id){
             $query = "SELECT * FROM survey_questions a
                     LEFT JOIN survey_details b ON a.survey_questions_id = b.survey_questions_id
+                    LEFT JOIN student_survey_answer c ON b.survey_details_id = c.survey_details_id
                 WHERE a.question_no='$id' AND a.survey_id = '$survey_id'";
             $getData =  mysqli_query($this->db,$query);
             return $getData;

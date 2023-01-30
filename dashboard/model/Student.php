@@ -348,6 +348,7 @@
             $next                   = $number+1;
             $survey_id              = $data['survey_id'];
             $student_id             = $data['student_id'];
+            $survey_details_id      = $data['survey_details_id'];
             
 
             $total = $this->getSurveyTotal($survey_id);
@@ -356,7 +357,7 @@
                 $user_answer                = $selectedAns[$i];
                 $student_survey_id          = $student_id;
                 
-                $this->save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id);
+                $this->save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id,$survey_details_id);
             }
             
             if ($number == $total) {
@@ -466,10 +467,10 @@
             return $result;
         }
 
-        public function save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id) {
+        private function save_student_survey_answers($student_survey_id,$survey_questions_id,$user_answer,$survey_id,$survey_details_id) {
             //insert new data
             $sql1="INSERT INTO student_survey_answer SET student_survey_id='$student_survey_id',survey_questions_id='$survey_questions_id',
-                answers = '$user_answer'";
+                answers = '$user_answer', survey_details_id = '$survey_details_id'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot insert");
 
             if($sql1) {

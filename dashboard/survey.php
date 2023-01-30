@@ -45,6 +45,7 @@
                                                 <td>
                                                     <input type="hidden" name="survey_questions_id[]" value="<?php echo $result['survey_questions_id']; ?>" />
                                                     <input type="hidden" name="student_id" value="<?php echo $_GET['student_id']; ?>" />
+                                                    <input type="hidden" name="survey_details_id" value="<?php echo $result['survey_details_id']; ?>" />
                                                     <input type="radio" name="ans[]" value="<?php echo $result['options']; ?>" /> <?php echo $result['options']; ?>
                                                 </td>
                                             </tr>
