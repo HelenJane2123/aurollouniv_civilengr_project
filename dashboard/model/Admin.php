@@ -968,5 +968,109 @@
             }
         }
 
+        public function get_all_students_list_dtls() {
+    		$sql3="SELECT * FROM user_account a
+                LEFT JOIN user_additional_information b ON b.member_id = a.member_id
+                WHERE a.user_type = 'Student'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_all_program_dtls() {
+    		$sql3="SELECT a.program_id, 
+                        a.program_name,
+                        c.firstname as student_first_name,
+                        c.last_name as student_last_name,
+                        b.student_member_id,
+                        d.course as student_course,
+                        d.academic_year as student_year,
+                        prof_account.firstname as prof_first_name,
+                        prof_account.last_name as prof_last_name FROM programs a
+                LEFT JOIN students b ON a.program_id = b.program_id
+                LEFT JOIN user_account c ON b.student_member_id = c.member_id
+                LEFT JOIN user_additional_information d ON c.member_id = d.member_id
+                LEFT JOIN user_account as prof_account ON a.member_id = prof_account.member_id
+                WHERE c.user_type = 'Student'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_all_failed_students() {
+    		$sql3="SELECT a.program_id, 
+                        a.program_name,
+                        c.firstname as student_first_name,
+                        c.last_name as student_last_name,
+                        b.student_member_id,
+                        b.exam_score,
+                        d.course as student_course,
+                        d.academic_year as student_year,
+                        prof_account.firstname as prof_first_name,
+                        prof_account.last_name as prof_last_name FROM programs a
+                LEFT JOIN students b ON a.program_id = b.program_id
+                LEFT JOIN user_account c ON b.student_member_id = c.member_id
+                LEFT JOIN user_additional_information d ON c.member_id = d.member_id
+                LEFT JOIN user_account as prof_account ON a.member_id = prof_account.member_id
+                WHERE c.user_type = 'Student' and b.score_status = 'Failed'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_all_passed_students() {
+    		$sql3="SELECT a.program_id, 
+                        a.program_name,
+                        c.firstname as student_first_name,
+                        c.last_name as student_last_name,
+                        b.student_member_id,
+                        b.exam_score,
+                        d.course as student_course,
+                        d.academic_year as student_year,
+                        prof_account.firstname as prof_first_name,
+                        prof_account.last_name as prof_last_name FROM programs a
+                LEFT JOIN students b ON a.program_id = b.program_id
+                LEFT JOIN user_account c ON b.student_member_id = c.member_id
+                LEFT JOIN user_additional_information d ON c.member_id = d.member_id
+                LEFT JOIN user_account as prof_account ON a.member_id = prof_account.member_id
+                WHERE c.user_type = 'Student' and b.score_status != 'Failed'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_all_top_students() {
+    		$sql3="SELECT max(coalesce(b.program_name,0)) as program_name,
+                        c.firstname as student_first_name,
+                        c.last_name as student_last_name,
+                        a.student_member_id,
+                        a.exam_score,
+                        d.course as student_course,
+                        d.academic_year as student_year,
+                        prof_account.firstname as prof_first_name,
+                        prof_account.last_name as prof_last_name FROM students a
+                LEFT JOIN programs b ON a.program_id = b.program_id
+                LEFT JOIN user_account c ON a.student_member_id = c.member_id
+                LEFT JOIN user_additional_information d ON c.member_id = d.member_id
+                LEFT JOIN user_account as prof_account ON a.member_id = prof_account.member_id
+                WHERE c.user_type = 'Student'
+                group by a.program_id, a.exam_score
+                HAVING AVG(a.exam_score) > 90
+                ORDER BY a.exam_score DESC
+                LIMIT 10";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_all_top_exams() {
+    		$sql3="SELECT max(coalesce(a.program_name,0)) as program_name,
+                        prof_account.firstname as prof_first_name,
+                        prof_account.last_name as prof_last_name FROM programs a
+                LEFT JOIN students b ON a.program_id = b.program_id
+                LEFT JOIN user_account as prof_account ON a.member_id = prof_account.member_id
+                group by a.program_id
+                HAVING AVG(a.program_id) > 5
+                ORDER BY a.program_id DESC
+                LIMIT 10";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
 	}
 ?>

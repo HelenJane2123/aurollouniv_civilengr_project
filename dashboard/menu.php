@@ -86,6 +86,10 @@
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Survey
+                </div>
                 <li class="nav-item">
                     <a class="nav-link" href="admin_survey.php">
                         <i class="fas fa-fw fa-list"></i>
@@ -103,7 +107,37 @@
                         <i class="fas fa-fw fa-user"></i>
                         <span>Student Survey List</span>
                     </a>
-                </li>    
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                        Reports
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_enrolled_students.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Registered Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_programs.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Programs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_failed_students.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Failed Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_passed_students.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Passed Students</span>
+                        </a>
+                    </li>    
             <?php }
                 //Super Admin 
                 else { ?>
@@ -126,7 +160,36 @@
                             <span>Analytics</span>
                         </a>
                     </li>
-                    
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Reports
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_enrolled_students.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Registered Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_programs.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Programs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_failed_students.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Failed Students</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rpt_passed_students.php">
+                            <i class="fas fa-fw fa-file"></i>
+                            <span>Report - Passed Students</span>
+                        </a>
+                    </li>
             <?php } ?>
             <!-- End Student Access -->
 

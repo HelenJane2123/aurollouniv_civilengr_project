@@ -13,7 +13,7 @@
         }
         else {
           // this login var will use for the session thing
-          $_SESSION['login'] = 'success';
+          $_SESSION['login'] = true;
           $_SESSION['email_address'] = $email_address;
           $_SESSION['message'] = 'Successful login.';
           header('location: ../dashboard/index.php');

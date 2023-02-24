@@ -154,6 +154,101 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Get top 10 Students -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Top 10 Students</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Student Member ID</th>
+                                        <th>Student Name</th>
+                                        <th>Course</th>
+                                        <th>Year</th>
+                                        <th>Program Name</th>
+                                        <th>Exam Score</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Student Member ID</th>
+                                        <th>Student Name</th>
+                                        <th>Course</th>
+                                        <th>Year</th>
+                                        <th>Program Name</th>
+                                        <th>Exam Score</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?php
+                                        $get_top_students =  $admin->get_all_top_students();
+                                        foreach($get_top_students as $top_students) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $top_students['student_member_id'] ?></td>
+                                            <td><?php echo $top_students['student_first_name'].' '.$top_students['student_last_name'] ?></td>
+                                            <td><?php echo $top_students['student_course'] ?></td>
+                                            <td><?php echo $top_students['student_year'] ?></td>
+                                            <td><?php echo $top_students['program_name'] ?></td>
+                                            <td><?php echo $top_students['exam_score'] ?></td>
+                                            <td><?php echo $top_students['prof_first_name'].' '.$top_students['prof_last_name']  ?></td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Top Programs -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Top Programs/Exam</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Program Name</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Program Name</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?php
+                                        $get_top_exams =  $admin->get_all_top_exams();
+                                        foreach($get_top_exams as $top_exams) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $top_exams['program_name'] ?></td>
+                                            <td><?php echo $top_exams['prof_first_name'].' '.$top_exams['prof_last_name']  ?></td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php
         }
         //Super Admin
@@ -173,7 +268,7 @@
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-file fa-2x text-gray-300"></i><br/>
-                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_programs.php">See all</a>
+                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_users.php">See all</a>
                             </div>
                         </div>
                     </div>
@@ -187,12 +282,12 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total Enrolled Students</div>
+                                    Total Registered Students</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $admin->get_all_students_cnt($get_profile_info_admin['member_id']) ?></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-clipboard-list fa-2x text-gray-300"></i><br/>
-                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_students.php">See all</a>
+                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="rpt_enrolled_students.php">See all</a>
                             </div>
                         </div>
                     </div>
@@ -211,8 +306,103 @@
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-star fa-2x text-gray-300"></i><br/>
-                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_exams.php">See all</a>
+                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="rpt_programs.php">See all</a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Get top 10 Students -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Top 10 Students</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Student Member ID</th>
+                                        <th>Student Name</th>
+                                        <th>Course</th>
+                                        <th>Year</th>
+                                        <th>Program Name</th>
+                                        <th>Exam Score</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Student Member ID</th>
+                                        <th>Student Name</th>
+                                        <th>Course</th>
+                                        <th>Year</th>
+                                        <th>Program Name</th>
+                                        <th>Exam Score</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?php
+                                        $get_top_students =  $admin->get_all_top_students();
+                                        foreach($get_top_students as $top_students) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $top_students['student_member_id'] ?></td>
+                                            <td><?php echo $top_students['student_first_name'].' '.$top_students['student_last_name'] ?></td>
+                                            <td><?php echo $top_students['student_course'] ?></td>
+                                            <td><?php echo $top_students['student_year'] ?></td>
+                                            <td><?php echo $top_students['program_name'] ?></td>
+                                            <td><?php echo $top_students['exam_score'] ?></td>
+                                            <td><?php echo $top_students['prof_first_name'].' '.$top_students['prof_last_name']  ?></td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Top Programs -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Top Programs/Exam</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Program Name</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Program Name</th>
+                                        <th>Professor</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?php
+                                        $get_top_exams =  $admin->get_all_top_exams();
+                                        foreach($get_top_exams as $top_exams) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $top_exams['program_name'] ?></td>
+                                            <td><?php echo $top_exams['prof_first_name'].' '.$top_exams['prof_last_name']  ?></td>
+                                        </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

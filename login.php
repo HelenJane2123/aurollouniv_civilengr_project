@@ -39,7 +39,6 @@
                                     </div>
                                     <form action="register/login_account.php"  method="post"  id="login" class="needs-validation" novalidate enctype="multipart/form-data">
                                         <?php 
-                                            session_start();
                                             if (isset($_SESSION['login'])) { ?>
                                                 <?php 
                                                     if(isset($_SESSION['message'])) {
