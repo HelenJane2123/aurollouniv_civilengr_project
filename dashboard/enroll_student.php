@@ -87,7 +87,7 @@
                                     <div class="card shadow-sm">
                                         <div class="card-header bg-transparent text-center">
                                             <img class="profile_img" src="https://placeimg.com/640/480/arch/any" alt="">
-                                            <h3>John Doe</h3>
+                                            <h3><?php echo $get_student_profile['firstname']?> <?php echo $get_student_profile['last_name']?></h3>
                                         </div>
                                         <div class="card-body">
                                             <p class="mb-0"><strong class="pr-1">Member ID:</strong><?php echo $get_student_profile['student_member_id']?></p>

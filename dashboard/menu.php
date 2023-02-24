@@ -51,8 +51,8 @@
                         <span>My Survey</span>
                     </a>
                 </li>
-            <?php } else { ?>
-            <!-- Teacher Access -->
+            <?php } else if ($admin->get_usertype($_SESSION['email_address']) == 'Professor') { ?>
+                <!-- Teacher Access -->
                 <li class="nav-item">
                     <a class="nav-link" href="admin_profile.php">
                         <i class="fas fa-fw fa-user"></i>
@@ -104,6 +104,29 @@
                         <span>Student Survey List</span>
                     </a>
                 </li>    
+            <?php }
+                //Super Admin 
+                else { ?>
+                    <!-- Teacher Access -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_profile.php">
+                            <i class="fas fa-fw fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_users.php">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_chart.php">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                    
             <?php } ?>
             <!-- End Student Access -->
 

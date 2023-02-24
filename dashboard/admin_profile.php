@@ -6,8 +6,13 @@
     <div class="student-profile py-4">
         <div class="container">
             <div class="row">
-                <?php 
-                    $get_profile_info =  $admin->get_admin_info($_SESSION['email_address']);
+                <?php
+                    if ($admin->get_usertype($_SESSION['email_address']) == 'Professor') { 
+                        $get_profile_info =  $admin->get_admin_info($_SESSION['email_address']);
+                    }
+                    else {
+                        $get_profile_info =  $admin->get_superadmin_info($_SESSION['email_address']);
+                    }
                 ?>
                 <div class="col-lg-4">
                     <div class="card shadow-sm">

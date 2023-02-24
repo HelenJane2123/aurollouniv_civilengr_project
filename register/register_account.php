@@ -25,7 +25,7 @@
         $query = $funObj->reg_user($member_id,$email_address, $first_name, $last_name, $mobile_number, $user_type, $password_1, $date_created);
         if ($query) {
           $_SESSION['success'] = true;
-          $_SESSION['message'] = 'Registration successful <a href="login.php">Click here</a> to login';
+          $_SESSION['message'] = 'Registration successful. You will received an email once your account is already approved.';
           header('Location:../register.php');
         }
         else {

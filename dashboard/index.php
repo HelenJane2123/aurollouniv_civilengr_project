@@ -93,7 +93,7 @@
         </div>
     <?php
         }
-        else {
+        else if($admin->get_usertype($_SESSION['email_address']) == 'Professor') {
             $get_profile_info_admin =  $admin->get_admin_info($_SESSION['email_address']);
     ?>
         <div class="row">
@@ -144,6 +144,70 @@
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Total Programs with Exam</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $admin->get_all_program_exam_count($get_profile_info_admin['member_id']) ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-star fa-2x text-gray-300"></i><br/>
+                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_exams.php">See all</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php
+        }
+        //Super Admin
+        else {
+        $get_profile_info_admin =  $admin->get_superadmin_info($_SESSION['email_address']);
+    ?>
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Pending for Approval</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $admin->get_all_pending_approval_cnt(); ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-file fa-2x text-gray-300"></i><br/>
+                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_programs.php">See all</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Enrolled Students</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $admin->get_all_students_cnt($get_profile_info_admin['member_id']) ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i><br/>
+                                <a class="text-xs font-weight-bold text-primary text-uppercase mb-1" href="admin_students.php">See all</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Programs</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $admin->get_all_programs_cnt(); ?></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-star fa-2x text-gray-300"></i><br/>

@@ -32,6 +32,7 @@
                             phone_number='$mobile_number',
                             user_type='$user_type',
                             password='$password_1',
+							is_approved = '0',
                             date_created='$date_created'";
                 $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
                 return $result;
@@ -44,7 +45,7 @@
 		/*** for login process ***/
 		public function check_login($emailusername){
         	$password = md5($password);
-			$sql2="SELECT * from user_account WHERE email_address='$emailusername'";
+			$sql2="SELECT * from user_account WHERE email_address='$emailusername' and is_approved = '1'";
 
 			//checking if the username is available in the table
 			$check =  $this->db->query($sql2);
@@ -63,6 +64,20 @@
 	    public function get_session(){
 	        return $_SESSION['login'];
 	    }
+
+		public function inserttopasswordreset($email,$key,$expDate){
+			$password = md5($password_1);
+            $check =  $this->isUserExist($email_address);
+            if (!$check){
+                $sql1="INSERT INTO password_reset_temp SET email='$email',key='$key', 
+                            expDate='$expDate'";
+                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                return $result;
+            }
+            else{
+                return false;
+            }
+		}
 
 	}
 ?>

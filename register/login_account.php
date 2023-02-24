@@ -8,14 +8,14 @@
         $query = $funObj->check_login($email_address);
         if($query == 0) {
           $_SESSION['login'] = false;
-          $_SESSION['message'] = 'Wrong username or password';
+          $_SESSION['message'] = 'Wrong username or password or your account has not yet been approved by the admin. Check your email or contact your admin for assistance.';
           header('location: ../login.php');
         }
         else {
           // this login var will use for the session thing
           $_SESSION['login'] = 'success';
           $_SESSION['email_address'] = $email_address;
-          $_SESSION['message'] = 'Successful login';
+          $_SESSION['message'] = 'Successful login.';
           header('location: ../dashboard/index.php');
         }
     }

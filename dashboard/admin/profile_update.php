@@ -60,4 +60,45 @@
             header('location:../update_admin_profile.php');
         }
     }
+    //Register User
+    else if(isset($_POST['reg_user'])) {
+        // receive all input values from the form
+        $first_name       = $_POST['first_name'];
+        $last_name        = $_POST['last_name'];
+        $email_address    = $_POST['email_address'];
+        $mobile_number    = $_POST['mobile_number'];
+        $user_type        = $_POST['user_type'];
+        $password_1       = $_POST['password'];
+        $password_2       = $_POST['confirm_password'];
+        $date_created     = date("Y-m-d h:i:sa");
+        $fourRandomDigit  = rand(0001,9999);
+        $member_id        = "M-".$fourRandomDigit;
+      
+        if ($password_1 != $password_2) {
+          array_push($errors, "The two passwords do not match");
+        }
+        $query = $admin_profile->reg_user($member_id,$email_address, $first_name, $last_name, $mobile_number, $user_type, $password_1, $date_created);
+        if ($query) {
+          $_SESSION['message_success'] = true;
+          $_SESSION['message_success'] = 'Registration successful. You may approved now approved the registration.';
+          header('Location:../add_edit_user.php?action=add');
+        }
+        else {
+          $_SESSION['message_error'] = 'Registration failed. Email or Username already exits please try again';
+          header('Location:../add_edit_user.php?action=add');
+        }
+    }
+    //Delete function
+    else {
+        $id = $_GET['id'];
+        $delete_user = $admin_profile->approve_user($id);
+        if($delete_user) {
+            $_SESSION['message_success'] = "User request has been successfully approved."; 
+            header('location:../admin_users.php');
+        }
+        else {
+            $_SESSION['message_error'] = "User request cannot be deleted. An error has occurred."; 
+            header('location:../admin_users.php');
+        }
+    }
 ?>

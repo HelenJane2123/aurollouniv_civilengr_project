@@ -38,16 +38,22 @@
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <form action="register/login_account.php"  method="post"  id="login" class="needs-validation" novalidate enctype="multipart/form-data">
-                                        <?php if (isset($_SESSION['login'])): ?>
-                                            <div class="alert alert-danger" role="alert">
+                                        <?php 
+                                            session_start();
+                                            if (isset($_SESSION['login'])) { ?>
                                                 <?php 
-                                                   if(isset($_SESSION['message'])) {
-                                                        echo $_SESSION['message']; 
-                                                        unset($_SESSION['message']);
+                                                    if(isset($_SESSION['message'])) {
+                                                ?>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <?php
+                                                            echo $_SESSION['message']; 
+                                                            unset($_SESSION['message']);
+                                                        ?>
+                                                    </div>
+                                                <?php
                                                     }
                                                 ?>
-                                            </div>
-                                        <?php endif ?>    
+                                        <?php } ?>    
                                         <div class="form-group">
                                             <input type="email" name="email_address" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"

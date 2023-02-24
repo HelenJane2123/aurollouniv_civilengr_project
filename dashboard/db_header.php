@@ -52,13 +52,13 @@
         <div id="content">
             <!-- notification message -->
             <?php
-                if (isset($_SESSION['success'])) {
+                if (isset($_SESSION['message_success'])) {
             ?>
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <?php 
-                        echo $_SESSION['success']; 
-                        unset($_SESSION['success']);
+                        echo $_SESSION['message_success']; 
+                        unset($_SESSION['message_success']);
                     ?>
                 </div>
             <?php

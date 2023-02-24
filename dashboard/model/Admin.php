@@ -141,6 +141,7 @@
 	        return $user_data = mysqli_fetch_assoc($result);
     	}
 
+        
         /*** get program info by program id ***/
         public function get_program_by_id($id){
             $sql3="SELECT * FROM programs a 
@@ -150,7 +151,7 @@
             return $user_data = mysqli_fetch_assoc($result);
         }
 
-         /*** get program count ***/
+        /*** get program count ***/
         public function get_all_programs_count($member_id) {
             $sql="SELECT * FROM programs WHERE member_id='$member_id'";
             $check =  $this->db->query($sql);
@@ -223,7 +224,7 @@
                             blood_type = '$blood_type',
                             upload_image = '$filename',
                             date_updated='$date_modified'
-                    WHERE member_id = '$member_id' AND user_type='Professor'";
+                    WHERE member_id = '$member_id'";
             //Check if there is existing account id in user_additional_information table
             $check_if_exists =  $this->get_memberid_additional_info($member_id);
             if($check_if_exists) {
@@ -860,7 +861,7 @@
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
-         public function unenroll_student_survey($id) {
+        public function unenroll_student_survey($id) {
             $sql2="DELETE FROM student_survey WHERE student_survey_id=$id";
             $result2 = mysqli_query($this->db,$sql2) or die(mysqli_connect_errno()."Data cannot be deleted");
 
@@ -869,5 +870,103 @@
             $result2 = mysqli_query($this->db,$sql3) or die(mysqli_connect_errno()."Data cannot be deleted");
             return $result2;
         }
+
+        /*Functions for Super Admin*/
+        public function get_superadmin_info($email_address){
+    		$sql3="SELECT CONCAT_WS(' ', a.firstname, a.last_name) as fullname, 
+                        a.firstname, 
+                        a.last_name, 
+                        a.member_id, 
+                        a.email_address,
+                        a.gender, 
+                        a.age,
+                        a.birthday,
+                        a.religion,
+                        a.blood_type,
+                        a.phone_number,
+                        b.academic_year,
+                        b.teaching_class,
+                        b.section
+                FROM user_account a 
+                LEFT JOIN user_additional_information b ON b.member_id = a.member_id
+                WHERE a.email_address = '$email_address' AND user_type='SuperAdmin'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
+    	}
+
+        public function get_all_programs_cnt() {
+            $sql="SELECT * FROM programs";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_all_students_cnt() {
+            $sql="SELECT * FROM students";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_all_pending_approval_cnt() {
+            $sql="SELECT * FROM user_account WHERE is_approved = '0'";
+            $check =  $this->db->query($sql);
+            return $count_row = $check->num_rows;
+        }
+
+        public function get_all_users_list() {
+    		$sql3="SELECT * FROM user_account a
+                WHERE a.user_type != 'SuperAdmin'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        /*** Get User Details ***/
+        public function get_user_details($id) {
+    		$sql3="SELECT * FROM user_account a
+                    LEFT JOIN user_additional_information d on d.member_id = a.member_id
+                    WHERE a.id = '$id'
+                    AND a.user_type != 'SuperAdmin'";
+	        $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function approve_user($id) {
+            $sql="UPDATE user_account SET is_approved='1' WHERE id='$id'";
+            $result = mysqli_query($this->db,$sql) or die(mysqli_connect_errno()."Data cannot inserted");
+            return $result;
+        }
+
+        /*** for registration process ***/
+		public function reg_user($member_id,$email_address, $first_name, $last_name, $mobile_number, $user_type, $password_1, $date_created){
+			$password = md5($password_1);
+            $check =  $this->isUserExist($email_address);
+            if (!$check){
+                $sql1="INSERT INTO user_account SET member_id='$member_id',email_address='$email_address', 
+                            firstname='$first_name', 
+                            last_name='$last_name', 
+                            phone_number='$mobile_number',
+                            user_type='$user_type',
+                            password='$password_1',
+							is_approved = '0',
+                            date_created='$date_created'";
+                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
+                return $result;
+            }
+            else{
+                return false;
+            }
+		}
+        /*** check if user exist ***/
+        public function isUserExist($email){
+            $sql="SELECT * FROM user_account WHERE email_address='$email'";
+            $check =  $this->db->query($sql);
+            $count_row = $check->num_rows;
+            if($count_row == 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
 	}
 ?>
