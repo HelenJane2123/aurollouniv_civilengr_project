@@ -33,6 +33,7 @@
         $date_created       = date("Y-m-d h:i:s");
 
         $add_essay = $admin_exams->add_essays($exam_id,$essay,$date_created);
+        $update_exam = $admin_exams->update_essay_total_questions($exam_id);
         if($add_essay) {
             /*Successful*/
             $_SESSION['message_success'] = "New exam has been successfully added."; 

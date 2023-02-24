@@ -268,12 +268,10 @@
             return $user_data = mysqli_fetch_assoc($result);
         }
 
-        /*** update exam cat info by exam cat id ***/
-        public function update_exam_category($id,$member_id,$exam_category, $exam_cat_desc,$date_created) {
-            $sql1="UPDATE exam_category SET member_id='$member_id',exam_category='$exam_category', 
-                        exam_cat_desc='$exam_cat_desc', 
-                        date_created='$date_created'
-                    WHERE exam_category_id='$id'";
+        /*** update exam total questions for essay only ***/
+        public function update_essay_total_questions($exam_id) {
+            $sql1="UPDATE exam SET total_questions = '1'
+                    WHERE exam_id='$exam_id'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot be updated");
             return $result;
         }

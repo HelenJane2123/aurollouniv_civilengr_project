@@ -116,7 +116,9 @@
 
 		/*** get member id from additional info ***/
 		public function get_all_programs() {
-    		$sql3="SELECT * FROM programs";
+    		$sql3="SELECT * FROM programs a
+                LEFT OUTER JOIN exam b ON a.program_id = b.program_id
+                WHERE b.total_questions != 0";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
@@ -379,13 +381,13 @@
             $essay_answer = $this->save_student_essay_answer($exam_id,$student_id,$exam_essay_id,$student_answer);
     
             if ($essay_answer) {
-                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
                 $_SESSION['message_success'] = "Congratulatons! You have successfully submitted your answer."; 
-                exit();
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
+                //exit();
             }
             else {
-                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
                 $_SESSION['message_error'] = "An error has occurred. Please try again later."; 
+                header('Location:final.php?program_name='.$program_name.'&exam_cat='.$exam_cat.'&exam_id='.$exam_id.'&student_id='.$student_id);
             }
         }
 

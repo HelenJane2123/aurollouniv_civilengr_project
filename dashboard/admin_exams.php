@@ -85,7 +85,13 @@
                                 ?>
                             </td>                            
                             <td>
-                                <a class="btn btn-warning" href="add_edit_exams.php?action=edit_<?php echo $exams['exam_category_id']?>&program_name=<?php echo $exams['program_name']?>&id=<?php echo $exams['exam_id']?>&total_questions=<?php echo $exams['total_questions']?>&memberid=<?php echo $exams['member_id']?>"><i class="fa fa-plus"></i> Add Question</a>
+                                <?php
+                                    if($admin->get_all_essays_by_exam_id($exams['exam_id']) == 0) {
+                                ?>
+                                    <a class="btn btn-warning" href="add_edit_exams.php?action=edit_<?php echo $exams['exam_category_id']?>&program_name=<?php echo $exams['program_name']?>&id=<?php echo $exams['exam_id']?>&total_questions=<?php echo $exams['total_questions']?>&memberid=<?php echo $exams['member_id']?>"><i class="fa fa-plus"></i> Add Question</a>
+                                <?php
+                                    }
+                                ?>
                                 <?php
                                     if($admin->get_all_questions_by_exam_id($exams['exam_id']) > 0 || $admin->get_all_essays_by_exam_id($exams['exam_id']) > 0) {
                                 ?>

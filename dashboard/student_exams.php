@@ -57,49 +57,57 @@
                                     <?php echo $programs['exam_description'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $programs['exam_attempt'] ?>
+                                    <?php 
+                                        if ($programs['exam_category_id'] == '2') {
+                                            echo $programs['exam_attempt'];
+                                        }
+                                    ?>
                                 </td>
                                 <td>
                                     <?php
-                                        if($programs['stud_exam_status'] == 0) {
+                                        if ($programs['exam_category_id'] == '2') {
+                                            if($programs['stud_exam_status'] == 0) {
                                     ?>
-                                        <h5><span class="badge badge-secondary">Not yet started</span></h5>
+                                                <h5><span class="badge badge-secondary">Not yet started</span></h5>
                                     <?php
-                                        }
-                                        elseif($programs['stud_exam_status'] == 1) {
+                                            }
+                                            elseif($programs['stud_exam_status'] == 1) {
                                     ?>
-                                        <h5><span class="badge badge-warning">Ongoing</span></h5>
+                                                <h5><span class="badge badge-warning">Ongoing</span></h5>
                                     <?php
-                                        }
-                                        elseif($programs['stud_exam_status'] == 2) { 
+                                            }
+                                            elseif($programs['stud_exam_status'] == 2) { 
                                     ?>
-                                        <h5><span class="badge badge-success">Completed</span></h5>
+                                                <h5><span class="badge badge-success">Completed</span></h5>
                                     <?php
+                                            }
                                         }
                                     ?>
                                 </td>
                                 <td>
                                 <?php
-                                        echo $score = $programs['exam_score'];
-                                        if(($programs['score_status'] == 'Failed')) {
+                                        if ($programs['exam_category_id'] == '2') {
+                                            echo $score = $programs['exam_score'];
+                                            if(($programs['score_status'] == 'Failed')) {
                                     ?>
-                                            <h5><span class="badge badge-danger">Failed</span></h5>
+                                                <h5><span class="badge badge-danger">Failed</span></h5>
                                     <?php
-                                        }
-                                        elseif($programs['score_status'] == 'Satisfactory') {
+                                            }
+                                            elseif($programs['score_status'] == 'Satisfactory') {
                                     ?>
-                                            <h5><span class="badge badge-info">Satisfactory</span></h5>
+                                                <h5><span class="badge badge-info">Satisfactory</span></h5>
                                     <?php
-                                        }
-                                        elseif($programs['score_status'] == 'Passed') { 
+                                            }
+                                            elseif($programs['score_status'] == 'Passed') { 
                                     ?>
-                                            <h5><span class="badge badge-primary">Passed</span></h5>
+                                                <h5><span class="badge badge-primary">Passed</span></h5>
                                     <?php
-                                        }
-                                        elseif($programs['score_status'] == 'Outstanding') { 
+                                            }
+                                            elseif($programs['score_status'] == 'Outstanding') { 
                                     ?>
-                                            <h5><span class="badge badge-success">Outstanding</span></h5>
+                                                <h5><span class="badge badge-success">Outstanding</span></h5>
                                     <?php
+                                            }
                                         }
                                     ?>
                                 </td>

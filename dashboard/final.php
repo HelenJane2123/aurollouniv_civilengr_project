@@ -50,17 +50,8 @@
                                     unset($_SESSION['message_error']);
                                 ?>
                             </div>
-                        <?php }
-                            else {
-                        ?>
-                            <div class="msg">
-                                <?php 
-                                    echo $_SESSION['message_success']; 
-                                    unset($_SESSION['message_success']);
-                                ?>
-                            </div>
-                        <?php
-                            } 
+                        <?php 
+                            }
                         ?>
                         <div class="card shadow mb-4">
                             <div class="card-body">
