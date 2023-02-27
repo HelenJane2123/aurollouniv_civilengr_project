@@ -23,6 +23,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Exam Category</th>
                             <th>Programs</th>
                             <th width="75%">Short Description</th>
                             <th>Action</th>
@@ -30,6 +31,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Exam Category</th>
                             <th>Programs</th>
                             <th width="75%">Short Description</th>
                             <th>Action</th>
@@ -43,6 +45,16 @@
                             foreach($get_program_list as $programs) {
                         ?>
                             <tr>
+                                <td>
+                                    <?php 
+                                        if ($programs['exam_category_id'] == '2') {
+                                            echo 'Multiple Choice';
+                                        }
+                                        else {
+                                            echo 'Essay';
+                                        }
+                                    ?>
+                                </td>
                                 <td><?php echo $programs['program_name'] ?></td>
                                 <td><?php echo $programs['short_desc'] ?></td>
                                 <td>

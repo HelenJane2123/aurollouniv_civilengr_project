@@ -5,13 +5,14 @@
     // Enroll a student
     if(isset($_POST['enroll_program'])) {
         $student_member_id      =   $_POST['stud_member_id'];
-        $program_id             =   $_POST['program_id'];
+        $exam_id                =   $_POST['exam_id'];
         $account_id             =   $_POST['account_id'];
         $date_modified          =   date("Y-m-d h:i:s");
 
         //get program member_id
-        $get_program_member_id = $student_enroll->get_program_member_id($program_id);
-        $enroll = $student_enroll->enroll_program($account_id,$get_program_member_id['member_id'],$student_member_id,$program_id,$date_modified);
+        $get_program_id = $student_enroll->get_program_id($exam_id);
+        $get_program_member_id = $student_enroll->get_program_member_id($get_program_id['program_id']);
+        $enroll = $student_enroll->enroll_program($account_id,$get_program_member_id['member_id'],$student_member_id,$get_program_id['program_id'],$exam_id,$date_modified);
         if($enroll) {
             /*Successful*/
             $_SESSION['message_success'] = "New program has been successfully enrolled."; 

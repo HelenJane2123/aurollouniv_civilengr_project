@@ -20,7 +20,7 @@
                             else{
                                 header("Location:take_exam.php");
                             }
-                            $question = $student->getQuesByNumber($number,$_GET['exam_id']);
+                            $question = $student->getQuesByNumber($number,$_GET['exam_id'],$_GET['exam_details_id']);
                             $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
                             
                             if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -46,6 +46,13 @@
                                                     <input type="hidden" name="exam_details_id" value="<?php echo $_GET['exam_details_id']?>">
 
                                                     <h3>Question <?php echo $question['question_no']; ?>: <?php echo $question['question']; ?></h3>
+                                                    <?php
+                                                        if($get_exam_details['question_image'] != '') {
+                                                    ?>
+                                                        <img src="uploads/questions/<?php echo $_GET['exam_id']; ?>/<?php echo $get_exam_details['member_id']; ?>/<?php echo $get_exam_details['question_image']; ?>" style="height:200px;">
+                                                    <?php
+                                                        }
+                                                    ?>
                                                 </td>
                                             </tr>
                                             <?php

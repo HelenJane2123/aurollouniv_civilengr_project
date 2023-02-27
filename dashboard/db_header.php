@@ -1,25 +1,6 @@
-<?php 
-    session_start();
-    ob_start();
-    require_once ('model/Admin.php');
-    require_once ('model/Student.php');
-    $admin = new Admin();
-    $student = new Student();
-    if (isset($_GET['q'])){
-        $admin->user_logout();
-        header("location:../dashboard/login.php");
-    }
-
-    // header("Cache-Control: no-store, no-cache, must-revalidate"); 
-    // header("Cache-Control: pre-check=0, post-check=0, max-age=0"); 
-    // header("Pragma: no-cache"); 
-    // header("Expires: Mon, 6 Dec 1977 00:00:00 GMT"); 
-    // header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html lang="en">
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +21,24 @@
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
         <link href="css/buttons.dataTables.min.css" rel="stylesheet">
 </head>
+<?php 
+    session_start();
+    ob_start();
+    require_once ('model/Admin.php');
+    require_once ('model/Student.php');
+    $admin = new Admin();
+    $student = new Student();
+    if (isset($_GET['q'])){
+        $admin->user_logout();
+        header("location:../dashboard/login.php");
+    }
 
+    // header("Cache-Control: no-store, no-cache, must-revalidate"); 
+    // header("Cache-Control: pre-check=0, post-check=0, max-age=0"); 
+    // header("Pragma: no-cache"); 
+    // header("Expires: Mon, 6 Dec 1977 00:00:00 GMT"); 
+    // header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+?>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">

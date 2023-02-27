@@ -11,6 +11,7 @@
                         <tr>
                             <th>Program ID</th>
                             <th>Program Name</th>
+                            <th>Exam Type</th>
                             <th>Student Name</th>
                             <th>Student Member ID</th>
                             <th>Course</th>
@@ -22,6 +23,7 @@
                         <tr>
                             <th>Program ID</th>
                             <th>Program Name</th>
+                            <th>Exam Type</th>
                             <th>Student Name</th>
                             <th>Student Member ID</th>
                             <th>Course</th>
@@ -37,6 +39,16 @@
                             <tr>
                                 <td><?php echo $programs['program_id'] ?></td>
                                 <td><?php echo $programs['program_name'] ?></td>
+                                <td>
+                                    <?php 
+                                        if($programs['exam_category_id'] == '1') {
+                                            echo 'Essay';
+                                        }
+                                        else {
+                                            echo 'Multiple Choice';
+                                        }
+                                    ?>
+                                </td>
                                 <td><?php echo $programs['student_first_name'].' '.$programs['student_last_name'] ?></td>
                                 <td><?php echo $programs['student_member_id'] ?></td>
                                 <td><?php echo $programs['student_course'] ?></td>

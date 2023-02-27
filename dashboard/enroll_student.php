@@ -239,14 +239,14 @@
                                     <h3 class="mb-0"><i class="far fa-clone pr-1"></i> Exam Details</h3>
                                     <?php 
                                         $get_profile_info =  $admin->get_student_details($_GET['student_id']);
-                                        $get_exam_details =  $admin->get_student_details_by_essay_exam_id($_GET['student_id'],$_GET['exam_id']);
+                                        $get_exam_details_essay =  $admin->get_student_details_by_essay_exam_id($_GET['student_id'],$_GET['exam_id']);
                                     ?>
                                 </div>
                                 <div class="card shadow mb-4">
                                     <div class="card-body">
                                         <h1 class="h3 mb-2 text-gray-800">View Online Exam for <?php echo $get_profile_info['program_name']?></h1>
                                         <div class="essay_answer">
-                                            <h3><?php echo $get_exam_details['essay']; ?></h3>
+                                            <h3><?php echo $get_exam_details_essay['essay']; ?></h3>
                                             <form method="post" action="">
                                                 <div class="card shadow-sm">
                                                     <div class="card-header bg-transparent border-0">
@@ -255,7 +255,7 @@
                                                         <div class="form-group">
                                                             <label for="first" class="text-bold">Answer:</label>
                                                             <input type="hidden" class="form-control" name="student_id" value="<?php echo $_GET['student_id'];?>">
-                                                            <?php echo $get_exam_details['student_answer'];?>
+                                                            <?php echo $get_exam_details_essay['student_answer'];?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="first" class="text-bold">Put your comments here (optional):</label>

@@ -140,7 +140,13 @@
                                     <li class="list-inline-item">
                                         <a class="btn btn-primary btn-sm rounded-0" href="enroll_student.php?action=view_student&id=<?php echo $students['account_id']?>&student_id=<?php echo $students['student_id']?>"><i class="fa fa-eye"></i></a>
                                         <a class="btn btn-danger btn-sm rounded-0" href="admin/enroll_student.php?student_id=<?php echo $students['student_id']?>&id=<?php echo $students['account_id']?>"><i class="fa fa-trash"></i> Unenroll Student</a>
-                                        <a class="btn btn-info btn-sm rounded-0" href="enroll_student.php?action=view_exam_details&student_id=<?php echo $students['student_id']?>&exam_id=<?php echo $students['exam_id']?>&program_id=<?php echo $students['program_id']?>"><i class="fa fa-paper"></i> View Exam Details</a>
+                                        <?php
+                                            if($students['exam_category_id'] == 1) {
+                                        ?>
+                                            <a class="btn btn-info btn-sm rounded-0" href="enroll_student.php?action=view_exam_details&student_id=<?php echo $students['student_id']?>&exam_id=<?php echo $students['exam_id']?>&program_id=<?php echo $students['program_id']?>&exam_id=<?php echo $students['exam_id']?>"><i class="fa fa-paper"></i> View Exam Details</a>
+                                        <?php
+                                            }
+                                        ?>
                                     </li>
                                 </td>
                             </tr>

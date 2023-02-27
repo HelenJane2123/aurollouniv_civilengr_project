@@ -60,9 +60,10 @@
             $option4_array              = $_POST['option_4'][$i];
             $correct_answer_array       = $_POST['correct_answer'][$i];
             $date_created               = date("Y-m-d h:i:s");
+            $random = rand(10,50);
 
             //upload image
-            $question_filename = $_FILES['upload_question_image']['name'][$i];
+            $question_filename = $random."-".$_FILES['upload_question_image']['name'][$i];
             $img_question_location = "../uploads/questions/".$exam_id."/".$member_id;
             // Create directory if it does not exist
             if(!is_dir($img_question_location)){
@@ -118,22 +119,46 @@
     //Save Multiple Choice
     if(isset($_POST['update_exam_question'])) {
         $exam_id                    = $_POST['exam_id'];
+        // $exam_details_id            = $_POST['exam_details_id'];
         $check_if_exists =  $admin_exams->get_all_questions_by_exam_id($exam_id);
         if($check_if_exists > 0) {
-            $delete_existing_exam = $admin_exams->delete_exam_details($exam_id);
+            //$delete_existing_exam = $admin_exams->delete_exam_details($exam_id,$exam_details_id);
             for($i=0;$i<count($_POST['question_update']);$i++){
                 $exam_id_                   = $_POST['exam_id'];
+                $exam_details_id_            = $_POST['exam_details_id'][$i];
+                $question_no_array          = $_POST['question_no_update'][$i];
                 $question_array             = $_POST['question_update'][$i];
                 $option1_array              = $_POST['option_1_update'][$i];
                 $option2_array              = $_POST['option_2_update'][$i];
                 $option3_array              = $_POST['option_3_update'][$i];
                 $option4_array              = $_POST['option_4_update'][$i];
                 $correct_answer_array       = $_POST['correct_answer_update'][$i];
+                $member_id                  = $_POST['member_id'];
                 $date_created               = date("Y-m-d h:i:s");
+
+                //upload image
+                $question_filename = $_FILES['upload_question_image_update']['name'][$i];
+                $img_question_location = "../uploads/questions/".$exam_id."/".$member_id;
+                // Create directory if it does not exist
+                if(!is_dir($img_question_location)){
+                    mkdir('../uploads/questions/'.$exam_id."/".$member_id, 0777, true);
+                }
+                $img_question_location .= "/".$question_filename;
+                move_uploaded_file($_FILES['upload_question_image_update']['tmp_name'][$i],$img_question_location);
                     
                 if($question_array !=='') {
                     //Check if there is existing record
-                    $update_questions = $admin_exams->update_questions($exam_id_,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created);
+                    $update_questions = $admin_exams->update_questions($exam_id_,
+                        $exam_details_id_,
+                        $question_no_array,
+                        $question_array,
+                        $option1_array,
+                        $option2_array,
+                        $option3_array,
+                        $option4_array,
+                        $correct_answer_array,
+                        $question_filename,
+                        $date_created);
                     if($update_questions) {
                         /*Successful*/
                         $_SESSION['message_success'] = "Exam has been successfully updated."; 

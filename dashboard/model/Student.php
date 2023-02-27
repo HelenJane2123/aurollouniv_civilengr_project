@@ -131,6 +131,14 @@
             return $user_data = mysqli_fetch_assoc($result);
         }
 
+        /*** get program program by exam id ***/
+        public function get_program_id($id){
+            $sql3="SELECT program_id FROM exam a 
+                WHERE a.exam_id = '$id'";
+            $result = mysqli_query($this->db,$sql3);
+            return $user_data = mysqli_fetch_assoc($result);
+        }
+
 		/*** get program by id ***/
         public function get_program_details_by_id($id){
             $sql3="SELECT * FROM programs a 
@@ -141,10 +149,11 @@
         }
 
 		/*** Enroll a student ***/
-        public function enroll_program($account_id,$get_program_member_id,$student_member_id,$program_id,$date_modified) {
+        public function enroll_program($account_id,$get_program_member_id,$student_member_id,$program_id,$exam_id,$date_modified) {
             $sql1="INSERT INTO students SET account_id='$account_id',member_id='$get_program_member_id',
                 student_member_id = '$student_member_id',
                 program_id = '$program_id',
+                exam_id = '$exam_id',
                 stud_exam_status = '0',
                 date_modified='$date_modified'";
             $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot update");
@@ -152,22 +161,35 @@
         }
 
 		public function get_all_program_list($account_id) {
-    		$sql3="SELECT * FROM students a
+    		$sql3="SELECT *  FROM students a
                     LEFT JOIN programs b on b.program_id = a.program_id
                     LEFT JOIN program_additioonal_info c on c.program_id = a.program_id
+                    LEFT JOIN exam d on d.exam_id = a.exam_id
                     WHERE a.account_id = '$account_id'
-                    AND unenroll_student = '0'";
+                    AND unenroll_student = '0'
+                    group by d.exam_category_id";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
-		public function get_my_exam($account_id) {
+		public function get_my_exam_multiple_choice($account_id) {
     		$sql3="SELECT * FROM students a
-                    LEFT JOIN programs b on b.program_id = a.program_id
-					LEFT JOIN exam c on b.program_id = c.program_id
+                   LEFT JOIN exam c on a.exam_id = c.exam_id
+                    LEFT JOIN programs b on b.program_id = c.program_id
                     WHERE a.account_id = '$account_id'
                     AND unenroll_student = '0'
-					AND b.with_exam = '1'";
+                    AND c.exam_category_id = '2'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }
+
+        public function get_my_exam_result_essay($account_id) {
+    		$sql3="SELECT * FROM students a
+					LEFT JOIN exam c on a.exam_id = c.exam_id
+                    LEFT JOIN programs b on b.program_id = c.program_id
+                    WHERE a.account_id = '$account_id'
+                    AND unenroll_student = '0'
+                    AND c.exam_category_id = '1'";
 	        $result = mysqli_query($this->db,$sql3);
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
@@ -272,9 +294,9 @@
         }
 
         /*** get all questions by ques ***/
-        public function getQuesByNumber($id, $exam_id){
+        public function getQuesByNumber($id, $exam_id,$exam_details_id){
             $query = "SELECT * FROM exam_details WHERE question_no ='$id'
-                    AND exam_id = '$exam_id'";
+                    AND exam_id = '$exam_id' AND exam_details_id = '$exam_details_id'";
 	        $result = mysqli_query($this->db,$query);
 	        $user_data = mysqli_fetch_assoc($result);
             return $user_data;

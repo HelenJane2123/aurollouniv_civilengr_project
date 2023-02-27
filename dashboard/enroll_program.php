@@ -36,13 +36,22 @@
                                         <label for="first" class="text-bold">Program</label>
                                         <input type="hidden" class="form-control" name="account_id" value="<?php echo $get_profile_info['id'];?>">
                                         <input type="hidden" class="form-control" name="stud_member_id" value="<?php echo $get_profile_info['member_id'];?>">
-                                        <select name="program_id" class="form-control" class="exam_cat">
+                                        <select name="exam_id" class="form-control" class="exam_cat">
                                             <option value="">Select Program</option>
                                             <?php 
                                                 $get_program =  $student->get_all_programs();
                                                 foreach($get_program as $program) {
                                             ?>
-                                                <option value="<?php echo $program['program_id']?>"><?php echo $program['program_name']?></option>
+                                                <option value="<?php echo $program['exam_id']?>">
+                                                    <?php 
+                                                        if($program['exam_category_id'] == '1') {
+                                                            echo $program['program_name'].'(Essay)';
+                                                        }
+                                                        else {
+                                                            echo $program['program_name'].'(Multiple Choice)';
+                                                        }
+                                                    ?>
+                                                </option>
                                             <?php 
                                                 } 
                                             ?>                                        

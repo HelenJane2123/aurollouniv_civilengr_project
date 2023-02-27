@@ -238,14 +238,16 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" name="total_questions_update" id="total_questions" value="<?php echo $_GET['total_questions']?>">
                                                 <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['id']?>">
+                                                <input type="hidden" class="form-control" name="exam_details_id[]" value="<?php echo $exam_details['exam_details_id']?>">
+                                                <input type="hidden" class="form-control" name="member_id" value="<?php echo $_GET['memberid']?>">
                                                 <label for="first" class="text-bold">Enter Question No</label>
                                                 <input type="number" class="form-control" name="question_no_update[]" value="<?php echo $exam_details['question_no'];?>">
                                                 <label for="first" class="text-bold">Enter Question</label>
                                                 <input type="text" class="form-control" name="question_update[]" value="<?php echo $exam_details['question'];?>">
                                                 <label for="first" class="text-bold">Upload Image (optional)</label>
-                                                <br/>
                                                 <img src="uploads/questions/<?php echo $_GET['id']; ?>/<?php echo $_GET['memberid']; ?>/<?php echo $exam_details['question_image']; ?>" style="height:200px;">
-                                                <input type="file" class="form-control" name="upload_question_image[]" id="file" accept="image/*" >
+                                                <input type="file" class="form-control" name="upload_question_image_update[]" id="file" accept="image/*" >
+                                               
                                             </div>
                                             <div class="form-group">
                                                 <label for="first" class="text-bold">Enter Choices</label>
@@ -255,20 +257,26 @@
                                                     $value = 1;
                                                     foreach($get_question_ans as $question_ans) {
                                                 ?>
-                                                    <input type="text" class="form-control" name="option_<?php echo $value++?>[]" value="<?php echo $question_ans['answers'];?>">
+                                                    <input type="text" class="form-control" name="option_<?php echo $value++?>_update[]" value="<?php echo $question_ans['answers'];?>">
                                                 <?php
                                                     }
                                                 ?>
                                             </div>
                                             <div class="form-group">
-                                                <label for="first" class="text-bold">Correct Answer</label>
+                                                <label for="first" class="text-bold">Correct Answer <small>Note: Enter the correct answer based on the choices from 1-4</small></label>
                                                 <?php
                                                     $get_correct_ans = $admin->getQueByOrder_correct_answer($exam_details['question_no'],$exam_details['exam_details_id']);
                                                     $ans = array();
-                                                    foreach($get_question_ans as $question_ans) {
+                                                    $count = 1;
+                                                    $column_answer = 0;
+                                                    foreach($get_question_ans as $key => $question_ans) {
+                                                        if ($question_ans['correct_answer']  == '1') {
+                                                            $column_answer = $key+$count;
+                                                       
                                                 ?>
-                                                    <input type="text" class="form-control" name="correct_answer_update[]" value="<?php echo $question_ans['correct_answer'];?>">
+                                                    <input type="text" class="form-control" name="correct_answer_update[]" value="<?php echo $column_answer;?>">
                                                 <?php
+                                                        }
                                                     }
                                                 ?>
                                             </div>

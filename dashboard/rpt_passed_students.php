@@ -33,7 +33,7 @@
                     </tfoot>
                     <tbody>
                         <?php
-                            $get_failed_student_list =  $admin->get_all_failed_students();
+                            $get_failed_student_list =  $admin->get_all_passed_students();
                             foreach($get_failed_student_list as $failed_students) {
                         ?>
                             <tr>

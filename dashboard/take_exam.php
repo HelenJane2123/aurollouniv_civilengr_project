@@ -37,7 +37,7 @@
                             <div class="card-body">
                                 <h1 class="h3 mb-2 text-gray-800">Welcome to Online Exam for <?php echo $_GET['program_name']?></h1>
                                 <p class="mb-4"><?php echo $get_exam_details['exam_description'] ?></p>
-                                <img src="uploads/program_images/<?php echo $get_exam_details['member_id']; ?>/<?php echo $get_exam_details['member_id']; ?>_<?php echo $get_exam_details['upload_image']; ?>" style="height:700px;">
+                                <img src="uploads/program_images/<?php echo $get_exam_details['member_id']; ?>/<?php echo $get_exam_details['member_id']; ?>_<?php echo $get_exam_details['upload_image']; ?>" style="height:700px;width: 1050px;">
                                 <div class="text-center">
                                     <ul>
                                         <li style="list-style:none; font-size: 25px"><strong>Question Type:</strong> Essay</li>
