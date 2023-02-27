@@ -8,7 +8,7 @@
                     <?php
                         //Multiple Choice
                         if($_GET['exam_cat'] == '2') {
-                            $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
+                            $get_exam_details = $student->get_my_exam_id($_GET['exam_id']);
                         
                     ?>
                         <div class="card shadow mb-4">

@@ -52,6 +52,7 @@
         for($i=0;$i<count($_POST['question']);$i++){
             $exam_id                    = $_POST['exam_id'];
             $member_id                  = $_POST['member_id'];
+            $program_id                  = $_POST['program_id'];
             $question_no_array          = $_POST['question_no'][$i];
             $question_array             = $_POST['question'][$i];
             $option1_array              = $_POST['option_1'][$i];
@@ -64,10 +65,10 @@
 
             //upload image
             $question_filename = $random."-".$_FILES['upload_question_image']['name'][$i];
-            $img_question_location = "../uploads/questions/".$exam_id."/".$member_id;
+            $img_question_location = "../uploads/questions/".$exam_id."/".$program_id."/".$member_id."/".$question_no_array;
             // Create directory if it does not exist
             if(!is_dir($img_question_location)){
-                mkdir('../uploads/questions/'.$exam_id."/".$member_id, 0777, true);
+                mkdir('../uploads/questions/'.$exam_id."/".$program_id."/".$member_id."/".$question_no_array, 0777, true);
             }
             $img_question_location .= "/".$question_filename;
             move_uploaded_file($_FILES['upload_question_image']['tmp_name'][$i],$img_question_location);

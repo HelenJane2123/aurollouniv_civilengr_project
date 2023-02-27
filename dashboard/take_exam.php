@@ -9,7 +9,7 @@
                         //Multiple Choice
                         if($_GET['exam_cat'] == '2') {
                         $question = $student->getQuestion($_GET['exam_id']);
-                        $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
+                        $get_exam_details = $student->get_my_exam_id($_GET['exam_id']);
                     ?>
                         <form method="POST" action="">
                             <div class="card shadow mb-4">
@@ -31,7 +31,7 @@
                         }
                         //Essay
                         else {
-                            $get_exam_details = $student->get_my_exam_details($_GET['exam_id']);
+                            $get_exam_details = $student->get_my_exam_id($_GET['exam_id']);
                     ?>
                         <div class="card shadow mb-4">
                             <div class="card-body">

@@ -209,7 +209,16 @@
 	        return $result_data = mysqli_fetch_all($result,MYSQLI_ASSOC);
         }
 
-        public function get_my_exam_details($exam_id) {
+        public function get_my_exam_details($exam_id,$exam_details_id) {
+    		$sql3="SELECT * FROM exam a
+                    LEFT JOIN programs b ON b.program_id = a.program_id
+                    LEFT JOIN exam_details c ON c.exam_id = a.exam_id
+                    WHERE a.exam_id = '$exam_id' AND c.exam_details_id = '$exam_details_id'";
+	        $result = mysqli_query($this->db,$sql3);
+	        return $user_data = mysqli_fetch_assoc($result);
+        }
+
+        public function get_my_exam_id($exam_id) {
     		$sql3="SELECT * FROM exam a
                     LEFT JOIN programs b ON b.program_id = a.program_id
                     LEFT JOIN exam_details c ON c.exam_id = a.exam_id
