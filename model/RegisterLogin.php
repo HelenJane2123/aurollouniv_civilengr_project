@@ -11,7 +11,7 @@
 		}
         /*** check if user exist ***/
         public function isUserExist($email){
-            $sql="SELECT * FROM user_account WHERE email_address='$email'";
+            $sql="SELECT * FROM user_account WHERE email_address='$email' AND is_approved = '1'";
             $check =  $this->db->query($sql);
             $count_row = $check->num_rows;
             if($count_row == 0) {
@@ -64,20 +64,6 @@
 	    public function get_session(){
 	        return $_SESSION['login'];
 	    }
-
-		public function inserttopasswordreset($email,$key,$expDate){
-			$password = md5($password_1);
-            $check =  $this->isUserExist($email_address);
-            if (!$check){
-                $sql1="INSERT INTO password_reset_temp SET email='$email',key='$key', 
-                            expDate='$expDate'";
-                $result = mysqli_query($this->db,$sql1) or die(mysqli_connect_errno()."Data cannot inserted");
-                return $result;
-            }
-            else{
-                return false;
-            }
-		}
 
 	}
 ?>

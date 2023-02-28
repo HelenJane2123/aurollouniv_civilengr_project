@@ -18,7 +18,8 @@
         $date_created     = date("Y-m-d h:i:sa");
         $fourRandomDigit  = rand(0001,9999);
         $member_id        = "M-".$fourRandomDigit;
-      
+
+        $password_1 = md5($password_1);
         if ($password_1 != $password_2) {
           array_push($errors, "The two passwords do not match");
         }

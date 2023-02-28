@@ -10327,3 +10327,12 @@ body.sidebar-toggled footer.sticky-footer {
     color: #666666;
     pointer-events: none;
 }
+
+.error_fg_pw p{
+    color: #9b1a0f;
+    font-size: 20px;
+    position: relative;
+    text-align: center;
+    line-height: 1;
+    font-weight: 700;
+  }

@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    require_once ('model/Programs.php');
+    $register = new Programs();
+    use PHPMailer\PHPMailer\PHPMailer;
+?>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,36 +52,34 @@
                                             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
                                             $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
+                                            $error = "";
+
                                             if (!$email) {
                                                 $error .="<p>Invalid email address please type a valid email address!</p>";
                                             }
                                             else {
-                                                $sel_query = "SELECT * FROM `users` WHERE email='".$email."'";
-                                                $results = mysqli_query($con,$sel_query);
-                                                $row = mysqli_num_rows($results);
-                                                if ($row=="") {
+                                                $get_all_users_cnt = $register->isUserExist($email);
+                                                if ($get_all_users_cnt == 0) {
                                                     $error .= "<p>No user is registered with this email address!</p>";
                                                 }
                                             }
                                             if($error!="") {
-                                                echo "<div class='error'>".$error."</div>
+                                                echo "<div class='error_fg_pw'>".$error."</div>
                                                 <br /><a href='javascript:history.go(-1)'>Go Back</a>";
                                             }
                                             else {
                                                 $expFormat = mktime(date("H"), date("i"), date("s"), date("m")  , date("d")+1, date("Y"));
                                                 $expDate = date("Y-m-d H:i:s",$expFormat);
-                                                $key = md5(2418*2+$email);
-                                                $addKey = substr(md5(uniqid(rand(),1)),3,10);
+                                                $key = md5(time());
+                                                $addKey = substr(md5(uniqid(rand(), 1)), 3, 10);
                                                 $key = $key . $addKey;
                                                 // Insert Temp Table
-                                                mysqli_query($con,
-                                                "INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`)
-                                                VALUES ('".$email."', '".$key."', '".$expDate."');");
+                                                $register->inserttopasswordreset($email,$key,$expDate);
 
                                                 $output='<p>Dear user,</p>';
                                                 $output.='<p>Please click on the following link to reset your password.</p>';
                                                 $output.='<p>-------------------------------------------------------------</p>';
-                                                $output.='<p><a href="https://www.allphptricks.com/forgot-password/reset-password.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://www.allphptricks.com/forgot-password/reset-password.php?key='.$key.'&email='.$email.'&action=reset</a></p>';		
+                                                $output.='<p><a href="http://localhost/aurollouniv_civilengr_project/reset-password.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://www.allphptricks.com/forgot-password/reset-password.php?key='.$key.'&email='.$email.'&action=reset</a></p>';		
                                                 $output.='<p>-------------------------------------------------------------</p>';
                                                 $output.='<p>Please be sure to copy the entire link into your browser.
                                                 The link will expire after 1 day for security reason.</p>';
@@ -86,24 +87,24 @@
                                                 is needed, your password will not be reset. However, you may want to log into 
                                                 your account and change your security password as someone may have guessed it.</p>';   	
                                                 $output.='<p>Thanks,</p>';
-                                                $output.='<p>AllPHPTricks Team</p>';
+                                                $output.='<p>Web Development Team</p>';
                                                 $body = $output; 
-                                                $subject = "Password Recovery - AllPHPTricks.com";
+                                                $subject = "Password Recovery - Admin";
 
                                                 $email_to = $email;
                                                 $fromserver = "noreply@yourwebsite.com"; 
-                                                require("PHPMailer/PHPMailerAutoload.php");
+                                                require("vendor/autoload.php");
                                                 $mail = new PHPMailer();
                                                 $mail->IsSMTP();
-                                                $mail->Host = "mail.yourwebsite.com"; // Enter your host here
+                                                $mail->Host = "localhost"; // Enter your host here
                                                 $mail->SMTPAuth = true;
-                                                $mail->Username = "noreply@yourwebsite.com"; // Enter your email here
-                                                $mail->Password = "password"; //Enter your passwrod here
-                                                $mail->Port = 25;
+                                                $mail->Username = "support@webdev.com"; // Enter your email here
+                                                $mail->Password = ""; //Enter your passwrod here
+                                                $mail->Port = 587;
                                                 $mail->IsHTML(true);
-                                                $mail->From = "noreply@yourwebsite.com";
-                                                $mail->FromName = "AllPHPTricks";
-                                                $mail->Sender = $fromserver; // indicates ReturnPath header
+                                                $mail->From = "support@webdev.com";
+                                                $mail->FromName = "Aurollo University Web Development Team";
+
                                                 $mail->Subject = $subject;
                                                 $mail->Body = $body;
                                                 $mail->AddAddress($email_to);
@@ -112,7 +113,7 @@
                                                     echo "Mailer Error: " . $mail->ErrorInfo;
                                                 }
                                                 else {
-                                                    echo "<div class='error'>
+                                                    echo "<div class='error_fg_pw'>
                                                     <p>An email has been sent to you with instructions on how to reset your password.</p>
                                                     </div><br /><br /><br />";
                                                 }
