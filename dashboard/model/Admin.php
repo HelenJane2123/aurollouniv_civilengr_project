@@ -400,7 +400,7 @@
             return $result;
         }
         /*** Update questions ***/
-        public function update_questions($exam_id,$exam_details_id,$question_no_array,$question_filename,$question_array,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$date_created) {
+        public function update_questions($exam_id,$question_no_array,$question_array,$question_filename,$option1_array,$option2_array,$option3_array,$option4_array,$correct_answer_array,$exam_details_id,$date_created) {
             $ans = array();
             $ans[1] = $option1_array;
             $ans[2] = $option2_array;

@@ -135,30 +135,34 @@
                 $option4_array              = $_POST['option_4_update'][$i];
                 $correct_answer_array       = $_POST['correct_answer_update'][$i];
                 $member_id                  = $_POST['member_id'];
+                $program_id                 = $_POST['program_id'];
                 $date_created               = date("Y-m-d h:i:s");
-
-                //upload image
-                $question_filename = $_FILES['upload_question_image_update']['name'][$i];
-                $img_question_location = "../uploads/questions/".$exam_id."/".$member_id;
+                $random = rand(10,50);
+                
+                //unlink image first if exist
+                rmdir('../uploads/questions/"'.$exam_id.'"/"'.$program_id.'"/"'.$member_id);
                 // Create directory if it does not exist
                 if(!is_dir($img_question_location)){
-                    mkdir('../uploads/questions/'.$exam_id."/".$member_id, 0777, true);
+                    mkdir('../uploads/questions/'.$exam_id."/".$program_id."/".$member_id."/".$question_no_array, 0777, true);
                 }
+                //upload image
+                $question_filename = $random."-".$_FILES['upload_question_image_update']['name'][$i];
+                $img_question_location = "../uploads/questions/".$exam_id."/".$program_id."/".$member_id."/".$question_no_array;
                 $img_question_location .= "/".$question_filename;
                 move_uploaded_file($_FILES['upload_question_image_update']['tmp_name'][$i],$img_question_location);
                     
                 if($question_array !=='') {
                     //Check if there is existing record
                     $update_questions = $admin_exams->update_questions($exam_id_,
-                        $exam_details_id_,
                         $question_no_array,
                         $question_array,
+                        $question_filename,
                         $option1_array,
                         $option2_array,
                         $option3_array,
                         $option4_array,
                         $correct_answer_array,
-                        $question_filename,
+                        $exam_details_id_,
                         $date_created);
                     if($update_questions) {
                         /*Successful*/

@@ -241,6 +241,7 @@
                                                 <input type="hidden" class="form-control" name="exam_id" value="<?php echo $_GET['id']?>">
                                                 <input type="hidden" class="form-control" name="exam_details_id[]" value="<?php echo $exam_details['exam_details_id']?>">
                                                 <input type="hidden" class="form-control" name="member_id" value="<?php echo $_GET['memberid']?>">
+                                                <input type="hidden" class="form-control" name="program_id" value="<?php echo $_GET['program_id']?>">
                                                 <label for="first" class="text-bold">Enter Question No</label>
                                                 <input type="number" class="form-control" name="question_no_update[]" value="<?php echo $exam_details['question_no'];?>">
                                                 <label for="first" class="text-bold">Enter Question</label>
