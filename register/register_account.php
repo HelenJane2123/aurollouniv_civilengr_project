@@ -21,7 +21,7 @@
 
         $password_1 = md5($password_1);
         if ($password_1 != $password_2) {
-          array_push($errors, "The two passwords do not match");
+          $_SESSION['message'] =  "The two passwords do not match";
         }
         $query = $funObj->reg_user($member_id,$email_address, $first_name, $last_name, $mobile_number, $user_type, $password_1, $date_created);
         if ($query) {

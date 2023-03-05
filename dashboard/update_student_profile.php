@@ -39,7 +39,7 @@
                                         <td width="2%">:</td>
                                         <td>
                                             <div class="form-group">
-                                                <input type="file" name="upload_image" id="file">
+                                                <input type="file" name="student_upload_image" id="file">
                                             </div>
                                         </td>
                                     </tr>

@@ -21,14 +21,14 @@
         $get_member_id      = $student_profile->get_memberid($member_id);
 
         //upload image
-        $filename = $_FILES['upload_image']['name'];
+        $student_filename = $_FILES['student_upload_image']['name'];
         $img_location = "../uploads/profile/".$member_id;
         // Create directory if it does not exist
         if(!is_dir($img_location)){
-            mkdir($img_location, 0755);
+            mkdir($img_location, 0755,true);
         }
-        $img_location .= "/".$member_id.'_'.$filename;
-        move_uploaded_file($_FILES['upload_image']['tmp_name'],$img_location);
+        $img_location .= "/".$member_id.'_'.$student_filename;
+        move_uploaded_file($_FILES['student_upload_image']['tmp_name'],$img_location);
 
         if($get_member_id == $member_id) {
             $update_profile = $student_profile->update_profile($member_id, 
@@ -40,7 +40,7 @@
                 $birthday,
                 $religion,
                 $blood_type,
-                $filename,
+                $student_filename,
                 $academic_year,
                 $class,
                 $section,
