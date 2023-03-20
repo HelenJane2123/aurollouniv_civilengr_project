@@ -1,8 +1,3 @@
-<script type="text/javascript" >
-   function preventBack(){window.history.forward();}
-    setTimeout("preventBack()", 0);
-    window.onunload=function(){null};
-</script>
 <?php
     include_once('db_header.php');
     $exam_limit = $student->get_exam_limit($_GET['exam_id']);
@@ -95,7 +90,7 @@
                                 <h1 class="h3 mb-2 text-gray-800">Welcome to Online Exam for <?php echo $_GET['program_name']?></h1>
                                 <div class="text-center">
                                     <h3><?php echo $get_exam_essay['essay']; ?></h3>
-                                    <form method="post" action="">
+                                    <form method="post" action="" enctype='multipart/form-data'>
                                         <div class="card shadow-sm">
                                             <div class="card-header bg-transparent border-0">
                                             </div>
@@ -105,7 +100,7 @@
                                                     <input type="hidden" class="form-control" name="student_id" value="<?php echo $_GET['student_id'];?>">
                                                     <input type="hidden" class="form-control" name="exam_essay_id" value="<?php echo $get_exam_essay['exam_essay_id'];?>">
                                                     <div class="form-group">
-                                                        <textarea id="basic-example" name="student_answer"></textarea>
+                                                        <textarea id="basic-example" name="student_answer" rows="10" cols="100"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -123,6 +118,11 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" >
+            function preventBack(){window.history.forward();}
+            setTimeout("preventBack()", 0);
+            window.onunload=function(){null};
+        </script>
     </div>
 <?php
     include_once('db_footer.php');
