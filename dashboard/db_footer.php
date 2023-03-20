@@ -61,6 +61,7 @@
         <!-- Page level custom scripts -->
         <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
         <!-- <script src="js/chart-bar.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
         <script src="js/dataTables.buttons.min.js"></script>
