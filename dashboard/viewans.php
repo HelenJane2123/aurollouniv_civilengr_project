@@ -61,6 +61,7 @@
                                                 //score computation
                                                 $get_my_score = $student->get_student_score($_GET['exam_id'],$_GET['student_id']);
                                                 $score = ($get_my_score/$get_exam_details['total_questions']) * 100;
+                                                $score_status = '';
                                                 if($score == 0) {
                                                     $score_status = 'Failed';
                                                 }
@@ -76,7 +77,6 @@
                                                 else if($score >= 90) {
                                                     $score_status = 'Outstanding';
                                                 }
-
                                             ?>
                                             <p class="text-center" style="font-size: 25px;">You've got a total score of <?php echo $get_my_score ?> out of <?php echo $get_exam_details['total_questions']?></p>
                                             <p class="text-center" style="font-size: 25px;">Your equivalent score is <?php echo $score?>/<?php echo $score_status?></p>
